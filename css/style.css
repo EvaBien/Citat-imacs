@@ -3,6 +3,48 @@ font-family: 'Miriam Libre', sans-serif;
 font-family: 'Poppins', sans-serif;
 font-family: 'Roboto', sans-serif;
 
+/*CITAT'IMAC :
+font-family: 'Poppins', sans-serif;
+font-weight: 'Black Italic';
+text-transform: uppercase;
+
+
+BUTTON
+font-family: 'Poppins', sans-serif;
+font-weight: 'Black';
+text-transform: uppercase;
+
+
+SOUS-TITRES
+font-family: 'Poppins', sans-serif;
+font-weight: 'Black';
+text-transform: uppercase;
+
+
+Texte citation :
+font-family: 'Miriam Libre', sans-serif;
+
+
+Petits textes :
+font-family: 'Roboto', sans-serif;
+font-weight: 'Light';
+
+*/
+
+body{
+	background-color: blue;
+    padding: 0 16.7%;
+}
+
 header{
 	text-align: center;
+}
+
+#container{
+	display: flex;
+}
+
+nav{
+	margin-right: 3%;
+    width: 30%;
 }
