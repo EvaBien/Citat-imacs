@@ -39,42 +39,78 @@
 				<h2>filtrer</h2>
 				<form id="filterForm" action="" method="" class="">
 					<h4>Type d'auteur</h4>
-					<section id="checkbox_auteur_left">
-						<input type="checkbox" name="" value="" checked> All
-						<input type="checkbox" name="" value=""> Prof
-						<input type="checkbox" name="" value=""> IMAC 2021
-						<input type="checkbox" name="" value=""> IMAC 2020
-					</section>
-					<section id="checkbox_right">
-						<input type="checkbox" name="" value=""> IMAC 2019
-						<input type="checkbox" name="" value=""> IMAC 2018
-						<input type="checkbox" name="" value=""> IMAC 2017
-						<input type="checkbox" name="" value=""> IMAC 100 av. BIRI
-					</section>	
-
+					<div>
+						<section class="left_right">
+							<div class="input_display">
+							<input type="checkbox" name="" value="" checked> All
+							</div>
+							<div class="input_display">
+							<input type="checkbox" name="" value=""> Prof
+							</div>
+							<div class="input_display">
+							<input type="checkbox" name="" value=""> IMAC 2021
+							</div>
+							<div class="input_display">
+							<input type="checkbox" name="" value=""> IMAC 2020
+							</div>
+						</section>
+						<section class="left_right">
+							<div class="input_display">
+								<input type="checkbox" name="" value=""> IMAC 2019
+							</div>
+							<div class="input_display">
+								<input type="checkbox" name="" value=""> IMAC 2018
+							</div>
+							<div class="input_display">
+								<input type="checkbox" name="" value=""> IMAC 2017
+							</div>
+							<div class="input_display">
+								<input type="checkbox" name="" value=""> IMAC 100 av. BIRI
+							</div>
+						</section>	
+					</div>
 					<h4>Tags</h4>
-					<section id="checkbox_tags_left">
-							<input type="checkbox" name="" value="" checked>
-								<label class="tag">all</label>
-							<input type="checkbox" name="" value="">
+					<div>
+						<section class="left_right">
+							<div class="input_display">
+								<input type="checkbox" name="" value="" checked> <label class="tag">all</label>
+							</div>
+							<div class="input_display">
+								<input type="checkbox" name="" value="">
 								<label class="tag">race</label>
-							<input type="checkbox" name="" value="">
+							</div>
+							<div class="input_display">
+								<input type="checkbox" name="" value="">
 								<label class="tag">crous</label>
-							<input type="checkbox" name="" value="">
+							</div>
+							<div class="input_display">
+								<input type="checkbox" name="" value="">
 								<label class="tag">titre</label>
-					</section>
-					<section id="checkbox_tags_right">
-						<input type="checkbox" name="" value="">
-							<label class="tag">shlag</label>
-						<input type="checkbox" name="" value="">
-							<label class="tag">love</label>
-						<input type="checkbox" name="" value="">
-							<label class="tag">sel</label>
-						<input type="checkbox" name="" value="">
-							<label class="tag">arts</label>
-						<input type="checkbox" name="" value="">
-							<label class="tag">sciences</label>
-					</section>
+							</div>
+						</section>
+						<section class="left_right">
+							<div class="input_display">
+								<input type="checkbox" name="" value="">
+								<label class="tag">shlag</label>
+							</div>
+							<div class="input_display">
+								<input type="checkbox" name="" value="">
+								<label class="tag">love</label>
+							</div>
+							<div class="input_display">
+								<input type="checkbox" name="" value="">
+								<label class="tag">sel</label>
+							</div>
+							<div class="input_display">
+								<input type="checkbox" name="" value="">
+								<label class="tag">arts</label>
+							</div>
+							<div class="input_display">
+								<input type="checkbox" name="" value="">
+								<label class="tag">sciences</label>
+							</div>
+						</section>
+					</div>
 					<button id="valid_search" class="button">valider</button>
 				</form>
 			</section>	
