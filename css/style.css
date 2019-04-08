@@ -31,7 +31,7 @@ font-weight: 'Light';
 */
 
 :root {
-	--bg: blue;
+	--bg: linear-gradient(-225deg, #3d4e81 0%, #5753c9 48%, #6e7ff3 100%);
 	/*Block de gauche*/
 	--bgNav: white;
 
@@ -50,8 +50,13 @@ font-weight: 'Light';
 }
 
 body{
-	background-color: var(--bg);
+	background-image: var(--bg);
     padding: 0 16.7% 15px 16.7%;
+}
+
+h1{
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
 }
 
 header{
@@ -72,7 +77,7 @@ nav{
 }
 
 nav h2{
-	margin: 15px 0 5px 0;
+	margin: 20px 0 15px 0;
 }
 
 nav h4{
@@ -84,10 +89,14 @@ nav h4{
     padding: 2% 7%;
     border-radius: 8px;
     border: none;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
 }
 
 #sort, #search, #filter{
 	text-align: left;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
 }
 
 #searchForm{
