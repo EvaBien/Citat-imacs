@@ -1,9 +1,9 @@
 
-font-family: 'Miriam Libre', sans-serif;
+/*font-family: 'Miriam Libre', sans-serif;
 font-family: 'Poppins', sans-serif;
 font-family: 'Roboto', sans-serif;
 
-/*CITAT'IMAC :
+CITAT'IMAC :
 font-family: 'Poppins', sans-serif;
 font-weight: 'Black Italic';
 text-transform: uppercase;
@@ -47,4 +47,25 @@ header{
 nav{
 	margin-right: 3%;
     width: 30%;
+    background-color: white;
+    border-radius: 15px;
+    padding: 2%;
+    text-align: center;
+}
+
+#add_citation{
+	background-color: purple;
+    padding: 2%;
+    border-radius: 8px;
+    border: none;
+    width: 85%;
+}
+
+#sort, #search, #filter{
+	text-align: left;
+}
+
+#filterForm ul{
+	padding: 0;
+    list-style-type: none;
 }
