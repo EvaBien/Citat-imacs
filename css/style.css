@@ -102,6 +102,18 @@ nav h4{
     text-transform: uppercase;
 }
 
+#sortForm select{
+    font-size: 0.8em;
+    overflow: hidden;
+    background: url(../img/new_arrows.png) no-repeat right;
+    background-size: 20px;
+    -webkit-appearance: none;
+    width: 100%;
+    padding: 5px 20px;
+    border-radius: 40px;
+    border: 1px solid var(--borderSearchBar);
+}
+
 #searchForm{
     display: flex;
 }
@@ -145,6 +157,7 @@ nav h4{
 }
 #filterForm div{
     display: flex;
+    text-align: left;
 }
 #filterForm .left_right{
     width: 50%;
