@@ -1,33 +1,30 @@
-/*font-family: 'Miriam Libre', sans-serif;
+/*
+font-family: 'Miriam Libre', sans-serif;
 font-family: 'Poppins', sans-serif;
 font-family: 'Roboto', sans-serif;
 
 CITAT'IMAC :
 font-family: 'Poppins', sans-serif;
-font-weight: 'Black Italic';
+font-style: italic;
 text-transform: uppercase;
 
 
 BUTTON
 font-family: 'Poppins', sans-serif;
-font-weight: 'Black';
 text-transform: uppercase;
 
 
 SOUS-TITRES
 font-family: 'Poppins', sans-serif;
-font-weight: 'Black';
 text-transform: uppercase;
-
-
-Texte citation :
-font-family: 'Miriam Libre', sans-serif;
 
 
 Petits textes :
 font-family: 'Roboto', sans-serif;
-font-weight: 'Light';
 
+
+Texte citation :
+font-family: 'Miriam Libre', sans-serif;
 */
 
 :root {
@@ -52,11 +49,14 @@ font-weight: 'Light';
 body{
 	background-image: var(--bg);
     padding: 0 16.7% 15px 16.7%;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1{
     font-family: 'Poppins', sans-serif;
+    font-style: italic;
     text-transform: uppercase;
+    color: white;
 }
 
 header{
@@ -91,6 +91,7 @@ nav h4{
     border: none;
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
+    color: white;
 }
 
 #sort, #search, #filter{
