@@ -121,10 +121,54 @@
 
 
 		<div id="block_citations">
-			<section class="one_citation">
-				<div class="infos-citation"></div>
-				<div class="commands-citation"></div>
-			</section>
+			<?php
+				$citations_random = array(
+					array(
+					"id": 1,
+					"tags" : array('race', 'arts', 'shlag', 'sciences'),
+					"date" : "vendredi 29 mars 2019 à 15:11",
+					"citation" : "La seule formation d'ingénieur publique alliant race et shlag",
+					"auteur": "Pascale Ho",
+					"type_auteur": "Prof",
+					"likes": 46
+					),
+					array(
+					"id": 2,
+					"tags" : array('love', 'titre'),
+					"date" : "lundi 28 janvier 2019 à 18:06",
+					"citation" : "Je suis la plus belle des salopes",
+					"auteur": "Délio",
+					"type_auteur": "IMAC 2019",
+					"likes": 12
+					)
+				);
+
+				for($i = 0; $i < count($citations_random); $i++){
+					$cit = $citations_random[$i];
+					$display = "
+					<section class='one_citation'>
+						<div class='infos-citation'>
+							<ul>";
+						for($j = 0; $j<count($cit['tags']; $j++){
+						$display .= "
+							<li>".$cit['tags'][$j]."</li>
+						";
+						})
+					$display .= "</ul>
+							<p class='quote_date'>".$cit['date']."</p>
+							<p class='quote'>".$cit['citation']."</p>
+							<p class='quote_author'>".$cit['auteur']." - ".$cit['type_auteur']."</p>
+						</div>
+						<div class='commands-citation'>
+							<button class='like-button'>J'aime</button>
+							<p class='number_likes'>".$cit['likes']."</p>
+							<a href='#signaler".$cit['id']."'>signaler un problème</a>
+						</div>
+					</section>";
+
+					echo $display;
+				}
+			?>
 		</div>
 	</div>
 
