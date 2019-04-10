@@ -28,26 +28,28 @@ font-family: 'Miriam Libre', sans-serif;
 */
 
 :root {
-	--bg: linear-gradient(-225deg, #3d4e81 0%, #5753c9 48%, #6e7ff3 100%);
-	/*Block de gauche*/
-	--bgNav: white;
+    --bg: linear-gradient(-225deg, #3d4e81 0%, #5753c9 48%, #6e7ff3 100%);
+    /*Block de gauche*/
+    --bgNav: white;
 
-	/*Rechercher*/
-	--borderSearchBar: #575756;
-	--searchBarBottom: #575756;
-	/*Tags*/
-  	--borderTags: #fdd31c;
-	--bgTags: #FDDA3E;
-	--colorButton: #874EDD;
-	--labelBg: white;
-	--labelColor: #adadad;
-	--labelColorChecked: white;
-	--borderTagsFocus: #ffebcc;
+    /*Rechercher*/
+    --borderSearchBar: #575756;
+    --searchBarBottom: #575756;
+    /*Tags*/
+    --borderTags: #fdd31c;
+    --bgTags: #FDDA3E;
+    --colorButton: #874EDD;
+    --labelBg: white;
+    --labelColor: #adadad;
+    --labelColorChecked: white;
+    --borderTagsFocus: #ffebcc;
 
+    /*Block de citation*/
+    --colorInfos: #a6a6a6;
 }
 
 body{
-	background-image: var(--bg);
+    background-image: var(--bg);
     padding: 0 16.7% 15px 16.7%;
     font-family: 'Roboto', sans-serif;
 }
@@ -60,15 +62,15 @@ h1{
 }
 
 header{
-	text-align: center;
+    text-align: center;
 }
 
 #container{
-	display: flex;
+    display: flex;
 }
 
-nav{
-	margin-right: 3%;
+nav, .one_citation{
+    margin-right: 3%;
     width: 30%;
     background-color: var(--bgNav);
     border-radius: 15px;
@@ -77,15 +79,15 @@ nav{
 }
 
 nav h2{
-	margin: 20px 0 15px 0;
+    margin: 20px 0 15px 0;
 }
 
 nav h4{
-	margin: 10px 0 5px 0;
+    margin: 10px 0 5px 0;
 }
 
 #add_citation, #valid_search{
-	background-color: var(--colorButton);
+    background-color: var(--colorButton);
     padding: 2% 7%;
     border-radius: 8px;
     border: none;
@@ -95,13 +97,13 @@ nav h4{
 }
 
 #sort, #search, #filter{
-	text-align: left;
+    text-align: left;
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
 }
 
 #searchForm{
-	display: flex;
+    display: flex;
 }
 
 #searchForm input[type=text]{
@@ -129,24 +131,24 @@ nav h4{
 }
 
 #searchForm input[type=submit]{
-	margin: 0;
+    margin: 0;
     visibility: hidden;
     padding: 0;
 }
 
 #filterForm{
-	text-align: center;
+    text-align: center;
 }
 
 #filterForm h2, #filterForm h4{
-	text-align: left;
+    text-align: left;
 }
 #filterForm div{
-	display: flex;
+    display: flex;
 }
 #filterForm .left_right{
-	width: 50%;
-	display: flex;
+    width: 50%;
+    display: flex;
     flex-direction: column;
 }
 
@@ -202,4 +204,96 @@ nav h4{
 }
 #Tags input[type="checkbox"]:focus + label {
   border: 2px solid var(--borderTagsFocus);
+}
+
+#block_citations{
+    width: 70%;
+}
+
+.one_citation{
+    width: 100%;
+    margin: 0 0 30px 0;
+}
+
+.infos-citation, .commands-citation{
+    text-align: left;
+}
+
+.infos-citation ul{
+    list-style: none;
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+.infos-citation li, .infos-citation .quote_date, .commands-citation .like-button, .commands-citation .number_likes{
+    display: inline-block;
+}
+
+.infos-citation li{
+    border: 2px solid var(--borderTags);
+    background-color: var(--bgTags);
+    color: var(--labelColorChecked);
+    transition: all .2s;
+    border-radius: 25px;
+    white-space: nowrap;
+    margin: 3px 0px;
+    padding: 8px 12px;
+}
+
+.infos-citation .quote_date{
+    float: right;
+    margin: 0;
+    padding: 12px 0;
+    color: var(--colorInfos);
+    font-size: 0.7em;
+}
+
+.infos-citation .quote{
+    font-family: 'Miriam Libre';
+    font-size: 150%;
+    margin: 10px 0 5px 0;
+}
+
+.infos-citation .quote_author{
+    margin: 0 0 10px 0;
+}
+
+.commands-citation{
+    height: 40px;
+}
+
+.commands-citation button, .commands-citation .number_likes, .commands-citation a{
+    margin: 10px 0 0 0;
+}
+
+.commands-citation button{
+    background-color: white;
+    padding: 5px 15px;
+    border-radius: 8px;
+    border: 2px solid var(--colorButton);
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    color: var(--colorButton);
+}
+
+.commands-citation button:hover{
+    cursor: pointer;
+}
+
+.commands-citation button.clicked{
+    background-color: var(--colorButton);
+    color: white;
+}
+
+.commands-citation .number_likes{
+    color: var(--colorButton);
+    font-family: 'Poppins', sans-serif;
+    margin-left: 20px;
+}
+
+.commands-citation a{
+    float: right;
+    color: var(--colorInfos);
+    font-size: 0.7em;
 }

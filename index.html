@@ -80,7 +80,7 @@
 							</div>
 							<div class="input_display">
 								<input type="checkbox" id="checkbox2" value="">
-								<label for="ckechbox2" class="tag">race</label>
+								<label for="checkbox2" class="tag">race</label>
 							</div>
 							<div class="input_display">
 								<input type="checkbox" id="checkbox3" value="">
@@ -121,54 +121,42 @@
 
 
 		<div id="block_citations">
-			<?php
-				$citations_random = array(
-					array(
-					"id": 1,
-					"tags" : array('race', 'arts', 'shlag', 'sciences'),
-					"date" : "vendredi 29 mars 2019 à 15:11",
-					"citation" : "La seule formation d'ingénieur publique alliant race et shlag",
-					"auteur": "Pascale Ho",
-					"type_auteur": "Prof",
-					"likes": 46
-					),
-					array(
-					"id": 2,
-					"tags" : array('love', 'titre'),
-					"date" : "lundi 28 janvier 2019 à 18:06",
-					"citation" : "Je suis la plus belle des salopes",
-					"auteur": "Délio",
-					"type_auteur": "IMAC 2019",
-					"likes": 12
-					)
-				);
-
-				for($i = 0; $i < count($citations_random); $i++){
-					$cit = $citations_random[$i];
-					$display = "
-					<section class='one_citation'>
-						<div class='infos-citation'>
-							<ul>";
-						for($j = 0; $j<count($cit['tags']; $j++){
-						$display .= "
-							<li>".$cit['tags'][$j]."</li>
-						";
-						})
-					$display .= "</ul>
-							<p class='quote_date'>".$cit['date']."</p>
-							<p class='quote'>".$cit['citation']."</p>
-							<p class='quote_author'>".$cit['auteur']." - ".$cit['type_auteur']."</p>
-						</div>
-						<div class='commands-citation'>
-							<button class='like-button'>J'aime</button>
-							<p class='number_likes'>".$cit['likes']."</p>
-							<a href='#signaler".$cit['id']."'>signaler un problème</a>
-						</div>
-					</section>";
-
-					echo $display;
-				}
-			?>
+			<section class='one_citation'>
+				<div class='infos-citation'>
+					<ul>
+						<li>race</li>
+						<li>arts</li>
+						<li>shlag</li>
+						<li>sciences</li>
+					</ul>
+					
+					<p class='quote_date'>vendredi 29 mars 2019 à 15:11</p>
+					<p class='quote'>"La seule formation d'ingénieur publique alliant race et shlag"</p>
+					<p class='quote_author'>Pascale Ho - Prof</p>
+				</div>
+				<div class='commands-citation'>
+					<button class='like-button'>J'aime</button>
+					<p class='number_likes'>46</p>
+					<a>signaler un problème</a>
+				</div>
+			</section>
+			<section class='one_citation'>
+				<div class='infos-citation'>
+					<ul>
+						<li>love</li>
+						<li>titre</li>
+					</ul>
+					
+					<p class='quote_date'>lundi 28 janvier 2019 à 18:06</p>
+					<p class='quote'>"Je suis la plus belle des salopes"</p>
+					<p class='quote_author'>Délio - IMAC 2019</p>
+				</div>
+				<div class='commands-citation'>
+					<button class='like-button'>J'aime</button>
+					<p class='number_likes'>12</p>
+					<a>signaler un problème</a>
+				</div>
+			</section>
 		</div>
 	</div>
 
