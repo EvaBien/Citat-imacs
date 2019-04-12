@@ -3,6 +3,10 @@ require 'MyPDO.citatimac.include.php';
 
 
 
+////////////////////////////////////////////////////////////////
+//////////////////////////// GETTERS //////////////////////////
+//////////////////////////////////////////////////////////////
+
   function getCitation(){
 
   }
@@ -30,6 +34,40 @@ require 'MyPDO.citatimac.include.php';
   function getTypeAuteurCitation(){
 
   }
+
+
+  ////////////////////////////////////////////////////////////////
+  //////////////////////////// SETTERS //////////////////////////
+  //////////////////////////////////////////////////////////////
+
+    function setCitation(){
+
+    }
+
+    function setIdCitation(){
+
+    }
+
+    function setContenuCitation(){
+
+    }
+
+    function setDateCitation(){
+
+    }
+
+    function setAuteurCitation(){
+
+    }
+
+    function setLikesCitation(){
+
+    }
+
+    function setTypeAuteurCitation(){
+
+    }
+
 
 
 
