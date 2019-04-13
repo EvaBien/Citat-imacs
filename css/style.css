@@ -91,9 +91,7 @@ nav h4{
     margin: 10px 0 5px 0;
 }
 
-#add_citation, #valid_search,
-#add_citation_form,
-#send_citation_warning{
+.button{
     background-color: var(--colorButton);
     padding: 2% 7%;
     border-radius: 8px;
@@ -103,7 +101,7 @@ nav h4{
     color: white;
 }
 
-#sort, #search, #filter{
+.sousbloc_left{
     text-align: left;
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
@@ -112,9 +110,8 @@ nav h4{
 #pop_new_citation form, #pop_signal form{
     width: 100%;
 }
-#sortForm select,
-#pop_new_citation select,
-#pop_signal select{
+
+.selectForm{
     font-size: 0.8em;
     overflow: hidden;
     background: url(../img/new_arrows.png) no-repeat right;
@@ -131,11 +128,7 @@ nav h4{
     display: flex;
 }
 
-#searchForm input[type=text],
-#pop_new_citation input[type=text],
-#pop_new_citation textarea,
-#pop_signal input[type=text],
-#pop_signal textarea{
+.text_input{
     width: 100%;
     padding: 6px 12px;
     line-height: 18px;     
@@ -149,16 +142,8 @@ nav h4{
     transition: all 250ms ease-in-out;
 }
 
-#searchForm input[type=text]:hover,
-#searchForm input[type=text]:focus,
-#pop_new_citation input[type=text]:hover,
-#pop_new_citation input[type=text]:focus,
-#pop_new_citation textarea:hover,
-#pop_new_citation textarea:focus,
-#pop_signal input[type=text]:hover,
-#pop_signal input[type=text]:focus,
-#pop_signal textarea:hover,
-#pop_signal textarea:focus  {
+.text_input:hover,
+.text_input:focus{
     padding: 6px 0;
     outline: 0;
     border: 1px solid transparent;
@@ -196,8 +181,7 @@ nav h4{
     text-transform: lowercase;
 }
 
-#Tags .tag,
-#pop_new_citation .tag{
+.tag{
     display: inline-block;
     background-color: var(--labelBg);
     color: var(--labelColor);
@@ -217,8 +201,7 @@ nav h4{
     text-transform: lowercase;
 }
 
-#Tags .tag::before,
-#pop_new_citation .tag::before{
+.tag::before{
     display: inline-block;
     font-style: normal;
     font-variant: normal;
@@ -232,29 +215,26 @@ nav h4{
     transition: transform .3s ease-in-out;
 }
 
-#Tags input[type="checkbox"]:checked + .tag::before,
-#pop_new_citation input[type="checkbox"]:checked + .tag::before{
+.tag_checkbox:checked + .tag::before{
     content: "\f00c";
     transform: rotate(-360deg);
     transition: transform .3s ease-in-out;
 }
 
-#Tags input[type="checkbox"]:checked + .tag,
-#pop_new_citation input[type="checkbox"]:checked + .tag {
+.tag_checkbox:checked + .tag{
     border: 2px solid var(--borderTags);
     background-color: var(--bgTags);
     color: var(--labelColorChecked);
     transition: all .2s;
 }
 
-#Tags input[type="checkbox"],
-#pop_new_citation input[type="checkbox"] {
+.tag_checkbox{
   display: absolute;
   position: absolute;
   opacity: 0;
 }
-#Tags input[type="checkbox"]:focus + .tag,
-#pop_new_citation input[type="checkbox"]:focus + .tag {
+
+.tag_checkbox:focus + .tag{
   border: 2px solid var(--borderTagsFocus);
 }
 
@@ -405,10 +385,12 @@ nav h4{
     margin: 15px 0 5px 0;
 }
 
-#pop_new_citation input[type=text],
-#pop_new_citation textarea,
-#pop_signal input[type=text],
-#pop_signal textarea{
+#pop_new_citation .tag{
+    display: inline-block;
+}
+
+#pop_new_citation .text_input,
+#pop_signal .text_input{
     background: var(--bgTextInput);
     width: -webkit-calc(100% - 28px);
     width: -moz-calc(100% - 100px);
