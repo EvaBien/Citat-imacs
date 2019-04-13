@@ -170,17 +170,18 @@
 		    <input type="text" name="auteur" placeholder="Anonyme" />
 		    <label for="type_auteur">Type d'auteur</label>
 		    	<select name="type_auteur">
-		           <option value="france">France</option>
-		           <option value="espagne">Espagne</option>
-		           <option value="italie">Italie</option>
-		           <option value="royaume-uni">Royaume-Uni</option>
-		           <option value="canada">Canada</option>
-		           <option value="etats-unis">États-Unis</option>
-		           <option value="chine">Chine</option>
-		           <option value="japon">Japon</option>
+		        	<option selected disabled>-- Selectionnez le type d'auteur</option>
+			        <option value="france">France</option>
+		           	<option value="espagne">Espagne</option>
+		           	<option value="italie">Italie</option>
+		           	<option value="royaume-uni">Royaume-Uni</option>
+		           	<option value="canada">Canada</option>
+		           	<option value="etats-unis">États-Unis</option>
+		           	<option value="chine">Chine</option>
+		           	<option value="japon">Japon</option>
 		      	</select>
 		    <label for="citation">Citation</label>
-		    <textarea name="citation" id="popup_citation" placeholder="Calmez-vous !"></textarea>
+		    <textarea name="citation" id="" placeholder="Calmez-vous !"></textarea>
 		    <label>Tags</label>
 			    <input type="checkbox" id="popup_checkbox1" value="" checked>
 			    <label for = "popup_checkbox1" class="tag">all</label>
@@ -215,6 +216,30 @@
 	</div>
 
 	<div id="pop_signal">
+		<p class="warning_popup">Vous souhaitez signaler une citation.</p>
+		<form method="" action="">
+		    <label for="name">Nom, Prénom (optionnel)</label>
+		    <input type="text" name="name" placeholder="Entrez votre nom et votre prénom" />
+		    <label for="mail">Adresse email</label>
+		    <input type="text" name="mail" placeholder="Entrez votre email" />
+		    <label for="type_signalement">Type de signalement</label>
+		    	<select name="type_signalement">
+		    		<option selected disabled>-- Selectionnez le type de signalement</option>
+			        <option value="france">France</option>
+			        <option value="espagne">Espagne</option>
+			        <option value="italie">Italie</option>
+			        <option value="royaume-uni">Royaume-Uni</option>
+			        <option value="canada">Canada</option>
+			        <option value="etats-unis">États-Unis</option>
+			        <option value="chine">Chine</option>
+			        <option value="japon">Japon</option>
+		      	</select>
+		    <label for="message">Message</label>
+		    <textarea name="message" id="" placeholder="Il y a une faute d'orthographe"></textarea>
+
+			<button id="send_citation_warning" class="button">Envoyer</button>
+			<p class="cancel">Annuler</p>
+		</form>
 	</div>
 
 </body>

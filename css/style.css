@@ -91,7 +91,9 @@ nav h4{
     margin: 10px 0 5px 0;
 }
 
-#add_citation, #valid_search, #add_citation_form{
+#add_citation, #valid_search,
+#add_citation_form,
+#send_citation_warning{
     background-color: var(--colorButton);
     padding: 2% 7%;
     border-radius: 8px;
@@ -107,10 +109,12 @@ nav h4{
     text-transform: uppercase;
 }
 
-#pop_new_citation form{
+#pop_new_citation form, #pop_signal form{
     width: 100%;
 }
-#sortForm select, #pop_new_citation select{
+#sortForm select,
+#pop_new_citation select,
+#pop_signal select{
     font-size: 0.8em;
     overflow: hidden;
     background: url(../img/new_arrows.png) no-repeat right;
@@ -129,7 +133,9 @@ nav h4{
 
 #searchForm input[type=text],
 #pop_new_citation input[type=text],
-#pop_new_citation textarea{
+#pop_new_citation textarea,
+#pop_signal input[type=text],
+#pop_signal textarea{
     width: 100%;
     padding: 6px 12px;
     line-height: 18px;     
@@ -148,7 +154,11 @@ nav h4{
 #pop_new_citation input[type=text]:hover,
 #pop_new_citation input[type=text]:focus,
 #pop_new_citation textarea:hover,
-#pop_new_citation textarea:focus {
+#pop_new_citation textarea:focus,
+#pop_signal input[type=text]:hover,
+#pop_signal input[type=text]:focus,
+#pop_signal textarea:hover,
+#pop_signal textarea:focus  {
     padding: 6px 0;
     outline: 0;
     border: 1px solid transparent;
@@ -361,7 +371,7 @@ nav h4{
     opacity: 2;
 }
 
-#pop_new_citation{
+#pop_new_citation, #pop_signal{
     display: none;
     top: 0;
     width: 30%;
@@ -384,29 +394,33 @@ nav h4{
     text-align: left;
 }
 
-#pop_new_citation form{
+#pop_new_citation form, #pop_signal form{
     text-align: left;
 }
 
-#pop_new_citation label{
+#pop_new_citation label, #pop_signal label{
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
     display: block;
     margin: 15px 0 5px 0;
 }
 
-#pop_new_citation input[type=text], #pop_new_citation textarea{
+#pop_new_citation input[type=text],
+#pop_new_citation textarea,
+#pop_signal input[type=text],
+#pop_signal textarea{
     background: var(--bgTextInput);
     width: -webkit-calc(100% - 28px);
     width: -moz-calc(100% - 100px);
     width: calc(100%-28x);
 }
 
-#pop_new_citation textarea{
+#pop_new_citation textarea,
+#pop_signal textarea{
     border-radius: 10px;
 }
 
-#add_citation_form{
+#add_citation_form, #send_citation_warning{
     display: block;
     margin: auto;
     margin-top: 20px;
