@@ -14,31 +14,34 @@
 	<header>
 		<h1>Citat'IMAC</h1>
 	</header>
+	<div id="cover">
+
+	</div>
 
 	<div id="container">
 
 		<nav>
 			<button id="add_citation" class="button">ajouter une citation</button>
 
-			<section id="sort">
+			<section id="sort" class="sousbloc_left">
 				<h2>trier par</h2>
 				<form id="sortForm" action="" method="" class="">
-					<select class="" name="">
+					<select class="selectForm" name="">
 						<option value="date">Date du plus récent au plus ancien</option>
 						<option value="like">like</option>
 					</select>
 				</form>
 			</section>
 
-			<section id="search">
+			<section id="search" class="sousbloc_left">
 				<h2>rechercher</h2>
 				<form id="searchForm" action="" method="" class="">
-					<input id="" type="text" name="" value="" placeholder="-- Entrez un mot-clé" />
+					<input id="" type="text" class="text_input" name="" value="" placeholder="-- Entrez un mot-clé" />
 					<input type="submit" value=" " class=""/>
 				</form>
 			</section>
 
-			<section id="filter">
+			<section id="filter" class="sousbloc_left">
 				<h2>filtrer</h2>
 				<form id="filterForm" action="" method="" class="">
 					<h4>Type d'auteur</h4>
@@ -76,40 +79,40 @@
 					<div id="Tags">
 						<section class="left_right">
 							<div class="input_display">
-								<input type="checkbox" id="checkbox1" value="" checked> <label for = "checkbox1" class="tag">all</label>
+								<input type="checkbox" id="checkbox1" class="tag_checkbox" value="" checked> <label for = "checkbox1" class="tag">all</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox2" value="">
+								<input type="checkbox" id="checkbox2" class="tag_checkbox" value="">
 								<label for="checkbox2" class="tag">race</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox3" value="">
+								<input type="checkbox" id="checkbox3" class="tag_checkbox" value="">
 								<label for = "checkbox3" class="tag">crous</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox4" value="">
+								<input type="checkbox" id="checkbox4" class="tag_checkbox" value="">
 								<label for = "checkbox4" class="tag">titre</label>
 							</div>
 						</section>
 						<section class="left_right">
 							<div class="input_display">
-								<input type="checkbox" id="checkbox5" value="">
+								<input type="checkbox" id="checkbox5" class="tag_checkbox" value="">
 								<label for = "checkbox5" class="tag">shlag</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox6" value="">
+								<input type="checkbox" id="checkbox6" class="tag_checkbox" value="">
 								<label for = "checkbox6" class="tag">love</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox7" value="">
+								<input type="checkbox" id="checkbox7" class="tag_checkbox" value="">
 								<label for = "checkbox7" class="tag">sel</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox8" value="">
+								<input type="checkbox" id="checkbox8" class="tag_checkbox" value="">
 								<label for = "checkbox8" class="tag">arts</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox9" value="">
+								<input type="checkbox" id="checkbox9" class="tag_checkbox" value="">
 								<label for = "checkbox9" class="tag">sciences</label>
 							</div>
 						</section>
@@ -161,9 +164,76 @@
 	</div>
 
 	<div id="pop_new_citation">
+		<p class="warning_popup">Afin de respecter la vie privée de chacun, veillez à avoir l'autorisation d'un auteur avant de le notifier</p>
+		<form method="" action="">
+		    <label for="auteur">Auteur</label>
+		    <input type="text" name="auteur" placeholder="Anonyme" class="text_input" />
+		    <label for="type_auteur">Type d'auteur</label>
+		    	<select name="type_auteur" class="selectForm">
+		        	<option selected disabled>-- Selectionnez le type d'auteur</option>
+			        <option value="france">France</option>
+		           	<option value="espagne">Espagne</option>
+		      	</select>
+		    <label for="citation">Citation</label>
+		    <textarea name="citation" id="" placeholder="Calmez-vous !" class="text_input"></textarea>
+		    <label>Tags</label>
+			    <input type="checkbox" id="popup_checkbox1" class="tag_checkbox" value="" checked>
+			    <label for = "popup_checkbox1" class="tag">all</label>
+
+				<input type="checkbox" id="popup_checkbox2" class="tag_checkbox" value="">
+				<label for="popup_checkbox2" class="tag">race</label>
+
+				<input type="checkbox" id="popup_checkbox3" class="tag_checkbox" value="">
+				<label for = "popup_checkbox3" class="tag">crous</label>
+				
+				<input type="checkbox" id="popup_checkbox4" class="tag_checkbox" value="">
+				<label for = "popup_checkbox4" class="tag">titre</label>
+				
+				<input type="checkbox" id="popup_checkbox5" class="tag_checkbox" value="">
+				<label for = "popup_checkbox5" class="tag">shlag</label>
+				
+				<input type="checkbox" id="popup_checkbox6" class="tag_checkbox" value="">
+				<label for = "popup_checkbox6" class="tag">love</label>
+				
+				<input type="checkbox" id="popup_checkbox7" class="tag_checkbox" value="">
+				<label for = "popup_checkbox7" class="tag">sel</label>
+				
+				<input type="checkbox" id="popup_checkbox8" class="tag_checkbox" value="">
+				<label for = "popup_checkbox8" class="tag">arts</label>
+				
+				<input type="checkbox" id="popup_checkbox9" class="tag_checkbox" value="">
+				<label for = "popup_checkbox9" class="tag">sciences</label>
+
+			<button id="add_citation_form" class="button">ajouter</button>
+			<p class="cancel">Annuler</p>
+		</form>
 	</div>
 
 	<div id="pop_signal">
+		<p class="warning_popup">Vous souhaitez signaler une citation.</p>
+		<form method="" action="">
+		    <label for="name">Nom, Prénom (optionnel)</label>
+		    <input type="text" class="text_input" name="name" placeholder="Entrez votre nom et votre prénom" />
+		    <label for="mail">Adresse email</label>
+		    <input type="text" name="mail" placeholder="Entrez votre email" class="text_input" />
+		    <label for="type_signalement">Type de signalement</label>
+		    	<select name="type_signalement" class="selectForm">
+		    		<option selected disabled>-- Selectionnez le type de signalement</option>
+			        <option value="france">France</option>
+			        <option value="espagne">Espagne</option>
+			        <option value="italie">Italie</option>
+			        <option value="royaume-uni">Royaume-Uni</option>
+			        <option value="canada">Canada</option>
+			        <option value="etats-unis">États-Unis</option>
+			        <option value="chine">Chine</option>
+			        <option value="japon">Japon</option>
+		      	</select>
+		    <label for="message">Message</label>
+		    <textarea name="message" class="text_input" id="" placeholder="Il y a une faute d'orthographe"></textarea>
+
+			<button id="send_citation_warning" class="button">Envoyer</button>
+			<p class="cancel">Annuler</p>
+		</form>
 	</div>
 
 </body>
