@@ -7,10 +7,11 @@ class signalement {
     private $typeSignalement;
     private $messageSignalement;
     private $statutSignalement;
-    public function __construct($typeSignalement, $messageSignalement, $statutSignalement){
+    private $idCitation;
+    public function __construct($typeSignalement, $messageSignalement, $statutSignalement, $idCitation){
                                   // Id auto
       $this->typeSignalement=$typeSignalement;
-      $this->getMessageSignalement=new ; // A récupérer dans ce qu'écrit l'utilisateur ?
+      $this->messageSignalement=$messageSignalement ; // A récupérer dans ce qu'écrit l'utilisateur ?
       $this->statutSignalement=$statutSignalement;
       $this->idCitation=$idCitation; // Lier à la table Citation
     }
