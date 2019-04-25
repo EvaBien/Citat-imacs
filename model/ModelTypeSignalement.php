@@ -4,12 +4,11 @@ require 'MyPDO.citatimac.include.php';
 class typeSignalement {
     private $id;
     private $nomTypeSignalement;
-    public function __construct($typeSignalement, $nomTypeSignalement){
+    public function __construct( $nomTypeSignalement){
                                   // Id auto
-      $this->typeSignalement=$typeSignalement;
       $this->nomTypeSignalement=$nomTypeSignalement ;
     }
-}
+
 
 ///////////////////////FUNCTIONS GETTER////////////////////////
 
@@ -28,5 +27,7 @@ class typeSignalement {
   function setNomTypeSignalement(){
 
   }
+
+}
 
 ?>
