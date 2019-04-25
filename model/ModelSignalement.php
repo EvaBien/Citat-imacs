@@ -14,7 +14,7 @@ class signalement {
       $this->statutSignalement=$statutSignalement;
       $this->idCitation=$idCitation; // Lier à la table Citation
     }
-}
+
 
 ///////////////////////FUNCTIONS GETTER////////////////////////
 
@@ -56,7 +56,7 @@ class signalement {
     }
     function setStatutSignalement(){
     }
-
+}
 
 
 ?>
