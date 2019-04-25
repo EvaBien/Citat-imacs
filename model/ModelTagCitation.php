@@ -9,7 +9,7 @@ class tagCitation {
       $this->idTag=$idTag; //Lier à la table Tags
       $this->idCitation=$idCitation; // Lier à la table Citation
     }
-}
+
 
 ///////////////////////FUNCTIONS GETTER////////////////////////
 
@@ -30,5 +30,7 @@ class tagCitation {
   function setIdTag(){
 
   }
+
+}
 
 ?>

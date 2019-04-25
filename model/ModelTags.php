@@ -10,7 +10,7 @@ class tags {
       $this->nomTag=$nomTag ;
       $this->likesTag=$likesTag;
     }
-}
+
 
 ///////////////////////FUNCTIONS GETTER////////////////////////
 
@@ -39,5 +39,7 @@ class tags {
     function setLikesTag(){
       
     }
+
+}
 
 ?>
