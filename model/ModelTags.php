@@ -3,13 +3,13 @@ require 'MyPDO.citatimac.include.php';
 
 class tags {
     private $id;
-    private $typeSignalement;
-    public function __construct($typeSignalement, $messageSignalement, $statutSignalement, $idCitation){
+    private $nomTag;
+    private $likesTag;
+    public function __construct($tags, $nomTag, $likesTag){
                                   // Id auto
-      $this->typeSignalement=$typeSignalement;
-      $this->messageSignalement=$messageSignalement ; // A récupérer dans ce qu'écrit l'utilisateur ?
-      $this->statutSignalement=$statutSignalement;
-      $this->idCitation=$idCitation; // Lier à la table Citation
+      $this->tags=$tags;
+      $this->nomTag=$nomTag ;
+      $this->likesTag=$likesTag;
     }
 }
 
@@ -19,9 +19,26 @@ class tags {
 
   }
 
+  function getNomTag(){
+
+  }
+
+  function getLikesTag(){
+
+  }
+
   ///////////////////////FUNCTIONS SETTER///////////////////////
   
     function setTags(){
+
+    }
+
+    function setNomTag(){
+      
+    }
+
+    function setLikesTag(){
+      
     }
 
 ?>
