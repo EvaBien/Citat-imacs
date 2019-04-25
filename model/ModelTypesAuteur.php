@@ -5,9 +5,8 @@ class typesAuteur {
     private $id;
     private $nomTypeAuteur;
     private $likesTypeAuteur;
-    public function __construct($typesAuteur, $nomTypeAuteur, $likesTypeAuteur){
+    public function __construct($nomTypeAuteur, $likesTypeAuteur){
                                   // Id auto
-      $this->typesAuteur=$typesAuteur;
       $this->nomTypeAuteur=$nomTypeAuteur; 
       $this->likesTypeAuteur=$likesTypeAuteur;
     }
