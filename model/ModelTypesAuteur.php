@@ -10,7 +10,7 @@ class typesAuteur {
       $this->nomTypeAuteur=$nomTypeAuteur; 
       $this->likesTypeAuteur=$likesTypeAuteur;
     }
-}
+
 
 ///////////////////////FUNCTIONS GETTER////////////////////////
 
@@ -39,5 +39,7 @@ class typesAuteur {
     function setLikesTypesAuteur(){
       
     }
+
+}
 
 ?>
