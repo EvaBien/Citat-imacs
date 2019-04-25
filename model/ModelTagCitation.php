@@ -2,26 +2,33 @@
 require 'MyPDO.citatimac.include.php';
 
 class tagCitation {
-    private $id;
-    private $typeSignalement;
-    public function __construct($typeSignalement, $messageSignalement, $statutSignalement, $idCitation){
+    private $idCitation;
+    private $idTag;
+    public function __construct($idTag, $idCitation){
                                   // Id auto
-      $this->typeSignalement=$typeSignalement;
-      $this->messageSignalement=$messageSignalement ; // A récupérer dans ce qu'écrit l'utilisateur ?
-      $this->statutSignalement=$statutSignalement;
+      $this->idTag=$idTag; //Lier à la table Tags
       $this->idCitation=$idCitation; // Lier à la table Citation
     }
 }
 
 ///////////////////////FUNCTIONS GETTER////////////////////////
 
-  function getTagCitation(){
+  function getIdCitation(){
+
+  }
+
+  function getIdTag(){
 
   }
 
   ///////////////////////FUNCTIONS SETTER///////////////////////
   
-    function setTagCitation(){
-    }
+  function setIdCitation(){
+
+  }
+
+  function setIdTag(){
+
+  }
 
 ?>
