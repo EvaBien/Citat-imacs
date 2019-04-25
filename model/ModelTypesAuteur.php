@@ -3,25 +3,42 @@ require 'MyPDO.citatimac.include.php';
 
 class typesAuteur {
     private $id;
-    private $typeSignalement;
-    public function __construct($typeSignalement, $messageSignalement, $statutSignalement, $idCitation){
+    private $nomTypeAuteur;
+    private $likesTypeAuteur;
+    public function __construct($typesAuteur, $nomTypeAuteur, $likesTypeAuteur){
                                   // Id auto
-      $this->typeSignalement=$typeSignalement;
-      $this->messageSignalement=$messageSignalement ; // A récupérer dans ce qu'écrit l'utilisateur ?
-      $this->statutSignalement=$statutSignalement;
-      $this->idCitation=$idCitation; // Lier à la table Citation
+      $this->typesAuteur=$typesAuteur;
+      $this->nomTypeAuteur=$nomTypeAuteur; 
+      $this->likesTypeAuteur=$likesTypeAuteur;
     }
 }
 
 ///////////////////////FUNCTIONS GETTER////////////////////////
 
-  function getTypesAuteurs(){
+  function getTypesAuteur(){
+
+  }
+
+  function getNomTypeAuteur(){
+
+  }
+
+  function getLikesTypeAuteur(){
 
   }
 
   ///////////////////////FUNCTIONS SETTER///////////////////////
   
-    function setTypesAuteurs(){
+    function setTypesAuteur(){
+
+    }
+
+    function setNomTypesAuteur(){
+      
+    }
+
+    function setLikesTypesAuteur(){
+      
     }
 
 ?>
