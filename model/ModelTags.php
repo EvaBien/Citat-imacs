@@ -5,9 +5,8 @@ class tags {
     private $id;
     private $nomTag;
     private $likesTag;
-    public function __construct($tags, $nomTag, $likesTag){
+    public function __construct( $nomTag, $likesTag){
                                   // Id auto
-      $this->tags=$tags;
       $this->nomTag=$nomTag ;
       $this->likesTag=$likesTag;
     }
