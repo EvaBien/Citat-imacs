@@ -58,18 +58,28 @@ class signalement {
   ////////////////////////////////////////////////////////////////
   //////////////////////////// SETTERS //////////////////////////
   //////////////////////////////////////////////////////////////
-  
-    function setSignalement(){
+
+    function setSignalement($typeSignal, $message, $statut, $citation){
+      $this->idTypeSignalement=$typeSignal;
+      $this->messageSignalement=$message;
+      $this->statutSignalement=$statut;
+      $this->idCitation=$citation;
     }
-    function setIdSignalement(){
+
+    function setTypeSignalement($typeSignal){
+      $this->idTypeSignalement=$typeSignal;
     }
-    function setIdCitation(){
+
+    function setMessageSignalement($message){
+      $this->messageSignalement=$message;
     }
-    function setTypeSignalement(){
+
+    function setStatutSignalement($statut){
+      $this->statutSignalement=$statut;
     }
-    function setMessageSignalement(){
-    }
-    function setStatutSignalement(){
+
+    function setIdCitation($citation){
+      $this->idCitation=$citation;
     }
 }
 
