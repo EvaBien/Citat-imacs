@@ -25,6 +25,10 @@ class tags {
     return json_encode($formatted);
   }
 
+  function getIdTag(){
+    return $this->id;
+  }
+
   function getNomTag(){
     return $this->nomTag;
   }
