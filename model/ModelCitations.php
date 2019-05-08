@@ -24,22 +24,21 @@ class Citation {
     }
 
 
-
 ////////////////////////////////////////////////////////////////
 //////////////////////////// GETTERS //////////////////////////
 //////////////////////////////////////////////////////////////
 
   function getCitation(){
-    $formatted(
-      id: $this->id,
-      contenu : $this->contenu,
-      date : $this->date,
-      auteur : $this->auteur,
-      likes : $this->likes,
-      typeAuteur : $this->typeAuteur;
+    $formatted = array(
+      'id'=> $this->id,
+      'contenu'=> $this->contenu,
+      'date'=> $this->date,
+      'auteur'=> $this->auteur,
+      'likes'=> $this->likes,
+      'typeAuteur'=> $this->typeAuteur;
     );
 
-    return formatted;
+    return json_encode($formatted);
   }
 
   function getIdCitation(){
