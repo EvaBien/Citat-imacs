@@ -30,31 +30,40 @@ class Citation {
 //////////////////////////////////////////////////////////////
 
   function getCitation(){
+    $formatted(
+      id: $this->id,
+      contenu : $this->contenu,
+      date : $this->date,
+      auteur : $this->auteur,
+      likes : $this->likes,
+      typeAuteur : $this->typeAuteur;
+    );
 
+    return formatted;
   }
 
   function getIdCitation(){
-
+    return $this->id;
   }
 
   function getContenuCitation(){
-
+    return $this->contenu=$contenu;
   }
 
   function getDateCitation(){
-
+    return $this->date=$date;
   }
 
   function getAuteurCitation(){
-
+    return $this->auteur=$auteur;
   }
 
   function getLikesCitation(){
-
+    return $this->likes=$likes;
   }
 
   function getTypeAuteurCitation(){
-
+    return $this->typeAuteur=$typeAuteur;
   }
 
 
@@ -62,32 +71,36 @@ class Citation {
   //////////////////////////// SETTERS //////////////////////////
   //////////////////////////////////////////////////////////////
 
-    function setCitation(){
-
+    function setCitation($content, $date, $auteur, $likes, $typeAuteur){
+      $this->contenu=$contenu;
+      $this->date=$date;
+      $this->auteur=$auteur;
+      $this->likes=$likes;
+      $this->typeAuteur=$typeAuteur;
     }
 
-    function setIdCitation(){
-
+    function setIdCitation($id){
+      $this->id=$id;
     }
 
-    function setContenuCitation(){
-
+    function setContenuCitation($contenu){
+      $this->contenu=$contenu;
     }
 
-    function setDateCitation(){
-
+    function setDateCitation($date){
+      $this->date=$date;
     }
 
-    function setAuteurCitation(){
-
+    function setAuteurCitation($auteur){
+      $this->auteur=$auteur;
     }
 
-    function setLikesCitation(){
-
+    function setLikesCitation($likes){
+      $this->likes=$likes;
     }
 
-    function setTypeAuteurCitation(){
-
+    function setTypeAuteurCitation($typeAuteur){
+      $this->typeAuteur=$typeAuteur;
     }
 
 
