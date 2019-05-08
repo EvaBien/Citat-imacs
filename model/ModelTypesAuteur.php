@@ -17,31 +17,41 @@ class typesAuteur {
     //////////////////////////////////////////////////////////////
 
   function getTypesAuteur(){
-
+    $formatted = array(
+      'idTypeAuteur'=> $this->id,
+      'nomTypeAuteur'=> $this->nomTypeAuteur,
+      'likesTypeAuteur'=> $this->likesTypeAuteur;
+    );
+    return json_encode($formatted);
   }
 
-  function getNomTypeAuteur(){
+function getIdTypeAuteur(){
+  return $this->id;
+}
 
+  function getNomTypeAuteur(){
+    return $this->nomTypeAuteur;
   }
 
   function getLikesTypeAuteur(){
-
+    return $this->likesTypeAuteur;
   }
 
   ////////////////////////////////////////////////////////////////
   //////////////////////////// SETTERS //////////////////////////
   //////////////////////////////////////////////////////////////
-  
-    function setTypesAuteur(){
 
+    function setTypesAuteur($nom, $likes){
+      $this->nomTypeAuteur=$nom;
+      $this->likesTypeAuteur=$likes;
     }
 
     function setNomTypesAuteur(){
-
+      $this->nomTypeAuteur=$nom;
     }
 
     function setLikesTypesAuteur(){
-
+      $this->likesTypeAuteur=$likes;
     }
 
 }
