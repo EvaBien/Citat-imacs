@@ -13,7 +13,7 @@ class typeSignalement {
 
   function getTypeSignalement(){
     $formatted = array(
-      'id'=> $this->id,
+      'idTypeSignal'=> $this->id,
       'nomTypeSignal'=> $this->nomTypeSignalement;
     );
 

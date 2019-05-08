@@ -30,7 +30,7 @@ class Citation {
 
   function getCitation(){
     $formatted = array(
-      'id'=> $this->id,
+      'idCita'=> $this->id,
       'contenu'=> $this->contenu,
       'date'=> $this->date,
       'auteur'=> $this->auteur,
