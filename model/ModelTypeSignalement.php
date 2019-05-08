@@ -6,26 +6,32 @@ class typeSignalement {
     private $nomTypeSignalement;
     public function __construct( $nomTypeSignalement){
                                   // Id auto
-      $this->nomTypeSignalement=$nomTypeSignalement ;
+      $this->nomTypeSignalement=$nomTypeSignalement;
     }
-
 
 ///////////////////////FUNCTIONS GETTER////////////////////////
 
   function getTypeSignalement(){
+    $formatted = array(
+      'id'=> $this->id,
+      'nomTypeSignal'=> $this->nomTypeSignalement;
+    );
 
+    return json_encode($formatted);
   }
-  function getNomTypeSignalement(){
 
+  function getIdTypeSignalement(){
+    return $this->id;
+  }
+
+  function getNomTypeSignalement(){
+    return $this->nomTypeSignalement;
   }
 
   ///////////////////////FUNCTIONS SETTER///////////////////////
-  
-  function setTypeSignalement(){
 
-  }
-  function setNomTypeSignalement(){
-
+  function setNomTypeSignalement($newName){
+    $this->nomTypeSignalement=$newName;
   }
 
 }
