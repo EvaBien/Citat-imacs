@@ -15,14 +15,14 @@ class tagCitation {
     //////////////////////////// GETTERS //////////////////////////
     //////////////////////////////////////////////////////////////
 
-    function getTagCitation(){
-      $formatted = array( // id ou
+  function getTagCitation(){
+      $formatted = array(
         'tag'=> $this->idTag,
         'citation'=> $this->idCitation;
       );
 
       return json_encode($formatted);
-    }
+  }
 
   function getIdCitation(){
     return $this->idCitation;

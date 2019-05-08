@@ -15,32 +15,39 @@ class tags {
     ////////////////////////////////////////////////////////////////
     //////////////////////////// GETTERS //////////////////////////
     //////////////////////////////////////////////////////////////
-  function getTags(){
 
+  function getTags(){
+    $formatted = array(
+      'idTag'=> $this->id,
+      'nomTag'=> $this->nomTag,
+      'likesTag'=> $this->likesTag;
+    );
+    return json_encode($formatted);
   }
 
   function getNomTag(){
-
+    return $this->nomTag;
   }
 
   function getLikesTag(){
-
+    return $this->likesTag;
   }
 
   ////////////////////////////////////////////////////////////////
   //////////////////////////// SETTERS //////////////////////////
   //////////////////////////////////////////////////////////////
-  
-    function setTags(){
 
+    function setTags($nom, $likes){
+      $this->nomTag=$nom;
+      $this->likesTag=$likes;
     }
 
     function setNomTag(){
-
+      $this->nomTag=$nom;
     }
 
     function setLikesTag(){
-
+      $this->likesTag=$likes;
     }
 
 }
