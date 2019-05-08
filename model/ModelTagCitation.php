@@ -1,5 +1,10 @@
 <?php
 require 'MyPDO.citatimac.include.php';
+require 'ModelCitations.php';
+require 'ModelTags.php';
+
+
+
 
 class tagCitation {
     private $idCitation;

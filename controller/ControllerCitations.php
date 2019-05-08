@@ -1,5 +1,10 @@
 <?php
+header("Content-Type: application/json; charset=UTF-8");
 require '../model/ModelCitations.php';
+require '../model/ModelTagCitation.php';
+require '../model/ModelTypesAuteur.php';
+require '../model/ModelTypesAuteur.php';
+
 
 
 ////////////////////////////////////////////////////////////////
