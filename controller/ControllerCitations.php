@@ -11,29 +11,34 @@ require '../model/ModelTypesAuteur.php';
 ///////////////////////////// CREATE //////////////////////////
 //////////////////////////////////////////////////////////////
 
-public function createCitation()
+public function apiCreateCitation(HTTPRequest $request)
   {
     /////////////// CREATE OBJECT ////////////////
 
 
     //////////////////// ADD TO DB //////////////
-    $stmt = MyPDO::getInstance()->prepare("INSERT INTO Casts (firstname, lastname, birth_year, death_year) VALUES (?, ?, ?, ?);");
+    $stmt = MyPDO::getInstance()->prepare("INSERT INTO Citations (contenu, date, auteur, typeAuteur) VALUES (?, ?, ?, ?);");
     $queryStatus = $stmt->execute(
       array(
-        $this->_firstname,
-        $this->_lastname,
-        $this->_birthDate,
-        $this->_deathDate
+        $this->contenu,
+        $this->date,
+        $this->auteur,
+        $this->typeAuteur
       )
     );
+    $this->id = MyPDO::getInstance()->lastInsertId();
+}
 
-    if ($queryStatus === false) {
-      //TODO throwAnError
-    }
-    else {
-      $this->_idCast = MyPDO::getInstance()->lastInsertId();
-    }
-  }
+// protected function add(News $news)
+//  {
+//    $requete = $this->dao->prepare('INSERT INTO news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
+//
+//    $requete->bindValue(':titre', $news->titre());
+//    $requete->bindValue(':auteur', $news->auteur());
+//    $requete->bindValue(':contenu', $news->contenu());
+//
+//    $requete->execute();
+//  }
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// READ ////////////////////////////
@@ -41,7 +46,11 @@ public function createCitation()
 
 
 // GET ALL CITATIONS //
+public function apiGetAllCitations(HTTPRequest $request){
+  $citations[]= '';
 
+
+}
 
 // GET CITATION BY ID //
 
@@ -57,7 +66,7 @@ public function createCitation()
 ///////////////////////////// UPDATE //////////////////////////
 //////////////////////////////////////////////////////////////
 
-public static function updateCitation($id, $vvv)
+public static function apiUpdateCitation(HTTPRequest $request)
   {
     $queryStmt = "UPDATE Casts SET firstname = :name WHERE id = :id";
 
@@ -80,7 +89,7 @@ public static function updateCitation($id, $vvv)
 //////////////////////////////////////////////////////////////
 
 
-public static function deleteCitation($id)
+public static function apiDeleteCitation(HTTPRequest $request)
   {
     $queryStmt = "DELETE FROM Casts WHERE id = ?";
 
