@@ -20,6 +20,9 @@
 
 	<div id="container">
 
+		<!-- ***************************************************************
+		******************************* NAVBAR *****************************
+		**************************************************************** -->
 		<nav>
 			<button id="add_citation" class="button">ajouter une citation</button>
 
@@ -73,7 +76,7 @@
 							<div class="input_display">
 								<input type="checkbox" name="" value=""> IMAC 100 av. BIRI
 							</div>
-						</section>	
+						</section>
 					</div>
 					<h4>Tags</h4>
 					<div id="Tags">
@@ -119,20 +122,22 @@
 					</div>
 					<button id="valid_search" class="button">valider</button>
 				</form>
-			</section>	
+			</section>
 		</nav>
 
-
+		<!-- ***************************************************************
+		*************************** BLOCK CITATION *************************
+		**************************************************************** -->
 		<div id="block_citations">
 			<section class='one_citation'>
 				<div class='infos-citation'>
-					<ul>
+					<ul class='list-tags'>
 						<li>race</li>
 						<li>arts</li>
 						<li>shlag</li>
 						<li>sciences</li>
 					</ul>
-					
+
 					<p class='quote_date'>vendredi 29 mars 2019 à 15:11</p>
 					<p class='quote'>"La seule formation d'ingénieur publique alliant race et shlag"</p>
 					<p class='quote_author'>Pascale Ho - Prof</p>
@@ -142,6 +147,7 @@
 					<p class='number_likes'>46</p>
 					<a>signaler un problème</a>
 				</div>
+
 			</section>
 			<section class='one_citation'>
 				<div class='infos-citation'>
@@ -149,7 +155,7 @@
 						<li>love</li>
 						<li>titre</li>
 					</ul>
-					
+
 					<p class='quote_date'>lundi 28 janvier 2019 à 18:06</p>
 					<p class='quote'>"Je suis la plus belle des salopes"</p>
 					<p class='quote_author'>Délio - IMAC 2019</p>
@@ -163,6 +169,9 @@
 		</div>
 	</div>
 
+	<!-- ***************************************************************
+	***************************** POP-UP NEW ***************************
+	**************************************************************** -->
 	<div id="pop_new_citation">
 		<p class="warning_popup">Afin de respecter la vie privée de chacun, veillez à avoir l'autorisation d'un auteur avant de le notifier</p>
 		<form method="" action="">
@@ -185,22 +194,22 @@
 
 				<input type="checkbox" id="popup_checkbox3" class="tag_checkbox" value="">
 				<label for = "popup_checkbox3" class="tag">crous</label>
-				
+
 				<input type="checkbox" id="popup_checkbox4" class="tag_checkbox" value="">
 				<label for = "popup_checkbox4" class="tag">titre</label>
-				
+
 				<input type="checkbox" id="popup_checkbox5" class="tag_checkbox" value="">
 				<label for = "popup_checkbox5" class="tag">shlag</label>
-				
+
 				<input type="checkbox" id="popup_checkbox6" class="tag_checkbox" value="">
 				<label for = "popup_checkbox6" class="tag">love</label>
-				
+
 				<input type="checkbox" id="popup_checkbox7" class="tag_checkbox" value="">
 				<label for = "popup_checkbox7" class="tag">sel</label>
-				
+
 				<input type="checkbox" id="popup_checkbox8" class="tag_checkbox" value="">
 				<label for = "popup_checkbox8" class="tag">arts</label>
-				
+
 				<input type="checkbox" id="popup_checkbox9" class="tag_checkbox" value="">
 				<label for = "popup_checkbox9" class="tag">sciences</label>
 
@@ -208,6 +217,10 @@
 			<p class="cancel">Annuler</p>
 		</form>
 	</div>
+
+	<!-- ***************************************************************
+	*************************** POP-UP SIGNAL **************************
+	**************************************************************** -->
 
 	<div id="pop_signal">
 		<p class="warning_popup">Vous souhaitez signaler une citation.</p>
