@@ -94,15 +94,14 @@ SQL
   // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
   $citations[$key]['typeAuteur'] = $typeAuteur;
   $citations[$key]['tags'] = $tags;
+}
 
   echo json_encode($citations);
 
   exit();
   }
 
-}
-
-// GET CITATION BY ID //
+////////////////////// GET CITATION BY ID ///////////////////
 
 public function apiGetCitationById(HttpRequest $request){
   // check HTTP method //
@@ -168,9 +167,12 @@ while (($row = $stmt->fetch()) !== false) {
   array_push($tags, $row['nomTag']);
 }
 
+
 // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
 $citations[$key]['typeAuteur'] = $typeAuteur;
 $citations[$key]['tags'] = $tags;
+}
+
 
 // VERIFICATION QUE RESULTAT NON VIDE //
 if (empty($citation)) {
@@ -184,13 +186,89 @@ else {
 echo json_encode($citation);
 exit();
 
+
 }
 
-// GET CITATION BY TAGS //
+////////////////////// GET CITATION BY TAGS ///////////////////
 
-// GET CITATION BY KEYWORD //
+////////////////////// GET CITATION BY KEYWORD ///////////////////
+public function apiGetCitationById(HttpRequest $request){
+  // check HTTP method //
+$method = strtolower($_SERVER['REQUEST_METHOD']);
+if ($method !== 'get') {
+    http_response_code(405);
+    echo json_encode(array('message' => 'This method is not allowed.'));
+    exit();
+}
 
-// GET CITATION BY AUTOR //
+
+$citations = array();
+$stmt = MyPDO::getInstance()->prepare(<<<SQL
+	SELECT *
+	FROM S2_Citations
+  WHERE contenuCitation LIKE %$query['keyWord']%;
+  ORDER BY dateCitation
+SQL
+);
+
+$stmt->execute(['idcitation' => $query['idCitation']]);
+
+while (($row = $stmt->fetch()) !== false) {
+	array_push($citations, $row);
+}
+
+foreach ($citations as $key => $citation) { // On va chercher les tags et le typeAuteur
+$typeAuteur='';
+$tags = array();
+
+
+////SEARCH TYPEAUTEUR IN DB ////
+$stmt = MyPDO::getInstance()->prepare(<<<SQL
+  SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
+  INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
+  WHERE S2_Citations.idCitation = :idcitation;
+SQL
+);
+$stmt->execute(['idcitation'=>$citation['idCitation']]);
+while (($row = $stmt->fetch()) !== false) {
+  $typeAuteur=$row['nomTypeAuteur'];
+}
+
+////SEARCH TAGS IN DB ////
+$stmt = MyPDO::getInstance()->prepare(<<<SQL
+  SELECT S2_Tags.nomTag FROM `S2_Tags`
+  INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
+  INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
+  WHERE S2_TagCitation.idCitation = :idcitation;
+SQL
+);
+$stmt->execute(['idcitation'=>$citation['idCitation']]);
+while (($row = $stmt->fetch()) !== false) {
+  array_push($tags, $row['nomTag']);
+}
+
+
+// RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
+$citations[$key]['typeAuteur'] = $typeAuteur;
+$citations[$key]['tags'] = $tags;
+}
+
+
+// VERIFICATION QUE RESULTAT NON VIDE //
+if (empty($citation)) {
+  http_response_code(404);
+  $citation = "Cannot found movie with keyword {$query['keyWord']}.";
+}
+else {
+  http_response_code(200);
+}
+
+echo json_encode($citation);
+exit();
+}
+
+////////////////////// GET CITATION BY TYPEAUTEUR ///////////////////
+
 
 // CLEAN REQUEST ? //
 
