@@ -205,8 +205,12 @@ exit();
 }
 
 ////////////////////// GET CITATION BY TAGS ///////////////////
+//OSSECOURS
+// $tags : value, value, value
+// S2_Tags.nomTag in $tags
 
-////////////////////// GET CITATION BY KEYWORD ///////////////////
+
+//////////////////// GET CITATION BY KEYWORD /////////////////
 public function apiGetCitationByKeyword(HttpRequest $request){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -278,7 +282,7 @@ exit();
 }
 
 ////////////////////// GET CITATION BY TYPEAUTEUR ///////////////////
-
+//OSSECOURS
 
 //////////////////// CLEAN TAB FOR UNIQUE CITATION /////////////////
 //if (array_key_exists('title', $query))

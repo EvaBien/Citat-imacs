@@ -11,7 +11,7 @@ document.ready( () => {
 
 function displayAllCitations(){
 
-  fetch("controller/ControllerCitations/getAllCitations") // à corriger si cela ne fonctionne pas
+  fetch("./controller/ControllerCitations/getAllCitations") // à corriger si cela ne fonctionne pas
     .then( response => response.json() )
     .then( data => {
       let citations = document.getElementById('list-citations');
