@@ -206,12 +206,12 @@ $citations = array();
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
 	SELECT *
 	FROM S2_Citations
-  WHERE contenuCitation LIKE %$query['keyWord']%;
+  WHERE contenuCitation LIKE %:keyword%;
   ORDER BY dateCitation
 SQL
 );
 
-$stmt->execute(['idcitation' => $query['idCitation']]);
+$stmt->execute(['keyword' => $query['keyWord']]);
 
 while (($row = $stmt->fetch()) !== false) {
 	array_push($citations, $row);
