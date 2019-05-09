@@ -3,7 +3,6 @@ header("Content-Type: application/json; charset=UTF-8");
 require '../model/ModelCitations.php';
 require '../model/ModelTagCitation.php';
 require '../model/ModelTypesAuteur.php';
-require '../model/ModelTypesAuteur.php';
 
 
 
@@ -14,7 +13,7 @@ require '../model/ModelTypesAuteur.php';
 public function apiCreateCitation(HTTPRequest $request)
   {
     ////// VERIF/////
-    if (isset($_POST['contenu'])) {
+if (isset($_POST['contenu'])) {
     $query["contenuCitation"] = $_POST['contenu'];
 }
 if (isset($_POST["date"])) {
@@ -33,7 +32,9 @@ if (isset($_POST['typeAuteur'])) {
     $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
 
     ////// ADD TO DB //////
-    $stmt = MyPDO::getInstance()->prepare("INSERT INTO Citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);");
+    $queryStmt = "INSERT INTO Citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);"
+
+    $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
     $stmt->bindValue(1, $citation->contenu);
     $stmt->bindValue(2, $citation->date);
@@ -71,11 +72,8 @@ public function apiGetAllCitations(HTTPRequest $request){
 
   ////SEARCH CITATION IN DB ////
   $citations = array();
-  $stmt = MyPDO::getInstance()->prepare(`
-  SELECT *
-  FROM S2_Citations
-  ORDER BY dateCitation;
-    `);
+  $queryStmt = "SELECT * FROM S2_Citations ORDER BY dateCitation;"
+  $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
 
   while (($row = $stmt->fetch()) !== false) {
@@ -143,14 +141,10 @@ else {
   exit();
 }
 
+$queryStmt = "SELECT * FROM S2_Citations WHERE S2_Citation.idCitation = :idcitation LIMIT 1;"
+
 $citations = array();
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-	SELECT *
-	FROM S2_Citations
-  WHERE S2_Citation.idCitation = :idcitation
-  LIMIT 1;
-SQL
-);
+$stmt = MyPDO::getInstance()->prepare($queryStmt);
 
 $stmt->execute(['idcitation' => $query['idCitation']]);
 
@@ -222,15 +216,10 @@ if ($method !== 'get') {
     exit();
 }
 
+$queryStmt = "SELECT * FROM S2_Citations WHERE contenuCitation LIKE %:keyword% ORDER BY dateCitation;"
 
 $citations = array();
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-	SELECT *
-	FROM S2_Citations
-  WHERE contenuCitation LIKE %:keyword%;
-  ORDER BY dateCitation
-SQL
-);
+$stmt = MyPDO::getInstance()->prepare($queryStmt);
 
 $stmt->execute(['keyword' => $query['keyWord']]);
 
@@ -300,13 +289,33 @@ exit();
 
 public static function apiUpdateCitation(HTTPRequest $request)
   {
-    $queryStmt = "UPDATE Citations SET firstname = :name WHERE id = :id";
+
+    if (isset($_POST['contenu'])) {
+        $query["contenuCitation"] = $_POST['contenu'];
+    }
+    if (isset($_POST["date"])) {
+        $date = new DateTime($_POST["date"]);
+        $query["dateCitation"] = $date->format("d-m-Y");
+    }
+
+    if (isset($_POST['auteur'])) {
+        $query["auteurCitation"] = $_POST['auteur'];
+    }
+
+    if (isset($_POST['typeAuteur'])) {
+        $query["idTypeAuteur"] = $_POST['typeAuteur'];
+    }
+    // Ajouter les else --> même valeur
+
+    $queryStmt = "UPDATE S2_Citations SET contenuCitation = :contenu, auteurCitation = :auteur, idTypeAuteur = :typeauteur WHERE idCitation = :id";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
     $stmt->execute(
       array(
-        ':name' => $fnameCast,
-        ':id' => $id
+        ':contenu' => $query["contenuCitation"],
+        ':auteur' => $query["auteurCitation"],
+        ':typeauteur'=> $query["idTypeAuteur"],
+        ':id'=>$query["idCitation"]
       )
     );
 
