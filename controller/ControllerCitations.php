@@ -17,28 +17,18 @@ public function apiCreateCitation(HTTPRequest $request)
 
 
     //////////////////// ADD TO DB //////////////
-    $stmt = MyPDO::getInstance()->prepare("INSERT INTO Citations (contenu, date, auteur, typeAuteur) VALUES (?, ?, ?, ?);");
+    $stmt = MyPDO::getInstance()->prepare("INSERT INTO Citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);");
     $queryStatus = $stmt->execute(
       array(
-        $this->contenu,
-        $this->date,
-        $this->auteur,
-        $this->typeAuteur
+        $this->contenuCitation,
+        $this->dateCitation,
+        $this->auteurCitation,
+        $this->idTypeAuteur
       )
     );
-    $this->id = MyPDO::getInstance()->lastInsertId();
+    $this->idCitation = MyPDO::getInstance()->lastInsertId();
 }
 
-// protected function add(News $news)
-//  {
-//    $requete = $this->dao->prepare('INSERT INTO news SET auteur = :auteur, titre = :titre, contenu = :contenu, dateAjout = NOW(), dateModif = NOW()');
-//
-//    $requete->bindValue(':titre', $news->titre());
-//    $requete->bindValue(':auteur', $news->auteur());
-//    $requete->bindValue(':contenu', $news->contenu());
-//
-//    $requete->execute();
-//  }
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// READ ////////////////////////////
@@ -108,6 +98,7 @@ SQL
   echo json_encode($citations);
 
   exit();
+  }
 
 }
 
@@ -123,14 +114,75 @@ if ($method !== 'get') {
 }
 
 // VERIF//
-if (isset($_GET['id'])) {
-    $request['id'] = $_GET['id'];
+if (isset($_GET['idCitation'])) {
+    $request['idcitation'] = $_GET['idCitation'];
 }
 else {
 	http_response_code(404);
   echo json_encode("No ID provided.");
   exit();
 }
+
+$citations = array();
+$stmt = MyPDO::getInstance()->prepare(<<<SQL
+	SELECT *
+	FROM S2_Citations
+  WHERE S2_Citation.idCitation = :idcitation
+  LIMIT 1;
+SQL
+);
+
+$stmt->execute(['idcitation' => $query['idCitation']]);
+
+while (($row = $stmt->fetch()) !== false) {
+	array_push($citations, $row);
+}
+
+foreach ($citations as $key => $citation) { // On va chercher les tags et le typeAuteur
+$typeAuteur='';
+$tags = array();
+
+
+////SEARCH TYPEAUTEUR IN DB ////
+$stmt = MyPDO::getInstance()->prepare(<<<SQL
+  SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
+  INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
+  WHERE S2_Citations.idCitation = :idcitation;
+SQL
+);
+$stmt->execute(['idcitation'=>$citation['idCitation']]);
+while (($row = $stmt->fetch()) !== false) {
+  $typeAuteur=$row['nomTypeAuteur'];
+}
+
+////SEARCH TAGS IN DB ////
+$stmt = MyPDO::getInstance()->prepare(<<<SQL
+  SELECT S2_Tags.nomTag FROM `S2_Tags`
+  INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
+  INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
+  WHERE S2_TagCitation.idCitation = :idcitation;
+SQL
+);
+$stmt->execute(['idcitation'=>$citation['idCitation']]);
+while (($row = $stmt->fetch()) !== false) {
+  array_push($tags, $row['nomTag']);
+}
+
+// RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
+$citations[$key]['typeAuteur'] = $typeAuteur;
+$citations[$key]['tags'] = $tags;
+
+// VERIFICATION QUE RESULTAT NON VIDE //
+if (empty($citation)) {
+  http_response_code(404);
+  $citation = "Cannot found movie with id {$query['idCitation']}.";
+}
+else {
+  http_response_code(200);
+}
+
+echo json_encode($citation);
+exit();
 
 }
 
@@ -186,7 +238,16 @@ public static function apiDeleteCitation(HTTPRequest $request)
   }
 
 
+  ////////////////////////////////////////////////////////////////
+  ///////////////////////////// ERROR //////////////////////////
+  //////////////////////////////////////////////////////////////
 
+  public static function throwAnError()
+   {
+     echo json_encode("An error occured.");
+     http_response_code(500);
+     exit();
+   }
 
 
 ?>
