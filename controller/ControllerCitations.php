@@ -332,16 +332,18 @@ public static function apiUpdateCitation(HTTPRequest $request)
 
 public static function apiDeleteCitation(HTTPRequest $request)
   {
-    $queryStmt = "DELETE FROM Citation WHERE id = $request[id]";
 
-    $stmt = MyPDO::getInstance()->prepare($queryStmt);
-    $stmt->execute(
-      array(
-        $id
-      )
-    );
+    $queryStmt1 = "DELETE FROM S2_TagCitation WHERE idCitation = :idcitation";
 
-    if ($stmt->rowCount() == 0) {
+    $stmt1 = MyPDO::getInstance()->prepare($queryStmt1);
+    $stmt1->execute(['idcitation' => $query['idCitation']);
+
+    $queryStmt2 = "DELETE FROM S2_Citations WHERE idCitation = :idcitation";
+
+    $stmt2 = MyPDO::getInstance()->prepare($queryStmt2);
+    $stmt2->execute(['idcitation' => $query['idCitation']);
+
+    if ($stmt2->rowCount() == 0) {
       return NULL;
     }
   }
