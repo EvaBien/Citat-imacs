@@ -13,20 +13,41 @@ require '../model/ModelTypesAuteur.php';
 
 public function apiCreateCitation(HTTPRequest $request)
   {
-    /////////////// CREATE OBJECT ////////////////
+    ////// VERIF/////
+    if (isset($_POST['contenu'])) {
+    $query["contenuCitation"] = $_POST['contenu'];
+}
+if (isset($_POST["date"])) {
+    $date = new DateTime($_POST["date"]);
+    $query["dateCitation"] = $date->format("d-m-Y");
+}
 
+if (isset($_POST['auteur'])) {
+    $query["auteurCitation"] = $_POST['auteur'];
+}
 
-    //////////////////// ADD TO DB //////////////
+if (isset($_POST['typeAuteur'])) {
+    $query["idTypeAuteur"] = $_POST['typeAuteur'];
+}
+    // Creation du nouvel objet//
+    $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
+
+    ////// ADD TO DB //////
     $stmt = MyPDO::getInstance()->prepare("INSERT INTO Citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);");
-    $queryStatus = $stmt->execute(
-      array(
-        $this->contenuCitation,
-        $this->dateCitation,
-        $this->auteurCitation,
-        $this->idTypeAuteur
-      )
-    );
-    $this->idCitation = MyPDO::getInstance()->lastInsertId();
+
+    $stmt->bindValue(1, $citation->contenu);
+    $stmt->bindValue(2, $citation->date);
+    $stmt->bindValue(3, $citation->auteur);
+    $stmt->bindValue(4, $citation->typeAuteur);
+
+    $queryStatus = $stmt->execute();
+
+    if ($queryStatus === false) {
+      self::throwAnError();
+    }
+    else {
+      $citation->id = MyPDO::getInstance()->lastInsertId();
+    }
 }
 
 
@@ -192,7 +213,7 @@ exit();
 ////////////////////// GET CITATION BY TAGS ///////////////////
 
 ////////////////////// GET CITATION BY KEYWORD ///////////////////
-public function apiGetCitationById(HttpRequest $request){
+public function apiGetCitationByKeyword(HttpRequest $request){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
 if ($method !== 'get') {
@@ -270,7 +291,8 @@ exit();
 ////////////////////// GET CITATION BY TYPEAUTEUR ///////////////////
 
 
-// CLEAN REQUEST ? //
+//////////////////// CLEAN TAB FOR UNIQUE CITATION /////////////////
+//if (array_key_exists('title', $query))
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// UPDATE //////////////////////////

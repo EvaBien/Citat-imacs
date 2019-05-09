@@ -16,7 +16,7 @@ class Citation {
     public function __construct($contenu, $date, $auteur, $typeAuteur){
                                   // Id auto
       $this->contenu=$contenu;
-      $this->date=new DateTime(); // A verifier
+      $this->date=$date; // A verifier
       $this->auteur=$auteur;
       $this->likes=0;
       $this->typeAuteur=$typeAuteur; // Lier à la table typeAuteur
