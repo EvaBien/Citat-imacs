@@ -25,6 +25,7 @@ function displayAllCitations(){
 
 
 
+
 // FONCTION LIKE CITATION
 
 //Pop up

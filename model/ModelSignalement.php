@@ -10,6 +10,7 @@ class signalement {
     private $messageSignalement;
     private $statutSignalement;
     private $idCitation;
+
     public function __construct($typeSignalement, $messageSignalement, $statutSignalement, $idCitation){
                                   // Id auto
       $this->idTypeSignalement=$typeSignalement;
