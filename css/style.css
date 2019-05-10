@@ -53,6 +53,9 @@ font-family: 'Miriam Libre', sans-serif;
     --cancel: #999999;
 }
 
+body, html{
+    height: 100%;
+}
 body{
     background-image: var(--bg);
     padding: 0 16.7% 15px 16.7%;
