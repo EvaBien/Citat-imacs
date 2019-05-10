@@ -416,3 +416,11 @@ nav h4{
     float: right;
     display: inline;
 }
+
+/*Admin page*/
+
+.pop-up{
+    display: none;
+    height: 150px;
+}
+
