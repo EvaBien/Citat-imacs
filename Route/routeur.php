@@ -6,7 +6,10 @@ require '../controller/ControllerTags.php';
 require '../controller/ControllerTypesAuteur.php';
 
 
-
+if (isset($_GET['action'])) {
+    if ($_GET['action'] == 'MONACTION') {
+        AppelFonction();
+    }
 
 
  ?>
