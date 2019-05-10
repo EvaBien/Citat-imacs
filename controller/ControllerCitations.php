@@ -371,7 +371,7 @@ foreach ($query['typesAuteur'] as $type){
 }
 
 $queryStmt = "SELECT * FROM S2_Citations
-  WHERE S2_Citations.typeAuteurCitation IN $typesList;" 
+  WHERE S2_Citations.typeAuteurCitation IN $typesList;"
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
