@@ -10,11 +10,11 @@ $request = $_SERVER['REDIRECT_URL'];
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'MONACTION') {
         AppelFonction();
-    }
+    } // Si on sait à l'avance
 
   switch ($request) {
     case '/' :
-    //    
+    //
         break;
     case '' :
         require __DIR__ . '/views/index.php';
