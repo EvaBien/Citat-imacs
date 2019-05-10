@@ -479,6 +479,25 @@ public static function apiUpdateCitation(HTTPRequest $request)
   }
 
 
+
+  public static function UpdateCitationLikes($likes)
+    {
+
+      $queryStmt = "UPDATE S2_Citations SET likesCitation= $likes WHERE idCitation = :id";
+
+      $stmt = MyPDO::getInstance()->prepare($queryStmt);
+      $stmt->execute(
+        array(
+          ':id'=>$query["idCitation"]
+        )
+      );
+
+      if ($stmt->rowCount() == 0) {
+        return NULL;
+      }
+    }
+
+
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// DELETE //////////////////////////
 //////////////////////////////////////////////////////////////
