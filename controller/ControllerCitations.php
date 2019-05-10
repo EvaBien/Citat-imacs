@@ -480,24 +480,6 @@ public static function apiUpdateCitation(HTTPRequest $request)
 
 
 
-  public static function UpdateCitationLikes($likes)
-    {
-
-      $queryStmt = "UPDATE S2_Citations SET likesCitation= $likes WHERE idCitation = :id";
-
-      $stmt = MyPDO::getInstance()->prepare($queryStmt);
-      $stmt->execute(
-        array(
-          ':id'=>$query["idCitation"]
-        )
-      );
-
-      if ($stmt->rowCount() == 0) {
-        return NULL;
-      }
-    }
-
-
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// DELETE //////////////////////////
 //////////////////////////////////////////////////////////////
@@ -521,6 +503,39 @@ public static function apiDeleteCitation(HTTPRequest $request)
     }
   }
 
+
+
+
+    ////////////////////////////////////////////////////////////////
+    ///////////////////////////// OTHER //////////////////////////
+    //////////////////////////////////////////////////////////////
+
+// Get likesCitation
+public static function GetCitationLikes($id)
+  {
+
+    $queryStmt = "SELECT likesCitation FROM S2_Citations WHERE idCitation = $id";
+
+    $stmt = MyPDO::getInstance()->prepare($queryStmt);
+    $stmt->execute();
+
+    exit();
+    }
+  }
+
+// Update likes citations
+    public static function UpdateCitationLikes($id, $likes)
+      {
+
+        $queryStmt = "UPDATE S2_Citations SET likesCitation= $likes WHERE idCitation = $id";
+
+        $stmt = MyPDO::getInstance()->prepare($queryStmt);
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 0) {
+          return NULL;
+        }
+      }
 
   ////////////////////////////////////////////////////////////////
   ///////////////////////////// ERROR //////////////////////////
