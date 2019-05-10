@@ -24,7 +24,7 @@
 		******************************* NAVBAR *****************************
 		**************************************************************** -->
 		<nav>
-			<button id="add_citation" class="button">ajouter une citation</button>
+			<button id="add_citation" class="button" onclick="addCitationPopUp()">ajouter une citation</button>
 
 			<section id="sort" class="sousbloc_left">
 				<h2>trier par</h2>
@@ -129,7 +129,7 @@
 		*************************** BLOCK CITATION *************************
 		**************************************************************** -->
 		<div id="block_citations">
-			<section class='one_citation'>
+			<section class='one_citation' id="1">
 				<div class='infos-citation'>
 					<ul class='list-tags'>
 						<li>race</li>
@@ -143,9 +143,9 @@
 					<p class='quote_author'>Pascale Ho - Prof</p>
 				</div>
 				<div class='commands-citation'>
-					<button class='like-button'>J'aime</button>
+					<button class='like-button' onclick="likeCitation()">J'aime</button>
 					<p class='number_likes'>46</p>
-					<a>signaler un problème</a>
+					<a onclick="signalPopUp()">signaler un problème</a>
 				</div>
 
 			</section>
@@ -157,13 +157,13 @@
 					</ul>
 
 					<p class='quote_date'>lundi 28 janvier 2019 à 18:06</p>
-					<p class='quote'>"Je suis la plus belle des salopes"</p>
+					<p class='quote'>"Je suis la plus forte des salopes"</p>
 					<p class='quote_author'>Délio - IMAC 2019</p>
 				</div>
 				<div class='commands-citation'>
 					<button class='like-button'>J'aime</button>
 					<p class='number_likes'>12</p>
-					<a>signaler un problème</a>
+					<a onclick="signalPopUp()">signaler un problème</a>
 				</div>
 			</section>
 		</div>
@@ -219,7 +219,7 @@
 				<label for = "popup_checkbox9" class="tag">sciences</label>
 
 			<button id="add_citation_form" class="button">ajouter</button>
-			<p class="cancel">Annuler</p>
+			<p class="cancel" onclick="cancelPopUp()">Annuler</p>
 		</form>
 	</div>
 
@@ -250,9 +250,9 @@
 		    <textarea name="message" class="text_input" id="" placeholder="Il y a une faute d'orthographe"></textarea>
 
 			<button id="send_citation_warning" class="button">Envoyer</button>
-			<p class="cancel">Annuler</p>
+			<p class="cancel" onclick="cancelPopUp()">Annuler</p>
 		</form>
 	</div>
-	<script type="text/javascript"></script>
+	<script type="text/javascript" src="js/search.js"></script>
 </body>
 </html>
