@@ -9,7 +9,7 @@ require '../model/ModelTypesSignalement.php';
 //////////////////////////////////////////////////////////////
 
 
-public function apiCreateSignalement(HTTPRequest $request)
+public function apiCreateSignalement(HTTPRequest $query)
 {
   ////// VERIF/////
   
@@ -38,12 +38,12 @@ public function apiCreateSignalement(HTTPRequest $request)
 
   ////////////////////// GET SIGNALEMENT BY ID ///////////////////
 
-  public function apiGetSignalementById(HttpRequest $request){
+  public function apiGetSignalementById(HttpRequest $query){
     // Penser à recupérer le signalement et la citation associée.
   }
 
   ////////////////////// GET ALL TYPES SIGNALEMENT ///////////////////
-  public function apiGetAllTypeSignalement(HttpRequest $request){
+  public function apiGetAllTypeSignalement(HttpRequest $query){
  // Pour récupérer dynamiquement
   }
 
@@ -52,7 +52,7 @@ public function apiCreateSignalement(HTTPRequest $request)
   ///////////////////////////// UPDATE //////////////////////////
   //////////////////////////////////////////////////////////////
 
-  public static function apiUpdateSignalement(HTTPRequest $request)
+  public static function apiUpdateSignalement(HTTPRequest $query)
     {
       // Sert uniquement à update le statut
     }
@@ -63,7 +63,7 @@ public function apiCreateSignalement(HTTPRequest $request)
     ///////////////////////////// OTHER //////////////////////////
     //////////////////////////////////////////////////////////////
 
-    public static function sendMailSignalement(HTTPRequest $request){
+    public static function sendMailSignalement(HTTPRequest $query){
       // A appeler quand on a créé le signalement
     }
 
