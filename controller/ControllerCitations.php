@@ -24,22 +24,21 @@ public function apiCreateCitation(HttpRequest $query)
       exit(); // Sinon je sors
   }
 
-
-if (isset($_POST['contenu'])) {
-    $query["contenuCitation"] = $_POST['contenu'];
-}
-if (isset($_POST["date"])) {
-    $date = new DateTime($_POST["date"]);
-    $query["dateCitation"] = $date->format("d-m-Y");
-}
-
-if (isset($_POST['auteur'])) {
-    $query["auteurCitation"] = $_POST['auteur'];
-}
-
-if (isset($_POST['typeAuteur'])) {
-    $query["idTypeAuteur"] = $_POST['typeAuteur'];
-}
+// if (isset($_POST['contenu'])) {
+//     $query["contenuCitation"] = $_POST['contenu'];
+// }
+// if (isset($_POST["date"])) {
+//     $date = new DateTime($_POST["date"]);
+//     $query["dateCitation"] = $date->format("d-m-Y");
+// }
+//
+// if (isset($_POST['auteur'])) {
+//     $query["auteurCitation"] = $_POST['auteur'];
+// }
+//
+// if (isset($_POST['typeAuteur'])) {
+//     $query["idTypeAuteur"] = $_POST['typeAuteur'];
+// }
     // Creation du nouvel objet//
     $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
 
