@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Citat'IMAC</title>
+	<title>Citat 'IMAC</title>
 	<link rel="stylesheet" type="text/css" href="css/normalize.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 	<link rel="icon" href="img/icon.png" sizes="16x16" type="image/png" />
@@ -12,7 +12,7 @@
 </head>
 <body>
 	<header>
-		<h1>Citat'IMAC</h1>
+		<h1>Citat 'IMAC</h1>
 	</header>
 	<div id="cover">
 
@@ -41,30 +41,30 @@
 					<div>
 						<section class="left_right">
 							<div class="input_display">
-							<input type="checkbox" name="" value="" checked> All
+							<input type="checkbox" name="navAuthorCheckbox" value="" checked onclick="handleAllAuthor()"> All
 							</div>
 							<div class="input_display">
-							<input type="checkbox" name="" value=""> Prof
+							<input type="checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()"> Prof
 							</div>
 							<div class="input_display">
-							<input type="checkbox" name="" value=""> IMAC 2021
+							<input type="checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()"> IMAC 2021
 							</div>
 							<div class="input_display">
-							<input type="checkbox" name="" value=""> IMAC 2020
+							<input type="checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()"> IMAC 2020
 							</div>
 						</section>
 						<section class="left_right">
 							<div class="input_display">
-								<input type="checkbox" name="" value=""> IMAC 2019
+								<input type="checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()"> IMAC 2019
 							</div>
 							<div class="input_display">
-								<input type="checkbox" name="" value=""> IMAC 2018
+								<input type="checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()"> IMAC 2018
 							</div>
 							<div class="input_display">
-								<input type="checkbox" name="" value=""> IMAC 2017
+								<input type="checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()"> IMAC 2017
 							</div>
 							<div class="input_display">
-								<input type="checkbox" name="" value=""> IMAC 100 av. BIRI
+								<input type="checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()"> IMAC 100 av. BIRI
 							</div>
 						</section>
 					</div>
@@ -72,41 +72,41 @@
 					<div id="Tags">
 						<section class="left_right">
 							<div class="input_display">
-								<input type="checkbox" id="checkbox1" class="tag_checkbox" value="" checked> <label for = "checkbox1" class="tag">all</label>
+								<input type="checkbox" id="checkbox1" name="navTagsCheckbox" class="tag_checkbox" value="" checked> <label for = "checkbox1" class="tag" onclick="handleAll()">all</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox2" class="tag_checkbox" value="">
-								<label for="checkbox2" class="tag">race</label>
+								<input type="checkbox" id="checkbox2" name="navTagsCheckbox" class="tag_checkbox" value="">
+								<label for="checkbox2" class="tag" onclick="checkedButAll()">race</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox3" class="tag_checkbox" value="">
-								<label for = "checkbox3" class="tag">crous</label>
+								<input type="checkbox" id="checkbox3" name="navTagsCheckbox" class="tag_checkbox" value="">
+								<label for = "checkbox3" class="tag" onclick="checkedButAll()">crous</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox4" class="tag_checkbox" value="">
-								<label for = "checkbox4" class="tag">titre</label>
+								<input type="checkbox" id="checkbox4" name="navTagsCheckbox" class="tag_checkbox" value="">
+								<label for = "checkbox4" class="tag" onclick="checkedButAll()">titre</label>
 							</div>
 						</section>
 						<section class="left_right">
 							<div class="input_display">
-								<input type="checkbox" id="checkbox5" class="tag_checkbox" value="">
-								<label for = "checkbox5" class="tag">shlag</label>
+								<input type="checkbox" id="checkbox5" name="navTagsCheckbox" class="tag_checkbox" value="">
+								<label for = "checkbox5" class="tag" onclick="checkedButAll()">shlag</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox6" class="tag_checkbox" value="">
-								<label for = "checkbox6" class="tag">love</label>
+								<input type="checkbox" id="checkbox6" name="navTagsCheckbox" class="tag_checkbox" value="">
+								<label for = "checkbox6" class="tag" onclick="checkedButAll()">love</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox7" class="tag_checkbox" value="">
-								<label for = "checkbox7" class="tag">sel</label>
+								<input type="checkbox" id="checkbox7" name="navTagsCheckbox" class="tag_checkbox" value="">
+								<label for = "checkbox7" class="tag" onclick="checkedButAll()">sel</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox8" class="tag_checkbox" value="">
-								<label for = "checkbox8" class="tag">arts</label>
+								<input type="checkbox" id="checkbox8" name="navTagsCheckbox" class="tag_checkbox" value="">
+								<label for = "checkbox8" class="tag" onclick="checkedButAll()">arts</label>
 							</div>
 							<div class="input_display">
-								<input type="checkbox" id="checkbox9" class="tag_checkbox" value="">
-								<label for = "checkbox9" class="tag">sciences</label>
+								<input type="checkbox" id="checkbox9" name="navTagsCheckbox" class="tag_checkbox" value="">
+								<label for = "checkbox9" class="tag" onclick="checkedButAll()">sciences</label>
 							</div>
 						</section>
 					</div>
@@ -185,9 +185,6 @@
 		    <label for="citation">Citation</label>
 		    <textarea name="citation" id="" placeholder="Calmez-vous !" class="text_input"></textarea>
 		    <label>Tags</label>
-			    <input type="checkbox" id="popup_checkbox1" class="tag_checkbox" value="" checked>
-			    <label for = "popup_checkbox1" class="tag">all</label>
-
 				<input type="checkbox" id="popup_checkbox2" class="tag_checkbox" value="">
 				<label for="popup_checkbox2" class="tag">race</label>
 

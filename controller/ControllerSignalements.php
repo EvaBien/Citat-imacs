@@ -9,11 +9,21 @@ require '../model/ModelTypesSignalement.php';
 //////////////////////////////////////////////////////////////
 
 
-public function apiCreateSignalement(HTTPRequest $request)
+public function apiCreateSignalement(HTTPRequest $query)
 {
   ////// VERIF/////
+  
+  // check HTTP method //
+  $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+  if ($method !== 'post') {
+      http_response_code(405);
+      echo json_encode(array('message' => 'This method is not allowed.'));
+      exit(); // Sinon je sors
+  }
 
-  // Creation du nouvel objet
+  // Creation du nouvel objet//
+  $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
+
   // ($typeSignalement, $messageSignalement, $statutSignalement, $idCitation)
 
   ////// ADD TO DB //////
@@ -28,12 +38,12 @@ public function apiCreateSignalement(HTTPRequest $request)
 
   ////////////////////// GET SIGNALEMENT BY ID ///////////////////
 
-  public function apiGetSignalementById(HttpRequest $request){
+  public function apiGetSignalementById(HttpRequest $query){
     // Penser à recupérer le signalement et la citation associée.
   }
 
   ////////////////////// GET ALL TYPES SIGNALEMENT ///////////////////
-  public function apiGetAllTypesSignalement(HttpRequest $request){
+  public function apiGetAllTypeSignalement(HttpRequest $query){
  // Pour récupérer dynamiquement
   }
 
@@ -42,7 +52,7 @@ public function apiCreateSignalement(HTTPRequest $request)
   ///////////////////////////// UPDATE //////////////////////////
   //////////////////////////////////////////////////////////////
 
-  public static function apiUpdateSignalement(HTTPRequest $request)
+  public static function apiUpdateSignalement(HTTPRequest $query)
     {
       // Sert uniquement à update le statut
     }
@@ -53,7 +63,7 @@ public function apiCreateSignalement(HTTPRequest $request)
     ///////////////////////////// OTHER //////////////////////////
     //////////////////////////////////////////////////////////////
 
-    public static function sendMailSignalement(HTTPRequest $request){
+    public static function sendMailSignalement(HTTPRequest $query){
       // A appeler quand on a créé le signalement
     }
 
