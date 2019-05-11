@@ -22,9 +22,7 @@ public function apiCreateSignalement(HTTPRequest $query)
   }
 
   // Creation du nouvel objet//
-  $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
-
-  // ($typeSignalement, $messageSignalement, $statutSignalement, $idCitation)
+  $signalement = new signalement($query['typeSignalement'],$query['messageSignalement'],$query['statutSignalement'],$query['idCitation']);
 
   ////// ADD TO DB //////
 
