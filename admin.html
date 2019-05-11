@@ -29,8 +29,9 @@
 			</div>
 		</section>
 		<section id="choice-signal">
-			<button id="choice-edit">Editer la citation</button>
-			<button id="choice-delete">Supprimer la citation</button>
+			<button id="choice-edit" onclick="editCitation()">Editer la citation</button>
+			<button id="choice-delete" onclick="delCitation()">Supprimer la citation</button>
+			<button id="choice-delete">Ne rien fairen</button>
 		</section>
 	</div>
 
@@ -54,7 +55,7 @@
 		    <textarea name="citation" id="" value="Texte citation" class="text_input"></textarea>
 			<label for="pass">Mot de passe administrateur</label><input type="password" name = "pass" id='pass' />
 			<button id="valid-edit" class="button">OK</button>
-			<p class="cancel">Annuler</p>
+			<p class="cancel" onclick="cancelPopUpAdmin()">Annuler</p>
 		</form>	
 	</div>
 
@@ -63,8 +64,10 @@
 		<form>
 			<label for="pass">Mot de passe administrateur</label><input type="password" name = "pass" id='pass2' />
 			<button id="valid-delete" class="ok_button_pop">OK</button>	
+			<p class="cancel" onclick="cancelPopUpAdmin()">Annuler</p>
 		</form>
 	</div>
-
+	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="js/signalement.js"></script>
 </body>
 </html>

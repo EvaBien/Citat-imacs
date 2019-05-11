@@ -315,7 +315,7 @@ nav h4{
     color: var(--colorButton);
 }
 
-.commands-citation button:hover{
+button:hover{
     cursor: pointer;
 }
 

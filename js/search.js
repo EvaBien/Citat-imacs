@@ -50,17 +50,9 @@ function addCitationPopUp(){
 
 // FONCTION ADD CITATION
 
-
-// ON CLICK BUTTON SIGNAL --> pop-up appear
-
-function signalPopUp(){
-  displayCover();
-  document.getElementById("pop_signal").style.display = "block";
-}
-
 //LIKE CITATION
 function getCitationLikes(id){
-  nb = 3 //Chercher dans la BDD
+  nb = 3 //Chercher dans la BDD à partir de l'ID
   return nb;
 }
 
@@ -68,15 +60,15 @@ function likeCitation(){
   button = event.target;
   divId = button.parentNode.parentNode.id;
   if(button.classList.contains('clicked')){
-    //On unlike                                                  BDD CHANGER
+    //On unlike, changer dans la BDD
     button.classList.remove("clicked");
-    numberLikes = getCitationLikes(divId);
-    likeDiv = button.parentNode.children[1];
-    //Changer ce qu'il y a dans la div
   }else{
     //On like
     button.classList.add("clicked");
   }
+  numberLikes = getCitationLikes(divId);
+  likeDiv = button.parentNode.children[1];
+   likeDiv.innerHTML = numberLikes;
   
 }
 
