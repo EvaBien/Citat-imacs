@@ -26,16 +26,6 @@
 		<nav>
 			<button id="add_citation" class="button" onclick="addCitationPopUp()">ajouter une citation</button>
 
-			<section id="sort" class="sousbloc_left">
-				<h2>trier par</h2>
-				<form id="sortForm" action="" method="" class="">
-					<select class="selectForm" name="">
-						<option value="date">Date du plus récent au plus ancien</option>
-						<option value="like">like</option>
-					</select>
-				</form>
-			</section>
-
 			<section id="search" class="sousbloc_left">
 				<h2>rechercher</h2>
 				<form id="searchForm" action="" method="" class="">
@@ -120,14 +110,18 @@
 							</div>
 						</section>
 					</div>
-					<button id="valid_search" class="button">valider</button>
+					<button id="valid_search" class="button" type="button">valider</button>
 				</form>
 			</section>
 		</nav>
 
 		<!-- ***************************************************************
 		*************************** BLOCK CITATION *************************
-		**************************************************************** -->
+		**************************************************************** 
+		NE PAS OUBLIER :
+			- dans le button J'aime, le onclick
+			- dans le signaler un pb, le onclick
+		-->
 		<div id="block_citations">
 			<section class='one_citation' id="1">
 				<div class='infos-citation'>
@@ -161,7 +155,7 @@
 					<p class='quote_author'>Délio - IMAC 2019</p>
 				</div>
 				<div class='commands-citation'>
-					<button class='like-button'>J'aime</button>
+					<button class='like-button' onclick="likeCitation()">J'aime</button>
 					<p class='number_likes'>12</p>
 					<a onclick="signalPopUp()">signaler un problème</a>
 				</div>
@@ -254,5 +248,6 @@
 		</form>
 	</div>
 	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="js/signalement.js"></script>
 </body>
 </html>
