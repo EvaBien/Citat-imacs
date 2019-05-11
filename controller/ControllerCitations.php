@@ -38,10 +38,10 @@ if (isset($_POST['typeAuteur'])) {
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-    $stmt->bindValue(1, $citation->contenu);
-    $stmt->bindValue(2, $citation->date);
-    $stmt->bindValue(3, $citation->auteur);
-    $stmt->bindValue(4, $citation->typeAuteur);
+    $stmt->bindValue(1, $citation->getContenu());
+    $stmt->bindValue(2, $citation->getDate());
+    $stmt->bindValue(3, $citation->getAuteur());
+    $stmt->bindValue(4, $citation->getTypeAuteur());
 
     $queryStatus = $stmt->execute();
 
