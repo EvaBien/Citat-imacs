@@ -10,6 +10,8 @@ require '../model/ModelTypesAuteur.php';
 ///////////////////////////// CREATE //////////////////////////
 //////////////////////////////////////////////////////////////
 
+
+//URL - POST : citations?new
 public function apiCreateCitation(HTTPRequest $request)
   {
     ////// VERIF/////
@@ -58,6 +60,7 @@ if (isset($_POST['typeAuteur'])) {
 
 
 ////////////////////// GET ALL CITATIONS ///////////////////
+//URL - GET : citations?all
 public function apiGetAllCitations(HTTPRequest $request){
   // check HTTP method //
   $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -122,6 +125,7 @@ SQL
 
 ////////////////////// GET CITATION BY ID ///////////////////
 
+//URL - GET : citations?id="id"
 public function apiGetCitationById(HttpRequest $request){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -205,6 +209,7 @@ exit();
 }
 
 ////////////////////// GET CITATION BY TAGS ///////////////////
+//URL - GET : citations?tags="tags"
 public function apiGetCitationByTags(HttpRequest $request){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -285,6 +290,7 @@ exit();
 
 
 //////////////////// GET CITATION BY KEYWORD /////////////////
+//URL - GET : citations?keyword="keyword"
 public function apiGetCitationByKeyword(HttpRequest $request){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -356,6 +362,7 @@ exit();
 }
 
 ////////////////////// GET CITATION BY TYPEAUTEUR ///////////////////
+//URL - GET : citations?typesAuteur="types"
 public function apiGetCitationByTags(HttpRequest $request){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -438,21 +445,26 @@ exit();
 //////////////////// REQUETES CRITERES MULTIPLES /////////////////
 
 ///////////// GET BY KEYWORD & TAGS & TYPEAUTEUR ///////////////
+//URL - GET : citations?keyword="keyword"&tags="tags"&typesAuteur="types"
 
 
 //////////////////// GET BY KEYWORD & TAGS ////////////////////
+//URL - GET : citations?keyword="keyword"&tags="tags"
 
 
 ////////////////// GET BY KEYWORD & TYPEAUTEUR ///////////////
+//URL - GET : citations?keyword="keyword"&typesAuteur="types"
 
 
 ////////////////// GET BY  TAGS & TYPEAUTEUR ///////////////
+//URL - GET : citations?tags="tags"&typesAuteur="types"
 
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// UPDATE //////////////////////////
 //////////////////////////////////////////////////////////////
 
+//URL - PUT : citations?id="id"
 public static function apiUpdateCitation(HTTPRequest $request)
   {
 
@@ -496,7 +508,7 @@ public static function apiUpdateCitation(HTTPRequest $request)
 ///////////////////////////// DELETE //////////////////////////
 //////////////////////////////////////////////////////////////
 
-
+//URL - DELETE : citations?id="id"
 public static function apiDeleteCitation(HTTPRequest $request)
   {
 
@@ -522,7 +534,14 @@ public static function apiDeleteCitation(HTTPRequest $request)
     ///////////////////////////// OTHER //////////////////////////
     //////////////////////////////////////////////////////////////
 
-// Get likesCitation
+
+//Verif mot de passe
+public static function verifMdp($string){
+
+}
+
+
+//URL - GET : citations?id="id"
 public static function GetCitationLikes($id)
   {
 
@@ -536,6 +555,7 @@ public static function GetCitationLikes($id)
   }
 
 // Update likes citations
+//URL - PUT : citations?id="id"
     public static function UpdateCitationLikes($id, $likes)
       {
 
