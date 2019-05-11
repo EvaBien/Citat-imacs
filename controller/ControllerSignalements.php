@@ -25,8 +25,23 @@ public function apiCreateSignalement(HTTPRequest $query)
   $signalement = new signalement($query['typeSignalement'],$query['messageSignalement'],$query['statutSignalement'],$query['idCitation']);
 
   ////// ADD TO DB //////
+  $queryStmt = "INSERT INTO signalement (typeSignalement, messageSignalement, statutSignalement, idCitation) VALUES (?, ?, ?, ?);"
 
+  $stmt = MyPDO::getInstance()->prepare($queryStmt);
+
+  $stmt->bindValue(1, $signalement->getTypeSignalement());
+  $stmt->bindValue(2, $signalement->getMessageSignalement());
+  $stmt->bindValue(3, $signalement->getStatutSignalement());
+  $stmt->bindValue(4, $signalement->getIdCitation());
+
+  $queryStatus = $stmt->execute();
+
+  if ($queryStatus === false) {
+    self::throwAnError();
+  } else {
+    $signalement->id = MyPDO::getInstance()->lastInsertId();
   }
+}
 
 
   ////////////////////////////////////////////////////////////////
