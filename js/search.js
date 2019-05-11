@@ -79,7 +79,7 @@ function likeCitation(){
 function handleAll() {
   /*C'est le statut avant qu'on clique qui est pris en compte*/
   if(!document.getElementById("checkbox1").checked){
-    var items = document.getElementsByName('navCheckbox');
+    var items = document.getElementsByName('navTagsCheckbox');
         for (var i = 1; i < items.length; i++) {
             if (items[i].type == 'checkbox')
                 items[i].checked = false;
@@ -89,7 +89,25 @@ function handleAll() {
 
 function checkedButAll(){
   if(document.getElementById("checkbox1").checked){
-    var items = document.getElementsByName('navCheckbox');
+    var items = document.getElementsByName('navTagsCheckbox');
         items[0].checked = false;
+  }
+}
+
+function handleAllAuthor() {
+  all = document.getElementsByName('navAuthorCheckbox')[0];
+  if(all.checked){
+    var items = document.getElementsByName('navAuthorCheckbox');
+        for (var i = 1; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = false;
+        }
+  }
+}
+
+function checkedButAllAuthor(){
+  all = document.getElementsByName('navAuthorCheckbox')[0];
+  if(all.checked){
+    all.checked = false;
   }
 }
