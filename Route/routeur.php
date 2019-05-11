@@ -25,10 +25,19 @@ if (isset($_GET['action'])) {
       apiCreateCitation($request);
         break;
     case '' :
-        require __DIR__ . '/views/index.php';
+    apiGetAllCitations($request); // GET ALL
         break;
     case '/' :
-        require __DIR__ . '/views/about.php';
+    apiGetCitationById($request); // Get By Id
+        break;
+    case '/' :
+    apiGetCitationByTags($request); // Get by Tags
+        break;
+    case '/' :
+    apiGetCitationByKeyword($request); // Get by keyword
+        break;
+    case '/' :
+    apiGetCitationByTypesAuteur($request); // Get by typesAuteur
         break;
     default:
       throwAnError($request);
