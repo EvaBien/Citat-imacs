@@ -20,8 +20,9 @@ if (isset($_GET['action'])) {
 //
 //
   switch ($request) {
-    case '/' :
-      AppelFonction();
+    /////CITATIONS//////
+    case '/' : // Create
+      apiCreateCitation($request);
         break;
     case '' :
         require __DIR__ . '/views/index.php';
