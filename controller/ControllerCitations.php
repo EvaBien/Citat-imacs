@@ -21,25 +21,24 @@ public function apiCreateCitation(HttpRequest $query)
   if ($method !== 'post') {
       http_response_code(405);
       echo json_encode(array('message' => 'This method is not allowed.'));
-      exit(); // SInon je sors
+      exit(); // Sinon je sors
   }
 
-
-if (isset($_POST['contenu'])) {
-    $query["contenuCitation"] = $_POST['contenu'];
-}
-if (isset($_POST["date"])) {
-    $date = new DateTime($_POST["date"]);
-    $query["dateCitation"] = $date->format("d-m-Y");
-}
-
-if (isset($_POST['auteur'])) {
-    $query["auteurCitation"] = $_POST['auteur'];
-}
-
-if (isset($_POST['typeAuteur'])) {
-    $query["idTypeAuteur"] = $_POST['typeAuteur'];
-}
+// if (isset($_POST['contenu'])) {
+//     $query["contenuCitation"] = $_POST['contenu'];
+// }
+// if (isset($_POST["date"])) {
+//     $date = new DateTime($_POST["date"]);
+//     $query["dateCitation"] = $date->format("d-m-Y");
+// }
+//
+// if (isset($_POST['auteur'])) {
+//     $query["auteurCitation"] = $_POST['auteur'];
+// }
+//
+// if (isset($_POST['typeAuteur'])) {
+//     $query["idTypeAuteur"] = $_POST['typeAuteur'];
+// }
     // Creation du nouvel objet//
     $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
 
@@ -927,7 +926,7 @@ if ($method !== 'get') {
 }
 
 //URL - GET : citations?id="id"
-public static function GetCitationLikes($id)
+public static function getCitationLikes(HttpRequest $query)
   {
 
     $queryStmt = "SELECT likesCitation FROM S2_Citations WHERE idCitation = $id";
@@ -941,7 +940,7 @@ public static function GetCitationLikes($id)
 
 // Update likes citations
 //URL - PUT : citations?id="id"
-    public static function UpdateCitationLikes($id, $likes)
+    public static function updateCitationLikes(HttpRequest $query)
       {
 
         // check HTTP method //
