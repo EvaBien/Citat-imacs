@@ -53,6 +53,9 @@ font-family: 'Miriam Libre', sans-serif;
     --cancel: #999999;
 }
 
+body, html{
+    height: 100%;
+}
 body{
     background-image: var(--bg);
     padding: 0 16.7% 15px 16.7%;
@@ -416,3 +419,27 @@ nav h4{
     float: right;
     display: inline;
 }
+
+/*Admin page*/
+
+.pop-up:target + #cover{
+    display: block;
+    opacity: 2;
+}
+
+.pop-up{
+    display: none;
+    top: 0;
+    width: 30%;
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    margin: auto;
+    margin-top: 10%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    text-align: center;
+    padding: 10px 3% 30px 3%;
+}
+
