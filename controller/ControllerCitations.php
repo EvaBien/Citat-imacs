@@ -12,7 +12,7 @@ require '../model/ModelTypesAuteur.php';
 
 
 //URL - POST : citations?new
-public function apiCreateCitation(HTTPRequest $request)
+public function apiCreateCitation(HttpRequest $query)
   {
     ////// VERIF/////
 if (isset($_POST['contenu'])) {
@@ -61,7 +61,7 @@ if (isset($_POST['typeAuteur'])) {
 
 ////////////////////// GET ALL CITATIONS ///////////////////
 //URL - GET : citations?all
-public function apiGetAllCitations(HTTPRequest $request){
+public function apiGetAllCitations(HttpRequest $query){
   // check HTTP method //
   $method = strtolower($_SERVER['REQUEST_METHOD']);
 
@@ -371,7 +371,7 @@ if ($method !== 'get') {
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit(); // SInon je sors
 }
-$typesList =''; 
+$typesList ='';
 foreach ($query['typesAuteur'] as $type){
   $typesList.=$type["idTypeAuteur"].', ';
 }
@@ -460,7 +460,7 @@ foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
 }
 $tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
-$typesList =''; 
+$typesList ='';
 foreach ($query['typesAuteur'] as $type){
   $typesList.=$type["idTypeAuteur"].', ';
 }
@@ -468,7 +468,7 @@ $typesList=substr($typesList,-2);
 
 $queryStmt = "SELECT * FROM S2_Citations
 WHERE idCitation IN (
-  SELECT idCitation FROM S2_TagCitation 
+  SELECT idCitation FROM S2_TagCitation
   JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
   WHERE S2_Tags.nomTags IN :tags
 )
@@ -560,7 +560,7 @@ $tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
 $queryStmt = "SELECT * FROM S2_Citations
 WHERE idCitation IN (
-  SELECT idCitation FROM S2_TagCitation 
+  SELECT idCitation FROM S2_TagCitation
   JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
   WHERE S2_Tags.nomTags IN :tags
 )
@@ -641,7 +641,7 @@ if ($method !== 'get') {
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit(); // SInon je sors
 }
-$typesList =''; 
+$typesList ='';
 foreach ($query['typesAuteur'] as $type){
   $typesList.=$type["idTypeAuteur"].', ';
 }
@@ -728,7 +728,7 @@ if ($method !== 'get') {
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit(); // SInon je sors
 }
-$typesList =''; 
+$typesList ='';
 foreach ($query['typesAuteur'] as $type){
   $typesList.=$type["idTypeAuteur"].', ';
 }
@@ -743,7 +743,7 @@ $tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
 $queryStmt = "SELECT * FROM S2_Citations
 WHERE idCitation IN (
-  SELECT idCitation FROM S2_TagCitation 
+  SELECT idCitation FROM S2_TagCitation
   JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
   WHERE S2_Tags.nomTags IN :tags
 )
@@ -817,7 +817,7 @@ exit();
 //////////////////////////////////////////////////////////////
 
 //URL - PUT : citations?id="id"
-public static function apiUpdateCitation(HTTPRequest $request)
+public static function apiUpdateCitation(HttpRequest $query)
   {
 
     if (isset($_POST['contenu'])) {
@@ -861,7 +861,7 @@ public static function apiUpdateCitation(HTTPRequest $request)
 //////////////////////////////////////////////////////////////
 
 //URL - DELETE : citations?id="id"
-public static function apiDeleteCitation(HTTPRequest $request)
+public static function apiDeleteCitation(HttpRequest $query)
   {
 
     $queryStmt1 = "DELETE FROM S2_TagCitation WHERE idCitation = :idcitation";
