@@ -573,9 +573,9 @@ public static function GetCitationLikes($id)
   ///////////////////////////// ERROR //////////////////////////
   //////////////////////////////////////////////////////////////
 
-  public static function throwAnError()
+  public static function throwAnError($request)
    {
-     echo json_encode("An error occured.");
+     echo json_encode("An error occured. \n" $request);
      http_response_code(500);
      exit();
    }

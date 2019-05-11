@@ -21,16 +21,16 @@ if (isset($_GET['action'])) {
 //
   switch ($request) {
     case '/' :
-    //
+      AppelFonction();
         break;
     case '' :
         require __DIR__ . '/views/index.php';
         break;
-    case '/about' :
+    case '/' :
         require __DIR__ . '/views/about.php';
         break;
     default:
-        require __DIR__ . '/views/404.php';
+      throwAnError($request);
         break;
 }
 
