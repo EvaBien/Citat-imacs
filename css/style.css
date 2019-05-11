@@ -433,6 +433,10 @@ button:hover{
     display: inline;
 }
 
+.cancel:hover, .commands-citation a{
+    cursor: pointer;
+}
+
 /*Admin page*/
 
 .pop-up:target + #cover{
