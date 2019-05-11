@@ -23,66 +23,66 @@ $request = $_SERVER['REDIRECT_URL'];
 //
   switch ($request) {
     /////CITATIONS//////
-    case '/' : // Create
+    case '/citations/New' : // Create
       apiCreateCitation($request);
         break;
-    case '' :
+    case '/citations/All' :
       apiGetAllCitations($request); // GET ALL
         break;
-    case '/' :
+    case '/citations/Id' :
       apiGetCitationById($request); // Get By Id
         break;
-    case '/' :
+    case '/citations/Tags' :
       apiGetCitationByTags($request); // Get by Tags
         break;
-    case '/' :
+    case '/citations/Keyword' :
       apiGetCitationByKeyword($request); // Get by keyword
         break;
-    case '/' :
+    case '/citations/Typesauteur' :
       apiGetCitationByTypeAuteur($request); // Get by typesAuteur
         break;
-    case '/' :
+    case '/citations/Allfactors' :
       apiGetCitationByAll($request); // Get by typesAut+keyword+tags
         break;
-    case '/' :
+    case '/citations/TagsKeyword' :
       apiGetCitationByTagsAndKeyword($request); // Get by tags & keywords
         break;
-    case '/' :
+    case '/citations/TypesauteurKeyword' :
       apiGetCitationByTypeAuteurAndKeyword($request); // Get by typesAuteur & keyword
         break;
-    case '/' :
+    case '/citations/TypesauteurTags' :
       apiGetCitationByTypeAuteurAndTags($request); // Get by typesAuteur & Tags
         break;
-    case '/' :
+    case '/citations/Update' :
       apiUpdateCitation($request); // Update
         break;
-    case '/' :
+    case '/citations/Delete' :
       apiDeleteCitation($request); // Delete
         break;
-    case '/' :
+    case '/citations/GetLikes' :
       getCitationLikes($request); // get citation likes
         break;
-    case '/' :
+    case '/citations/UpdateLikes' :
       updateCitationLikes($request); // Update citation likes
         break;
         ///////////// ALL TAGS AND AUTEURS /////////////
-    case '/' :
+    case '/tags/All' :
       apiGetAllTags($request); // Get All Tags
             break;
-    case '/' :
+    case '/typesAuteur/All' :
       apiGetAllTypeAuteurs($request); // Get AlL TypesAuteur
             break;
         //////////////// SIGNALEMENTS /////////
-    case '/' :
+    case '/signalement/New' :
       apiCreateSignalement($request); // Create Signalement
             break;
-    case '/' :
+    case '/signalement/Id' :
       apiGetSignalementById($request); // Get By id
             break;
-    case '/' :
+    case '/signalement/Update' :
       apiUpdateSignalement($request); // Update signalement
             break;
-    case '/' :
+    case '/signalement/Send' :
         sendMailSignalement($request); // Send Mail
             break;
     default:
