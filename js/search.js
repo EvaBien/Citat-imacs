@@ -1,7 +1,7 @@
 
-document.ready( () => {
+/*document.ready( () => {
   displayAllCitations();
-});
+});*/
 
 /****************************************************/
 ///////////////// TYPES DE RECHERCHES ///////////////
@@ -73,3 +73,23 @@ function likeCitation(){
 }
 
 // FONCTION SEND SIGNALEMENT
+
+//ALL CHECKED OR NOT
+
+function handleAll() {
+  /*C'est le statut avant qu'on clique qui est pris en compte*/
+  if(!document.getElementById("checkbox1").checked){
+    var items = document.getElementsByName('navCheckbox');
+        for (var i = 1; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = false;
+        }
+  }
+}
+
+function checkedButAll(){
+  if(document.getElementById("checkbox1").checked){
+    var items = document.getElementsByName('navCheckbox');
+        items[0].checked = false;
+  }
+}
