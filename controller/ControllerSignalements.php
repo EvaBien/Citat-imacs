@@ -12,8 +12,18 @@ require '../model/ModelTypesSignalement.php';
 public function apiCreateSignalement(HTTPRequest $request)
 {
   ////// VERIF/////
+  
+  // check HTTP method //
+  $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+  if ($method !== 'post') {
+      http_response_code(405);
+      echo json_encode(array('message' => 'This method is not allowed.'));
+      exit(); // Sinon je sors
+  }
 
-  // Creation du nouvel objet
+  // Creation du nouvel objet//
+  $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
+
   // ($typeSignalement, $messageSignalement, $statutSignalement, $idCitation)
 
   ////// ADD TO DB //////
@@ -33,7 +43,7 @@ public function apiCreateSignalement(HTTPRequest $request)
   }
 
   ////////////////////// GET ALL TYPES SIGNALEMENT ///////////////////
-  public function apiGetAllTypesSignalement(HttpRequest $request){
+  public function apiGetAllTypeSignalement(HttpRequest $request){
  // Pour récupérer dynamiquement
   }
 
@@ -53,7 +63,7 @@ public function apiCreateSignalement(HTTPRequest $request)
     ///////////////////////////// OTHER //////////////////////////
     //////////////////////////////////////////////////////////////
 
-    public static function sendSignalement(HTTPRequest $request){
+    public static function sendMailSignalement(HTTPRequest $request){
       // A appeler quand on a créé le signalement
     }
 

@@ -21,7 +21,7 @@ public function apiCreateCitation(HttpRequest $query)
   if ($method !== 'post') {
       http_response_code(405);
       echo json_encode(array('message' => 'This method is not allowed.'));
-      exit(); // SInon je sors
+      exit(); // Sinon je sors
   }
 
 
