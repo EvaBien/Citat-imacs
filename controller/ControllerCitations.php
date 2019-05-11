@@ -213,11 +213,11 @@ if ($method !== 'get') {
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit();
 }
-$tagsList ='';
-foreach ($query['Tags'] as $tag){
-  $tagsList+=$tag["nomTag"].', ';
-  $tagsList=substr($tagsList,-2)
+$tagsList =''; // Je fais une liste avec mes tags
+foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
+  $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
 }
+$tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
 $queryStmt = "SELECT * FROM S2_Citations
   INNER JOIN S2_TagCitations ON S2_TagCitation.idCitation = S2_Tags.idCitation
@@ -367,8 +367,9 @@ if ($method !== 'get') {
 $typesList ='';
 foreach ($query['typesAuteur'] as $type){
   $typesList+=$tag["idTypeAuteur"].', ';
-  $typesList=substr($typesList,-2)
 }
+$typesList=substr($typesList,-2);
+
 
 $queryStmt = "SELECT * FROM S2_Citations
   WHERE S2_Citations.typeAuteurCitation IN $typesList;"
@@ -437,6 +438,7 @@ exit();
 //////////////////// REQUETES CRITERES MULTIPLES /////////////////
 
 ///////////// GET BY KEYWORD & TAGS & TYPEAUTEUR ///////////////
+
 
 //////////////////// GET BY KEYWORD & TAGS ////////////////////
 
