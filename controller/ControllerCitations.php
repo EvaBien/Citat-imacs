@@ -373,13 +373,13 @@ if ($method !== 'get') {
 }
 $typesList ='';
 foreach ($query['typesAuteur'] as $type){
-  $typesList+=$tag["idTypeAuteur"].', ';
+  $typesList.=$type["idTypeAuteur"].', ';
 }
 $typesList=substr($typesList,-2);
 
 
 $queryStmt = "SELECT * FROM S2_Citations
-  WHERE S2_Citations.typeAuteurCitation IN $typesList;"
+  WHERE S2_Citations.idTypeAuteur IN $typesList;"
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
