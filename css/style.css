@@ -38,11 +38,13 @@ font-family: 'Miriam Libre', sans-serif;
     /*Tags*/
     --borderTags: #fdd31c;
     --bgTags: #FDDA3E;
+    --borderTagsAuthor: grey;
     --colorButton: #874EDD;
     --labelBg: white;
     --labelColor: #adadad;
     --labelColorChecked: white;
     --borderTagsFocus: #ffebcc;
+    --borderTagsFocusAuthor: #f2f2f2;
 
     /*Block de citation*/
     --colorInfos: #a6a6a6;
@@ -54,7 +56,7 @@ font-family: 'Miriam Libre', sans-serif;
 }
 
 body, html{
-    height: 100%;
+    height: auto;
 }
 body{
     background-image: var(--bg);
@@ -231,6 +233,13 @@ nav h4{
     transition: all .2s;
 }
 
+#author .tag_checkbox:checked + .tag{
+    border: 2px solid var(--labelColor);
+    background-color: var(--labelBg);
+    color: var(--labelColor);
+    transition: all .2s;
+}
+
 .tag_checkbox{
   display: absolute;
   position: absolute;
@@ -239,6 +248,10 @@ nav h4{
 
 .tag_checkbox:focus + .tag{
   border: 2px solid var(--borderTagsFocus);
+}
+
+#author .tag_checkbox:focus + .tag{
+  border: 2px solid var(--borderTagsFocusAuthor);
 }
 
 #block_citations{
