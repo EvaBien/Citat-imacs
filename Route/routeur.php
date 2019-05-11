@@ -7,10 +7,12 @@ require '../controller/ControllerTypesAuteur.php';
 
 $request = $_SERVER['REDIRECT_URL'];
 
-if (isset($_GET['action'])) {
-    if ($_GET['action'] == 'MONACTION') {
-        AppelFonction();
-    } // Si on sait à l'avance
+// $action=$_GET['action'];
+
+// $request = '';
+// if(isset($_GET['url'])) {
+//     $url = $_GET['url'];
+// }
 
 
 
@@ -43,25 +45,25 @@ if (isset($_GET['action'])) {
       apiGetCitationByAll($request); // Get by typesAut+keyword+tags
         break;
     case '/' :
-      apiGetCitationByTagsAndKeyword($request); // Get by typesAuteur
+      apiGetCitationByTagsAndKeyword($request); // Get by tags & keywords
         break;
     case '/' :
-      apiGetCitationByTypeAuteurAndKeyword($request); // Get by typesAuteur
+      apiGetCitationByTypeAuteurAndKeyword($request); // Get by typesAuteur & keyword
         break;
     case '/' :
-      apiGetCitationByTypeAuteurAndTags($request); // Get by typesAuteur
+      apiGetCitationByTypeAuteurAndTags($request); // Get by typesAuteur & Tags
         break;
     case '/' :
-      apiUpdateCitation($request); // Get by typesAuteur
+      apiUpdateCitation($request); // Update
         break;
     case '/' :
-      apiDeleteCitation($request); // Get by typesAuteur
+      apiDeleteCitation($request); // Delete
         break;
     case '/' :
-      getCitationLikes($request); // Get by typesAuteur
+      getCitationLikes($request); // get citation likes
         break;
     case '/' :
-      updateCitationLikes($request); // Get by typesAuteur
+      updateCitationLikes($request); // Update citation likes
         break;
         ///////////// ALL TAGS AND AUTEURS /////////////
     case '/' :
@@ -72,16 +74,16 @@ if (isset($_GET['action'])) {
             break;
         //////////////// SIGNALEMENTS /////////
     case '/' :
-      apiCreateSignalement($request); // Get AlL TypesAuteur
+      apiCreateSignalement($request); // Create Signalement
             break;
     case '/' :
-      apiGetSignalementById($request); // Get AlL TypesAuteur
+      apiGetSignalementById($request); // Get By id
             break;
     case '/' :
-      apiUpdateSignalement($request); // Get AlL TypesAuteur
+      apiUpdateSignalement($request); // Update signalement
             break;
     case '/' :
-        sendMailSignalement($request); // Get AlL TypesAuteur
+        sendMailSignalement($request); // Send Mail
             break;
     default:
       throwAnError($request);
