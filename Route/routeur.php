@@ -37,7 +37,13 @@ if (isset($_GET['action'])) {
     apiGetCitationByKeyword($request); // Get by keyword
         break;
     case '/' :
-    apiGetCitationByTypesAuteur($request); // Get by typesAuteur
+    apiGetCitationByTypeAuteur($request); // Get by typesAuteur
+        break;
+    case '/' :
+    apiGetCitationByAll($request); // Get by typesAut+keyword+tags
+        break;
+    case '/' :
+    apiGetCitationByTypeAuteur($request); // Get by typesAuteur
         break;
     default:
       throwAnError($request);

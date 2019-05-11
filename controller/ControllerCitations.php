@@ -15,6 +15,16 @@ require '../model/ModelTypesAuteur.php';
 public function apiCreateCitation(HttpRequest $query)
   {
     ////// VERIF/////
+
+    // check HTTP method //
+  $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+  if ($method !== 'post') {
+      http_response_code(405);
+      echo json_encode(array('message' => 'This method is not allowed.'));
+      exit(); // SInon je sors
+  }
+
+
 if (isset($_POST['contenu'])) {
     $query["contenuCitation"] = $_POST['contenu'];
 }
@@ -820,20 +830,28 @@ exit();
 public static function apiUpdateCitation(HttpRequest $query)
   {
 
-    if (isset($_POST['contenu'])) {
-        $query["contenuCitation"] = $_POST['contenu'];
+    // check HTTP method //
+  $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+  if ($method !== 'put') {
+      http_response_code(405);
+      echo json_encode(array('message' => 'This method is not allowed.'));
+      exit(); // SInon je sors
+  }
+
+    if (isset($_PUT['contenu'])) {
+        $query["contenuCitation"] = $_PUT['contenu'];
     }
-    if (isset($_POST["date"])) {
-        $date = new DateTime($_POST["date"]);
+    if (isset($_PUT["date"])) {
+        $date = new DateTime($_PUT["date"]);
         $query["dateCitation"] = $date->format("d-m-Y");
     }
 
-    if (isset($_POST['auteur'])) {
-        $query["auteurCitation"] = $_POST['auteur'];
+    if (isset($_PUT['auteur'])) {
+        $query["auteurCitation"] = $_PUT['auteur'];
     }
 
-    if (isset($_POST['typeAuteur'])) {
-        $query["idTypeAuteur"] = $_POST['typeAuteur'];
+    if (isset($_PUT['typeAuteur'])) {
+        $query["idTypeAuteur"] = $_PUT['typeAuteur'];
     }
     // Ajouter les else --> même valeur
 
@@ -864,6 +882,14 @@ public static function apiUpdateCitation(HttpRequest $query)
 public static function apiDeleteCitation(HttpRequest $query)
   {
 
+    // check HTTP method //
+  $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+  if ($method !== 'delete') {
+      http_response_code(405);
+      echo json_encode(array('message' => 'This method is not allowed.'));
+      exit(); // SInon je sors
+  }
+
     $queryStmt1 = "DELETE FROM S2_TagCitation WHERE idCitation = :idcitation";
 
     $stmt1 = MyPDO::getInstance()->prepare($queryStmt1);
@@ -892,6 +918,13 @@ public static function verifMdp($string){
 
 }
 
+// check HTTP method //
+$method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+if ($method !== 'get') {
+  http_response_code(405);
+  echo json_encode(array('message' => 'This method is not allowed.'));
+  exit(); // SInon je sors
+}
 
 //URL - GET : citations?id="id"
 public static function GetCitationLikes($id)
@@ -910,6 +943,14 @@ public static function GetCitationLikes($id)
 //URL - PUT : citations?id="id"
     public static function UpdateCitationLikes($id, $likes)
       {
+
+        // check HTTP method //
+      $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+      if ($method !== 'put') {
+          http_response_code(405);
+          echo json_encode(array('message' => 'This method is not allowed.'));
+          exit(); // SInon je sors
+      }
 
         $queryStmt = "UPDATE S2_Citations SET likesCitation= $likes WHERE idCitation = $id";
 
