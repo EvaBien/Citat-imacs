@@ -53,7 +53,7 @@ public function apiCreateSignalement(HTTPRequest $request)
     ///////////////////////////// OTHER //////////////////////////
     //////////////////////////////////////////////////////////////
 
-    public static function sendMailSignalement(HTTPRequest $request){
+    public static function sendSignalement(HTTPRequest $request){
       // A appeler quand on a créé le signalement
     }
 

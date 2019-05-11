@@ -927,7 +927,7 @@ if ($method !== 'get') {
 }
 
 //URL - GET : citations?id="id"
-public static function GetCitationLikes($id)
+public static function getCitationLikes(HttpRequest $query)
   {
 
     $queryStmt = "SELECT likesCitation FROM S2_Citations WHERE idCitation = $id";
@@ -941,7 +941,7 @@ public static function GetCitationLikes($id)
 
 // Update likes citations
 //URL - PUT : citations?id="id"
-    public static function UpdateCitationLikes($id, $likes)
+    public static function updateCitationLikes(HttpRequest $query)
       {
 
         // check HTTP method //

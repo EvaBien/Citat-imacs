@@ -25,26 +25,64 @@ if (isset($_GET['action'])) {
       apiCreateCitation($request);
         break;
     case '' :
-    apiGetAllCitations($request); // GET ALL
+      apiGetAllCitations($request); // GET ALL
         break;
     case '/' :
-    apiGetCitationById($request); // Get By Id
+      apiGetCitationById($request); // Get By Id
         break;
     case '/' :
-    apiGetCitationByTags($request); // Get by Tags
+      apiGetCitationByTags($request); // Get by Tags
         break;
     case '/' :
-    apiGetCitationByKeyword($request); // Get by keyword
+      apiGetCitationByKeyword($request); // Get by keyword
         break;
     case '/' :
-    apiGetCitationByTypeAuteur($request); // Get by typesAuteur
+      apiGetCitationByTypeAuteur($request); // Get by typesAuteur
         break;
     case '/' :
-    apiGetCitationByAll($request); // Get by typesAut+keyword+tags
+      apiGetCitationByAll($request); // Get by typesAut+keyword+tags
         break;
     case '/' :
-    apiGetCitationByTypeAuteur($request); // Get by typesAuteur
+      apiGetCitationByTagsAndKeyword($request); // Get by typesAuteur
         break;
+    case '/' :
+      apiGetCitationByTypeAuteurAndKeyword($request); // Get by typesAuteur
+        break;
+    case '/' :
+      apiGetCitationByTypeAuteurAndTags($request); // Get by typesAuteur
+        break;
+    case '/' :
+      apiUpdateCitation($request); // Get by typesAuteur
+        break;
+    case '/' :
+      apiDeleteCitation($request); // Get by typesAuteur
+        break;
+    case '/' :
+      getCitationLikes($request); // Get by typesAuteur
+        break;
+    case '/' :
+      updateCitationLikes($request); // Get by typesAuteur
+        break;
+        ///////////// ALL TAGS AND AUTEURS /////////////
+    case '/' :
+      apiGetAllTags($request); // Get All Tags
+            break;
+    case '/' :
+      apiGetAllTypeAuteurs($request); // Get AlL TypesAuteur
+            break;
+        //////////////// SIGNALEMENTS /////////
+    case '/' :
+      apiCreateSignalement($request); // Get AlL TypesAuteur
+            break;
+    case '/' :
+      apiGetSignalementById($request); // Get AlL TypesAuteur
+            break;
+    case '/' :
+      apiUpdateSignalement($request); // Get AlL TypesAuteur
+            break;
+    case '/' :
+        sendMailSignalement($request); // Get AlL TypesAuteur
+            break;
     default:
       throwAnError($request);
         break;
