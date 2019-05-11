@@ -12,6 +12,13 @@ if (isset($_GET['action'])) {
         AppelFonction();
     } // Si on sait à l'avance
 
+
+
+//https://www.primfx.com/tuto-php-creer-router-479/
+
+//https://www.grafikart.fr/tutoriels/router-628
+//
+//
   switch ($request) {
     case '/' :
     //

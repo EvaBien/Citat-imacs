@@ -10,6 +10,8 @@ require '../model/ModelTypesAuteur.php';
 ///////////////////////////// CREATE //////////////////////////
 //////////////////////////////////////////////////////////////
 
+
+//URL - POST : citations?new
 public function apiCreateCitation(HTTPRequest $request)
   {
     ////// VERIF/////
@@ -58,6 +60,7 @@ if (isset($_POST['typeAuteur'])) {
 
 
 ////////////////////// GET ALL CITATIONS ///////////////////
+//URL - GET : citations?all
 public function apiGetAllCitations(HTTPRequest $request){
   // check HTTP method //
   $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -122,6 +125,7 @@ SQL
 
 ////////////////////// GET CITATION BY ID ///////////////////
 
+//URL - GET : citations?id="id"
 public function apiGetCitationById(HttpRequest $request){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -205,6 +209,7 @@ exit();
 }
 
 ////////////////////// GET CITATION BY TAGS ///////////////////
+//URL - GET : citations?tags="tags"
 public function apiGetCitationByTags(HttpRequest $request){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -213,11 +218,11 @@ if ($method !== 'get') {
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit();
 }
-$tagsList ='';
-foreach ($query['Tags'] as $tag){
-  $tagsList+=$tag["nomTag"].', ';
-  $tagsList=substr($tagsList,-2)
+$tagsList =''; // Je fais une liste avec mes tags
+foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
+  $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
 }
+$tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
 $queryStmt = "SELECT * FROM S2_Citations
   INNER JOIN S2_TagCitations ON S2_TagCitation.idCitation = S2_Tags.idCitation
@@ -285,6 +290,7 @@ exit();
 
 
 //////////////////// GET CITATION BY KEYWORD /////////////////
+//URL - GET : citations?keyword="keyword"
 public function apiGetCitationByKeyword(HttpRequest $request){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -356,6 +362,7 @@ exit();
 }
 
 ////////////////////// GET CITATION BY TYPEAUTEUR ///////////////////
+//URL - GET : citations?typesAuteur="types"
 public function apiGetCitationByTags(HttpRequest $request){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
@@ -366,12 +373,13 @@ if ($method !== 'get') {
 }
 $typesList ='';
 foreach ($query['typesAuteur'] as $type){
-  $typesList+=$tag["idTypeAuteur"].', ';
-  $typesList=substr($typesList,-2)
+  $typesList.=$type["idTypeAuteur"].', ';
 }
+$typesList=substr($typesList,-2);
+
 
 $queryStmt = "SELECT * FROM S2_Citations
-  WHERE S2_Citations.typeAuteurCitation IN $typesList;"
+  WHERE S2_Citations.idTypeAuteur IN $typesList;"
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -433,14 +441,30 @@ exit();
 }
 
 
+///////////////////////////////////////////////////////////////////
+//////////////////// REQUETES CRITERES MULTIPLES /////////////////
 
-//////////////////// CLEAN TAB FOR UNIQUE CITATION /////////////////
-//if (array_key_exists('title', $query))
+///////////// GET BY KEYWORD & TAGS & TYPEAUTEUR ///////////////
+//URL - GET : citations?keyword="keyword"&tags="tags"&typesAuteur="types"
+
+
+//////////////////// GET BY KEYWORD & TAGS ////////////////////
+//URL - GET : citations?keyword="keyword"&tags="tags"
+
+
+////////////////// GET BY KEYWORD & TYPEAUTEUR ///////////////
+//URL - GET : citations?keyword="keyword"&typesAuteur="types"
+
+
+////////////////// GET BY  TAGS & TYPEAUTEUR ///////////////
+//URL - GET : citations?tags="tags"&typesAuteur="types"
+
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// UPDATE //////////////////////////
 //////////////////////////////////////////////////////////////
 
+//URL - PUT : citations?id="id"
 public static function apiUpdateCitation(HTTPRequest $request)
   {
 
@@ -484,7 +508,7 @@ public static function apiUpdateCitation(HTTPRequest $request)
 ///////////////////////////// DELETE //////////////////////////
 //////////////////////////////////////////////////////////////
 
-
+//URL - DELETE : citations?id="id"
 public static function apiDeleteCitation(HTTPRequest $request)
   {
 
@@ -510,7 +534,14 @@ public static function apiDeleteCitation(HTTPRequest $request)
     ///////////////////////////// OTHER //////////////////////////
     //////////////////////////////////////////////////////////////
 
-// Get likesCitation
+
+//Verif mot de passe
+public static function verifMdp($string){
+
+}
+
+
+//URL - GET : citations?id="id"
 public static function GetCitationLikes($id)
   {
 
@@ -524,6 +555,7 @@ public static function GetCitationLikes($id)
   }
 
 // Update likes citations
+//URL - PUT : citations?id="id"
     public static function UpdateCitationLikes($id, $likes)
       {
 
