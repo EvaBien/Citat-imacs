@@ -20,17 +20,33 @@ if (isset($_GET['action'])) {
 //
 //
   switch ($request) {
-    case '/' :
-    //
+    /////CITATIONS//////
+    case '/' : // Create
+      apiCreateCitation($request);
         break;
     case '' :
-        require __DIR__ . '/views/index.php';
+    apiGetAllCitations($request); // GET ALL
         break;
-    case '/about' :
-        require __DIR__ . '/views/about.php';
+    case '/' :
+    apiGetCitationById($request); // Get By Id
+        break;
+    case '/' :
+    apiGetCitationByTags($request); // Get by Tags
+        break;
+    case '/' :
+    apiGetCitationByKeyword($request); // Get by keyword
+        break;
+    case '/' :
+    apiGetCitationByTypeAuteur($request); // Get by typesAuteur
+        break;
+    case '/' :
+    apiGetCitationByAll($request); // Get by typesAut+keyword+tags
+        break;
+    case '/' :
+    apiGetCitationByTypeAuteur($request); // Get by typesAuteur
         break;
     default:
-        require __DIR__ . '/views/404.php';
+      throwAnError($request);
         break;
 }
 

@@ -33,7 +33,7 @@ public function apiCreateSignalement(HTTPRequest $request)
   }
 
   ////////////////////// GET ALL TYPES SIGNALEMENT ///////////////////
-  public function apiGetAllTypeSignalement(HttpRequest $request){
+  public function apiGetAllTypesSignalement(HttpRequest $request){
  // Pour récupérer dynamiquement
   }
 
