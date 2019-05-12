@@ -3,14 +3,38 @@ require 'MyPDO.citatimac.include.php';
 require 'ControllerTypeSignalement.php';
 require 'ControllerCitation.php';
 
-
+/**
+* Class Signalement
+* Gère les signalement des citations
+*/
 class signalement {
+    /**
+    * @var int id du signalement
+    */
     private $id;
+    /** 
+    * @var int id du type de signalement
+    */
     private $idTypeSignalement;
+    /**
+    * @var string message de la personne ayant signalé
+    */
     private $messageSignalement;
+    /**
+    * @var string état du signalement (traité/pas traité)
+    */
     private $statutSignalement;
+    /**
+    * @var int id de la citation signalée
+    */
     private $idCitation;
 
+    /**
+    * @param int $typeSignalement id du type de signalement
+    * @param string $messageSignalement message de la personne ayant signalé
+    * @param string $statutSignalement état du signalement
+    * @param int $idCitation id de la citaion signalé
+    */
     public function __construct($typeSignalement, $messageSignalement, $statutSignalement, $idCitation){
                                   // Id auto
       $this->idTypeSignalement=$typeSignalement;
@@ -24,6 +48,9 @@ class signalement {
     //////////////////////////// GETTERS //////////////////////////
     //////////////////////////////////////////////////////////////
 
+  /**
+  * @return json encode
+  */
   function getSignalement(){
     $formatted = array(
       'idSignal'=> $this->id,
@@ -36,22 +63,37 @@ class signalement {
     return json_encode($formatted);
   }
 
+  /**
+  * @return int
+  */
   function getIdSignalement(){
     return $this->id;
   }
 
+  /**
+  * @return int
+  */
   function getTypeSignalement(){
     return $this->îdTypeSignalement;
   }
 
+  /**
+  * @return string
+  */
   function getMessageSignalement(){
     return $this->messageSignalement;
   }
 
+  /**
+  * @return string
+  */
   function getStatutSignalement(){
     return  $this->statutSignalement;
   }
 
+  /**
+  * @return int
+  */
   function getIdCitation(){
     return $this->idCitation;
   }
@@ -83,5 +125,6 @@ class signalement {
       $this->idCitation=$citation;
     }
 }
+
 
 ?>
