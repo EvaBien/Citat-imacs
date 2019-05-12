@@ -3,16 +3,42 @@ require 'MyPDO.citatimac.include.php';
 date_default_timezone_set('UTC');
 
 
-
+/**
+* Class Signalement
+* Gère les citations
+*/
 class Citation {
-
+    /**
+    * @var int id de la citation
+    */
     private $id;
+    /** 
+    * @var string contenu de la citation
+    */
     private $contenu;
+    /**
+    * @var date date d'ajout de la citation
+    */
     private $date;
+    /**
+    * @var strin auteur de la citation
+    */
     private $auteur;
+    /**
+    * @var int nombre de likes de la citation
+    */
     private $likes;
+    /**
+    * @var int id du type d'auteur de la citation
+    */
     private $typeAuteur;
 
+    /**
+    * @param string $contenu Contenu de la citation
+    * @param date $date Date d'ajout de la citation
+    * @param string $auteur Auteur de la citation
+    * @param int $typeAuteur Id du type d'auteur de la citation
+    */
     public function __construct($contenu, $date, $auteur, $typeAuteur){
                                   // Id auto
       $this->contenu=$contenu;
@@ -28,6 +54,9 @@ class Citation {
 //////////////////////////// GETTERS //////////////////////////
 //////////////////////////////////////////////////////////////
 
+  /**
+  * @return json encode
+  */
   function getCitation(){
     $formatted = array(
       'idCita'=> $this->id,
@@ -41,26 +70,44 @@ class Citation {
     return json_encode($formatted);
   }
 
+  /**
+  * @return int
+  */
   function getIdCitation(){
     return $this->id;
   }
 
+  /**
+  * @return string
+  */
   function getContenuCitation(){
     return $this->contenu=$contenu;
   }
 
+  /**
+  * @return date
+  */
   function getDateCitation(){
     return $this->date=$date;
   }
 
+  /**
+  * @return string
+  */
   function getAuteurCitation(){
     return $this->auteur=$auteur;
   }
 
+  /**
+  * @return int
+  */
   function getLikesCitation(){
     return $this->likes=$likes;
   }
 
+  /**
+  * @return int
+  */
   function getTypeAuteurCitation(){
     return $this->typeAuteur=$typeAuteur;
   }
