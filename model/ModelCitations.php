@@ -4,7 +4,7 @@ date_default_timezone_set('UTC');
 
 
 /**
-* Class Signalement
+* Class Citation
 * Gère les citations
 */
 class Citation {
