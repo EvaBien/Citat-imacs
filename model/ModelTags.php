@@ -21,7 +21,7 @@ class tags {
 
     /**
     * @param string $nomTag Nom du tag
-    * @param int $likesTag Nombre de like du tag
+    * @param int $likesTag Nombre de likes du tag
     */
     public function __construct( $nomTag, $likesTag){
                                   // Id auto

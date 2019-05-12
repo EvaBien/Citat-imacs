@@ -3,12 +3,24 @@ require 'MyPDO.citatimac.include.php';
 require 'ModelCitations.php';
 require 'ModelTags.php';
 
-
-
-
+/**
+* Class tagCitation
+* Gère les tags d'une citation
+*/
 class tagCitation {
+    /**
+    * @var int id de la citation
+    */
     private $idCitation;
+    /**
+    * @var int id du tag
+    */
     private $idTag;
+
+    /**
+    * @param int $idTag Id du tag
+    * @param int $idCitation Id de la citation
+    */
     public function __construct($idTag, $idCitation){
                                   // Id auto
       $this->idTag=$idTag; //Lier à la table Tags
@@ -20,6 +32,9 @@ class tagCitation {
     //////////////////////////// GETTERS //////////////////////////
     //////////////////////////////////////////////////////////////
 
+  /**
+  * @return json encode
+  */
   function getTagCitation(){
       $formatted = array(
         'tag'=> $this->idTag,
@@ -29,10 +44,16 @@ class tagCitation {
       return json_encode($formatted);
   }
 
+  /**
+  * @return int
+  */
   function getIdCitation(){
     return $this->idCitation;
   }
 
+  /**
+  * @return int
+  */
   function getIdTag(){
     return $this->idTag;
   }
