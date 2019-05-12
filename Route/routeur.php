@@ -1,10 +1,12 @@
 <?php
+
+function chooseRoute(){
 header("Content-Type: application/json; charset=UTF-8");
 require '../controller/ControllerCitations.php';
 require '../controller/ControllerSignalements.php';
 require '../controller/ControllerTags.php';
 require '../controller/ControllerTypesAuteur.php';
-require '../controller/ControllerSignalements.php';
+require '../controller/ControllerTypesSignalements.php';
 
 echo "\n TEST GET \n \n";
 var_dump($_GET);
@@ -16,11 +18,8 @@ echo " \n TEST DELETE \n \n";
 var_dump($_DELETE);
 // $action=$_GET['action'];
 
-$url = $_SERVER['REDIRECT_URL'];
-
-
-
-
+$url = $_SERVER['REDIRECT_URL']; // ?? OU RECUPERER LA REQUETE
+$request='???';
 
 //https://www.primfx.com/tuto-php-creer-router-479/
 
@@ -102,5 +101,6 @@ $url = $_SERVER['REDIRECT_URL'];
         break;
 }
 
+}
 
  ?>

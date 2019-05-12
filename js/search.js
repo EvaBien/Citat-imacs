@@ -1,6 +1,7 @@
-
+import '../Route/routeur.php'
 /*document.ready( () => {
   displayAllCitations();
+
 });*/
 //
 // var monElement = document.querySelector('.oJSON').getAttribute('data-edimestre');
@@ -16,9 +17,9 @@
 
 function displayAllCitations(){
 
-  fetch("./controller/ControllerCitations/getAllCitations") // à corriger si cela ne fonctionne pas
-    .then( response => response.json() )
-    .then( data => {
+  fetch("./getAllCitations")
+    .then( response => chooseRoute('./getAllCitations') ) //??
+    .then(data => {
       let citations = document.getElementById('list-citations');
       data.forEach( citation => {
         // Afficher élements
