@@ -21,7 +21,7 @@ class Citation {
     */
     private $date;
     /**
-    * @var strin auteur de la citation
+    * @var string auteur de la citation
     */
     private $auteur;
     /**

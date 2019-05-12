@@ -30,10 +30,10 @@ class signalement {
     private $idCitation;
 
     /**
-    * @param int $typeSignalement id du type de signalement
-    * @param string $messageSignalement message de la personne ayant signalé
-    * @param string $statutSignalement état du signalement
-    * @param int $idCitation id de la citaion signalé
+    * @param int $typeSignalement Id du type de signalement
+    * @param string $messageSignalement Message de la personne ayant signalé
+    * @param string $statutSignalement État du signalement
+    * @param int $idCitation Id de la citaion signalé
     */
     public function __construct($typeSignalement, $messageSignalement, $statutSignalement, $idCitation){
                                   // Id auto
