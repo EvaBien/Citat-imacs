@@ -9,7 +9,7 @@ require '../model/ModelTags.php';
 
 ///////////////////////// GET ALL TAGS //////////////////////
 // Pour mettre les champs dynamiquement dans search
-public function apiGetAllTags(HTTPRequest $request){
+public function apiGetAllTags(HTTPRequest $query){
    // check HTTP method //
   $method = strtolower($_SERVER['REQUEST_METHOD']);
 
@@ -22,10 +22,17 @@ public function apiGetAllTags(HTTPRequest $request){
   http_response_code(200);
 
   ////SEARCH TAGS IN DB ////
-  $typeAuteur = array();
+  $tags = array();
   $queryStmt = "SELECT * FROM S2_Tags;"
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
+
+  while (($row = $stmt->fetch()) !== false) {
+  	array_push($tags, $row); // Ajoute chaque citation au tableau citations
+  }
+  echo json_encode($tags);
+
+
   exit();
 }
 

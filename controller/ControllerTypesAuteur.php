@@ -9,7 +9,7 @@ require '../model/ModelTypesAuteur.php';
 
 ///////////////////////// GET ALL TYPES AUTEUR //////////////////////
 // Pour mettre les champs dynamiquement dans search
-public function apiGetAllTypeAuteurs(HTTPRequest $request){
+public function apiGetAllTypeAuteurs(HTTPRequest $query){
    // check HTTP method //
   $method = strtolower($_SERVER['REQUEST_METHOD']);
 
@@ -26,6 +26,11 @@ public function apiGetAllTypeAuteurs(HTTPRequest $request){
   $queryStmt = "SELECT * FROM S2_TypesAuteur;"
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
+
+  while (($row = $stmt->fetch()) !== false) {
+    array_push($typeAuteur, $row); // Ajoute chaque citation au tableau citations
+  }
+  echo json_encode($typeAuteur);
   exit();
 }
 

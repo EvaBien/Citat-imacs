@@ -4,6 +4,7 @@ require '../controller/ControllerCitations.php';
 require '../controller/ControllerSignalements.php';
 require '../controller/ControllerTags.php';
 require '../controller/ControllerTypesAuteur.php';
+require '../controller/ControllerSignalements.php';
 
 $request = $_SERVER['REDIRECT_URL'];
 
@@ -65,12 +66,15 @@ $request = $_SERVER['REDIRECT_URL'];
     case '/citations/UpdateLikes' :
       updateCitationLikes($request); // Update citation likes
         break;
-        ///////////// ALL TAGS AND AUTEURS /////////////
+        ///////////// ALL TAGS, TYPESAUTEURS & TYPESSIGNALEMENTS /////////////
     case '/tags/All' :
       apiGetAllTags($request); // Get All Tags
             break;
     case '/typesAuteur/All' :
       apiGetAllTypeAuteurs($request); // Get AlL TypesAuteur
+            break;
+    case '/typesSignalement/All' :
+      apiGetAllTypesSignalement($request); // GetAllTypesSignalement
             break;
         //////////////// SIGNALEMENTS /////////
     case '/signalement/New' :
