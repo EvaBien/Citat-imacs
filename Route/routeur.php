@@ -6,14 +6,19 @@ require '../controller/ControllerTags.php';
 require '../controller/ControllerTypesAuteur.php';
 require '../controller/ControllerSignalements.php';
 
-$request = $_SERVER['REDIRECT_URL'];
-
+echo "\n TEST GET \n \n";
+var_dump($_GET);
+echo " \n TEST POST \n \n";
+var_dump($_POST);
+echo "\n TEST PUT \n";
+var_dump($_PUT);
+echo " \n TEST DELETE \n \n";
+var_dump($_DELETE);
 // $action=$_GET['action'];
 
-// $request = '';
-// if(isset($_GET['url'])) {
-//     $url = $_GET['url'];
-// }
+$url = $_SERVER['REDIRECT_URL'];
+
+
 
 
 
@@ -21,8 +26,11 @@ $request = $_SERVER['REDIRECT_URL'];
 
 //https://www.grafikart.fr/tutoriels/router-628
 //
-//
-  switch ($request) {
+///// TOUS LES URLS POSSIBLES /////
+  switch ($url) {
+  case '' : // Create
+  apiGetAllCitations($request); // GET ALL
+      break;
     /////CITATIONS//////
     case '/citations/New' : // Create
       apiCreateCitation($request);

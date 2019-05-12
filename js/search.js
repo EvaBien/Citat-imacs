@@ -2,6 +2,11 @@
 /*document.ready( () => {
   displayAllCitations();
 });*/
+//
+// var monElement = document.querySelector('.oJSON').getAttribute('data-edimestre');
+// var monJSON = JSON.parse(monElement); // Ici le miracle sans jQuery!
+// alert(monJSON.nom); // Retourne : Oznog
+// alert(monJSON.fonction); // Retourne : Analyste-programmeur
 
 /****************************************************/
 ///////////////// TYPES DE RECHERCHES ///////////////
@@ -69,7 +74,7 @@ function likeCitation(){
   numberLikes = getCitationLikes(divId);
   likeDiv = button.parentNode.children[1];
    likeDiv.innerHTML = numberLikes;
-  
+
 }
 
 // FONCTION SEND SIGNALEMENT
