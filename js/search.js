@@ -1,7 +1,12 @@
+import '../Route/routeur.php'
 
-/*document.ready( () => {
-  displayAllCitations();
-});*/
+
+
+
+
+
+
+
 //
 // var monElement = document.querySelector('.oJSON').getAttribute('data-edimestre');
 // var monJSON = JSON.parse(monElement); // Ici le miracle sans jQuery!
@@ -9,16 +14,20 @@
 // alert(monJSON.fonction); // Retourne : Analyste-programmeur
 
 /****************************************************/
-///////////////// TYPES DE RECHERCHES ///////////////
+////////////////////// APPELS API ////////////////////
 /****************************************************/
 
-// FONCTION ALL CITATIONS
-
+//////////////////// ALL CITATIONS ///////////////////
 function displayAllCitations(){
+  let url = './getAllCitations'; // Mon url
 
-  fetch("./controller/ControllerCitations/getAllCitations") // à corriger si cela ne fonctionne pas
-    .then( response => response.json() )
-    .then( data => {
+  var request = {
+      url :  url,
+      method: 'GET'
+  }
+
+  fetch(chooseRoute(request))
+    .then(data => {
       let citations = document.getElementById('list-citations');
       data.forEach( citation => {
         // Afficher élements
@@ -28,14 +37,33 @@ function displayAllCitations(){
   }
 
 
+  /*******************************************************/
+  /////////////////// GESTION EVENEMENTS /////////////////
+  /******************************************************/
+
+  //////////////////// PAR DEFAUT ///////////////////
+
+  document.ready( () => {
+    displayAllCitations();
+    displayAllTags();
+    displayAllTypesAuteur();
+  });
+
+  //////////////////// ADD CITATION  ///////////////////
+      //////////////// POP UP APPEAR ///////////
+
+
+      //////////////// POP UP VANISH ///////////
+
+
+        /////////// VALID NEW CITATION ////////
+
+
+  /////////////////// RECHERCHES - CAS  ///////////////////
 
 
 
-// FONCTION LIKE CITATION
-
-//Pop up
-
-
+//Pop up citation
 function displayCover(){
   document.getElementById("cover").style.display = "block";
 }
