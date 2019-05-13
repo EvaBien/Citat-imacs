@@ -917,13 +917,13 @@ if ($method !== 'get') {
 }
 
 //URL - GET : citations?id="id"
-public static function getCitationLikes(HttpRequest $query)
+public static function getCitationLikes($idCitation)
   {
 
-    $queryStmt = "SELECT likesCitation FROM S2_Citations WHERE idCitation = :id";
+    $queryStmt = "SELECT likesCitation FROM S2_Citations WHERE idCitation = :idCitation";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
-    $stmt->execute('id'=>$query['idCitation']);
+    $stmt->execute('idCitation'=>$idCitation);
 
     exit();
     }
@@ -931,7 +931,7 @@ public static function getCitationLikes(HttpRequest $query)
 
 // Update likes citations
 //URL - PUT : citations?id="id"
-    public static function updateCitationLikes(HttpRequest $query)
+    public static function updateCitationLikes($idCitation, $likes)
       {
 
         // check HTTP method //
@@ -947,8 +947,8 @@ public static function getCitationLikes(HttpRequest $query)
         $stmt = MyPDO::getInstance()->prepare($queryStmt);
         $stmt->execute(
           array(
-            'newlikes' =>$query['newLikes'],
-            'id'=>$query['idCitation']
+            'newlikes' =>$likes,
+            'id'=>$idCitation
           )
         );
 

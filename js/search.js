@@ -41,13 +41,20 @@ function displayAllCitations(){
   /////////////////// GESTION EVENEMENTS /////////////////
   /******************************************************/
 
-  //////////////////// PAR DEFAUT ///////////////////
+  //////////////////// AU CHARGEMENT ///////////////////
 
   document.ready( () => {
     displayAllCitations();
     displayAllTags();
     displayAllTypesAuteur();
   });
+
+
+  //////////////////// FONCTION GENERE CITATIONS ///////////////////
+
+  function genereCitation(dataCitations){
+
+  }
 
   //////////////////// ADD CITATION  ///////////////////
       //////////////// POP UP APPEAR ///////////
@@ -83,25 +90,20 @@ function addCitationPopUp(){
 
 // FONCTION ADD CITATION
 
-//LIKE CITATION
-function getCitationLikes(id){
-  nb = 3 //Chercher dans la BDD à partir de l'ID
-  return nb;
-}
-
 function likeCitation(){
+  currentLikes = getCitationLikes(divId);
   button = event.target;
   divId = button.parentNode.parentNode.id;
   if(button.classList.contains('clicked')){
-    //On unlike, changer dans la BDD
+    updateCitationLikes(divId, currentLikes-1); //On unlike, changer dans la BDD
     button.classList.remove("clicked");
   }else{
-    //On like
+    updateCitationLikes(divId, currentLikes+1);//On like
     button.classList.add("clicked");
   }
   numberLikes = getCitationLikes(divId);
   likeDiv = button.parentNode.children[1];
-   likeDiv.innerHTML = numberLikes;
+  likeDiv.innerHTML = numberLikes;
 
 }
 
