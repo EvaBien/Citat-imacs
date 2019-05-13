@@ -27,12 +27,7 @@ function displayAllCitations(){
   }
 
   fetch(chooseRoute(request))
-    .then(data => {
-      let citations = document.getElementById('list-citations');
-      data.forEach( citation => {
-        // Afficher élements
-      });
-    })
+    .then(genereCitation(data))
     .catch(error => { console.log(error) });
   }
 
@@ -52,8 +47,63 @@ function displayAllCitations(){
 
   //////////////////// FONCTION GENERE CITATIONS ///////////////////
 
-  function genereCitation(dataCitations){
+  function genereCitation(dataCitation){
+    var data = JSON.parse(dataCitation);
+    data.forEarch(citation => {
+      let block = document.getElementById("block_citations");
+      let section_block = "<section class=\'one_citation\' idCitation=\"".data.idCitation."\"></section>"
+      let info_block = "<div class=\'infos-citation\'></div>";
+      let commands_block="div class=\'commands-citation\'></div>"
 
+      //// Remplissage premier DIV : info_block ////
+
+      // On remplit les tags //
+      let tags_block = "<ul class=\'list-tags\'></ul>";
+      citation.tags.forEarch(tag=>{
+        let tagnom=tag.nomTag;
+        let one_tag = "<li>".tagnom."</li>"; // On ajoute les tags
+        tags_block.appendChild(one_tag);
+      });
+
+      // On remplit la date //
+      let date = citation.dateCitation;
+      let date_block = "<p class=\'quote_date\'>".date."</p>";
+
+      // On remplit la citation //
+      let contenu = citation.contenuCitation;
+      let quote_block = "<p class=\'quote\'>".contenu."</p>";
+
+      // On remplit l'auteur + Le type //
+      let auteur = citation.auteurCitation;
+      let typeauteur = citation.typeAuteur.nomTypeAuteur;
+      let author_block = "<p class=\'quote_author\'>".auteur."-\- ".typeauteur."</p>";
+
+      // On met tout dans le div  info_block
+      info_block.appendChild(tags_block);
+      info_block.appendChild(date_block);
+      info_block.appendChild(quote_block);
+      info_block.appendChild(author_block);
+
+      //// Remplissage second DIV : commands_block ////
+
+      // On remplit bouton like //
+      let liker_block ="<button class=\'like-button\' onclick=\"likeCitation()\">J\'aime</button>";
+
+      // On remplit le nombre de like //
+      let nblikes = citation.likesCitation;
+      let likes_block = "<p class=\'number_likes\'>".nblikes."</p>";
+
+      // On remplit le bouton signalement //
+      let signal_block =  "<a onclick=\"signalPopUp()\">signaler un problème</a>"
+
+      // On met le tout dans le div command_block //
+      commands_block.appendChild(liker_block);
+      commands_block.appendChild(likes_block);
+      commands_block.appendChild(signal_block);
+
+    /// On ajoute la section au block global ///
+    block.appendChild(section_block);
+    });
   }
 
   //////////////////// ADD CITATION  ///////////////////
@@ -91,8 +141,9 @@ function addCitationPopUp(){
 // FONCTION ADD CITATION
 
 function likeCitation(){
-  currentLikes = getCitationLikes(divId);
   button = event.target;
+  divId=button.parentElement.parentElement.getAttribut(idCitation); // On récupère l'id
+  currentLikes = getCitationLikes(divId);
   divId = button.parentNode.parentNode.id;
   if(button.classList.contains('clicked')){
     updateCitationLikes(divId, currentLikes-1); //On unlike, changer dans la BDD
