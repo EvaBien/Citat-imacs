@@ -18,16 +18,42 @@ import '../Route/routeur.php'
 /****************************************************/
 
 //////////////////// ALL CITATIONS ///////////////////
-function displayAllCitations(){
-  let url = './getAllCitations'; // Mon url
-
+function AllTags(){
+  let url = './getAllTags'; // Mon url
   var request = {
       url :  url,
       method: 'GET'
   }
 
   fetch(chooseRoute(request))
-    .then(genereCitation(data))
+    .then(displayAllTags(data))
+    .catch(error => { console.log(error) });
+  }
+
+//////////////////// ALL CITATIONS ///////////////////
+
+function AllTypesAuteur(){
+  let url = './getAllTypesAuteur'; // Mon url
+  var request = {
+      url :  url,
+      method: 'GET'
+  }
+
+  fetch(chooseRoute(request))
+    .then(displayAllTypesAuteur(data))
+    .catch(error => { console.log(error) });
+  }
+
+//////////////////// ALL CITATIONS ///////////////////
+function AllCitations(){
+  let url = './getAllCitations'; // Mon url
+  var request = {
+      url :  url,
+      method: 'GET'
+  }
+
+  fetch(chooseRoute(request))
+    .then(displayCitation(data))
     .catch(error => { console.log(error) });
   }
 
@@ -39,15 +65,15 @@ function displayAllCitations(){
   //////////////////// AU CHARGEMENT ///////////////////
 
   document.ready( () => {
-    displayAllCitations();
-    displayAllTags();
-    displayAllTypesAuteur();
+    AllCitations();
+    AllTags();
+    AllTypesAuteur();
   });
 
+//////////////////////////////////////////////////////////////////
+  //////////////// FONCTION AFFICHE CITATIONS ////////////////
 
-  //////////////////// FONCTION GENERE CITATIONS ///////////////////
-
-  function genereCitation(dataCitation){
+  function displayCitation(dataCitation){
     var data = JSON.parse(dataCitation);
     data.forEarch(citation => {
       let block = document.getElementById("block_citations");
@@ -106,94 +132,108 @@ function displayAllCitations(){
     });
   }
 
-  //////////////////// ADD CITATION  ///////////////////
-      //////////////// POP UP APPEAR ///////////
+//////////////////////////////////////////////////////////////////
+  /////////////////// FONCTION AFFICHE TAGS NAV ///////////////
+  function displayAllTags(dataTags){
+    var data = JSON.parse(dataTags);
+    data.forEarch(tag => {
 
+    });
+  }
+
+  //////////////////////////////////////////////////////////////////
+    ///////////// FONCTION AFFICHE TYPES AUTEUR NAV /////////////
+function displayAllTypesAuteur(dataTypes){
+  var data = JSON.parse(dataTypes);
+  data.forEarch(type => {
+
+  });
+}
+
+//////////////////////////////////////////////////////////////////
+  //////////////////// GESTION DES CHECKED ///////////////////
+
+  function handleAll() {
+    /*C'est le statut avant qu'on clique qui est pris en compte*/
+    if(!document.getElementById("checkbox1").checked){
+      var items = document.getElementsByName('navTagsCheckbox');
+          for (var i = 1; i < items.length; i++) {
+              if (items[i].type == 'checkbox')
+                  items[i].checked = false;
+          }
+    }
+  }
+
+  function checkedButAll(){
+    if(document.getElementById("checkbox1").checked){
+      var items = document.getElementsByName('navTagsCheckbox');
+          items[0].checked = false;
+    }
+  }
+
+  function handleAllAuthor() {
+    all = document.getElementsByName('navAuthorCheckbox')[0];
+    if(all.checked){
+      var items = document.getElementsByName('navAuthorCheckbox');
+          for (var i = 1; i < items.length; i++) {
+              if (items[i].type == 'checkbox')
+                  items[i].checked = false;
+          }
+    }
+  }
+
+  function checkedButAllAuthor(){
+    all = document.getElementsByName('navAuthorCheckbox')[0];
+    if(all.checked){
+      all.checked = false;
+    }
+  }
+
+
+
+//////////////////////////////////////////////////////////////////
+  /////////////////////// CITATION (ADD) //////////////////////
+
+      //////////////// POP UP APPEAR ///////////
+      function addCitationPopUp(){
+        displayCover();
+        document.getElementById("pop_new_citation").style.display = "block";
+      }
+
+      function displayCover(){
+        document.getElementById("cover").style.display = "block";
+      }
 
       //////////////// POP UP VANISH ///////////
-
+      function cancelPopUp(){
+        document.getElementById("cover").style.display = "none";
+        document.getElementById("pop_new_citation").style.display = "none";
+        document.getElementById("pop_signal").style.display = "none";
+      }
 
         /////////// VALID NEW CITATION ////////
+      function callAddCitation(){
+        // Appel API Create
+      }
 
-
-  /////////////////// RECHERCHES - CAS  ///////////////////
-
-
-
-//Pop up citation
-function displayCover(){
-  document.getElementById("cover").style.display = "block";
-}
-
-function cancelPopUp(){
-  document.getElementById("cover").style.display = "none";
-  document.getElementById("pop_new_citation").style.display = "none";
-  document.getElementById("pop_signal").style.display = "none";
-}
-
-// ON CLICK BUTTON ADD CITATION --> pop-up appear
-
-function addCitationPopUp(){
-  displayCover();
-  document.getElementById("pop_new_citation").style.display = "block";
-}
-
-// FONCTION ADD CITATION
-
-function likeCitation(){
-  button = event.target;
-  divId=button.parentElement.parentElement.getAttribut(idCitation); // On récupère l'id
-  currentLikes = getCitationLikes(divId);
-  divId = button.parentNode.parentNode.id;
-  if(button.classList.contains('clicked')){
-    updateCitationLikes(divId, currentLikes-1); //On unlike, changer dans la BDD
-    button.classList.remove("clicked");
-  }else{
-    updateCitationLikes(divId, currentLikes+1);//On like
-    button.classList.add("clicked");
-  }
-  numberLikes = getCitationLikes(divId);
-  likeDiv = button.parentNode.children[1];
-  likeDiv.innerHTML = numberLikes;
-
-}
-
-// FONCTION SEND SIGNALEMENT
-
-//ALL CHECKED OR NOT
-
-function handleAll() {
-  /*C'est le statut avant qu'on clique qui est pris en compte*/
-  if(!document.getElementById("checkbox1").checked){
-    var items = document.getElementsByName('navTagsCheckbox');
-        for (var i = 1; i < items.length; i++) {
-            if (items[i].type == 'checkbox')
-                items[i].checked = false;
+      /////////// LIKES CITATIONS ////////
+      function likeCitation(){
+        button = event.target;
+        divId=button.parentElement.parentElement.getAttribut(idCitation); // On récupère l'id
+        currentLikes = getCitationLikes(divId);
+        divId = button.parentNode.parentNode.id;
+        if(button.classList.contains('clicked')){
+          updateCitationLikes(divId, currentLikes-1); //On unlike, changer dans la BDD
+          button.classList.remove("clicked");
+        }else{
+          updateCitationLikes(divId, currentLikes+1);//On like
+          button.classList.add("clicked");
         }
-  }
-}
+        numberLikes = getCitationLikes(divId);
+        likeDiv = button.parentNode.children[1];
+        likeDiv.innerHTML = numberLikes;
+      }
 
-function checkedButAll(){
-  if(document.getElementById("checkbox1").checked){
-    var items = document.getElementsByName('navTagsCheckbox');
-        items[0].checked = false;
-  }
-}
 
-function handleAllAuthor() {
-  all = document.getElementsByName('navAuthorCheckbox')[0];
-  if(all.checked){
-    var items = document.getElementsByName('navAuthorCheckbox');
-        for (var i = 1; i < items.length; i++) {
-            if (items[i].type == 'checkbox')
-                items[i].checked = false;
-        }
-  }
-}
-
-function checkedButAllAuthor(){
-  all = document.getElementsByName('navAuthorCheckbox')[0];
-  if(all.checked){
-    all.checked = false;
-  }
-}
+  //////////////////////////////////////////////////////////////////
+    ///////////////// CRITERES DE RECHERCHE - CAS ////////////////
