@@ -12,12 +12,12 @@ require '../model/ModelTypesSignalement.php';
 public function apiCreateSignalement(HTTPRequest $query)
 {
   ////// VERIF/////
-
+  
   // check HTTP method //
   $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
   if ($method !== 'post') {
-  	http_response_code(405);
-  	echo json_encode(array('message' => 'This method is not allowed.'));
+      http_response_code(405);
+      echo json_encode(array('message' => 'This method is not allowed.'));
       exit(); // Sinon je sors
   }
 
@@ -37,9 +37,9 @@ public function apiCreateSignalement(HTTPRequest $query)
   $queryStatus = $stmt->execute();
 
   if ($queryStatus === false) {
-  	self::throwAnError();
+    self::throwAnError();
   } else {
-  	$signalement->id = MyPDO::getInstance()->lastInsertId();
+    $signalement->id = MyPDO::getInstance()->lastInsertId();
   }
 }
 
@@ -50,53 +50,56 @@ public function apiCreateSignalement(HTTPRequest $query)
 
 
   ////////////////////// GET SIGNALEMENT BY ID ///////////////////
-
-public function apiGetSignalementById(HttpRequest $query){
+  public function apiGetSignalementById(HttpRequest $query){
     // Penser à recupérer le signalement et la citation associée.
-    // check HTTP method //
-	$method = strtolower($_SERVER['REQUEST_METHOD']);
-	if ($method !== 'get') {
-		http_response_code(405);
-		echo json_encode(array('message' => 'This method is not allowed.'));
-		exit();
-	}
 
-// VERIF//
-	if (isset($_GET['idSignalement'])) {
-		$request['idsignalement'] = $_GET['idSignalement'];
-	}
-	else {
-		http_response_code(404);
-		echo json_encode("No ID provided.");
-		exit();
-	}
+    //check HTTP methods//
+    $method = strtolower($_SERVER['REQUEST_METHOD']);
+    if ($method !== 'get') {
+        http_response_code(405);
+        echo json_encode(array('message' => 'This method is not allowed.'));
+        exit();
+    }
 
-	$queryStmt = "SELECT * FROM S2_Signalements WHERE S2_Signalements.idSignalement = :idsignalement LIMIT 1;"
+    // VERIFS //
+    if (isset($_GET['idSignalement'])) {
+      $request['idsignalement'] = $_GET['idSignalement'];
+    }
+    else {
+      http_response_code(404);
+      echo json_encode("No ID provided.");
+      exit();
+    }
 
-	$signalements = array();
-	$stmt = MyPDO::getInstance()->prepare($queryStmt);
+    //FUNCTION ITSELF//
+    $queryStmt = "SELECT * FROM S2_Signalements WHERE S2_Signalements.idSignalement = :idsignalement LIMIT 1;"
 
-	$stmt->execute(['idsignalement' => $query['idSignalement']]);
+    $signalement = array();
+    $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-	while (($row = $stmt->fetch()) !== false) {
-		array_push($signalements, $row);
-	}
-}
+    $stmt->execute(['idsignalement' => $query['idSignalement']]);
 
-  ////////////////////// GET ALL TYPES SIGNALEMENT ///////////////////
-public function apiGetAllTypeSignalement(HttpRequest $query){
- // Pour récupérer dynamiquement
-}
+    while (($row = $stmt->fetch()) !== false) {
+      array_push($signalements, $row);
+    }
+
+    foreach ($signalements as $signalement) { // On va chercher les tags et le typeAuteur
+    $signalement='';
+    $citation = '';
+
+  }
+
+
 
 
   ////////////////////////////////////////////////////////////////
   ///////////////////////////// UPDATE //////////////////////////
   //////////////////////////////////////////////////////////////
 
-public static function apiUpdateSignalement(HTTPRequest $query)
-{
+  public static function apiUpdateSignalement(HTTPRequest $query)
+    {
       // Sert uniquement à update le statut
-}
+    }
 
 
 
@@ -104,21 +107,21 @@ public static function apiUpdateSignalement(HTTPRequest $query)
     ///////////////////////////// OTHER //////////////////////////
     //////////////////////////////////////////////////////////////
 
-public static function sendMailSignalement(HTTPRequest $query){
+    public static function sendMailSignalement(HTTPRequest $query){
       // A appeler quand on a créé le signalement
-}
+    }
 
 
     ////////////////////////////////////////////////////////////////
     ///////////////////////////// ERROR //////////////////////////
     //////////////////////////////////////////////////////////////
 
-public static function throwAnError()
-{
-	echo json_encode("An error occured.");
-	http_response_code(500);
-	exit();
-}
+    public static function throwAnError()
+     {
+       echo json_encode("An error occured.");
+       http_response_code(500);
+       exit();
+     }
 
 
-?>
+  ?>
