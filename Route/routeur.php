@@ -12,8 +12,8 @@ echo "\n Affiche request : \n \n";
 var_dump($request)
 // $action=$_GET['action'];
 
-$url = $_GET['url']; // ?? OU RECUPERER LA REQUETE
-$query=$_GET['request'];
+$url = $request['url']; // ?? OU RECUPERER LA REQUETE
+$query=$request;
 
 //https://www.primfx.com/tuto-php-creer-router-479/
 
@@ -21,73 +21,73 @@ $query=$_GET['request'];
 //
 ///// TOUS LES URLS POSSIBLES /////
   switch ($url) {
-  case '' : // Create
+  case '' :
   apiGetAllCitations($query); // GET ALL
       break;
     /////CITATIONS//////
-    case '/citations/New' : // Create
+    case './citations/New' : // Create
       apiCreateCitation($query);
         break;
-    case '/citations/All' :
+    case './citations/All' :
       apiGetAllCitations($query); // GET ALL
         break;
-    case '/citations/Id' :
+    case './citations/Id' :
       apiGetCitationById($query); // Get By Id
         break;
-    case '/citations/Tags' :
+    case './citations/Tags' :
       apiGetCitationByTags($query); // Get by Tags
         break;
-    case '/citations/Keyword' :
+    case './citations/Keyword' :
       apiGetCitationByKeyword($query); // Get by keyword
         break;
-    case '/citations/Typesauteur' :
+    case './citations/Typesauteur' :
       apiGetCitationByTypeAuteur($query); // Get by typesAuteur
         break;
-    case '/citations/Allfactors' :
-      apiGetCitationByAll($query); // Get by typesAut+keyword+tags
-        break;
-    case '/citations/TagsKeyword' :
+    case './citations/TagsKeyword' :
       apiGetCitationByTagsAndKeyword($query); // Get by tags & keywords
         break;
-    case '/citations/TypesauteurKeyword' :
+    case './citations/TypesauteurKeyword' :
       apiGetCitationByTypeAuteurAndKeyword($query); // Get by typesAuteur & keyword
         break;
-    case '/citations/TypesauteurTags' :
+    case './citations/TypesauteurTags' :
       apiGetCitationByTypeAuteurAndTags($query); // Get by typesAuteur & Tags
         break;
-    case '/citations/Update' :
+    case './citations/Allfactors' :
+      apiGetCitationByAll($query); // Get by typesAut+keyword+tags
+        break;
+    case './citations/Update' :
       apiUpdateCitation($query); // Update
         break;
-    case '/citations/Delete' :
+    case './citations/Delete' :
       apiDeleteCitation($query); // Delete
         break;
-    case '/citations/GetLikes' :
-      getCitationLikes($query); // get citation likes
-        break;
-    case '/citations/UpdateLikes' :
-      updateCitationLikes($query); // Update citation likes
-        break;
+    // case './citations/GetLikes' :
+    //   getCitationLikes($query); // get citation likes
+    //     break;
+    // case './citations/UpdateLikes' :
+    //   updateCitationLikes($query); // Update citation likes
+    //     break;
         ///////////// ALL TAGS, TYPESAUTEURS & TYPESSIGNALEMENTS /////////////
-    case '/tags/All' :
+    case './tags/All' :
       apiGetAllTags($query); // Get All Tags
             break;
-    case '/typesAuteur/All' :
+    case './typesAuteur/All' :
       apiGetAllTypeAuteurs($query); // Get AlL TypesAuteur
             break;
-    case '/typesSignalement/All' :
+    case './typesSignalement/All' :
       apiGetAllTypesSignalement($query); // GetAllTypesSignalement
             break;
         //////////////// SIGNALEMENTS /////////
-    case '/signalement/New' :
+    case './signalement/New' :
       apiCreateSignalement($query); // Create Signalement
             break;
-    case '/signalement/Id' :
+    case './signalement/Id' :
       apiGetSignalementById($query); // Get By id
             break;
-    case '/signalement/Update' :
+    case './signalement/Update' :
       apiUpdateSignalement($query); // Update signalement
             break;
-    case '/signalement/Send' :
+    case './signalement/Send' :
         sendMailSignalement($query); // Send Mail
             break;
     default:

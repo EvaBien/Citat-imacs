@@ -1,12 +1,5 @@
 import '../Route/routeur.php'
 
-
-
-
-
-
-
-
 //
 // var monElement = document.querySelector('.oJSON').getAttribute('data-edimestre');
 // var monJSON = JSON.parse(monElement); // Ici le miracle sans jQuery!
@@ -17,9 +10,9 @@ import '../Route/routeur.php'
 ////////////////////// APPELS API ////////////////////
 /****************************************************/
 
-//////////////////// ALL CITATIONS ///////////////////
+//////////////////// ALL CITATIONS /////////////////// - FAIT
 function AllTags(){
-  let url = './getAllTags'; // Mon url
+  let url = './tags/All'; // Mon url
   var request = {
       url :  url,
       method: 'GET'
@@ -30,10 +23,10 @@ function AllTags(){
     .catch(error => { console.log(error) });
   }
 
-//////////////////// ALL CITATIONS ///////////////////
+//////////////////// ALL CITATIONS /////////////////// - FAIT
 
 function AllTypesAuteur(){
-  let url = './getAllTypesAuteur'; // Mon url
+  let url = './typesAuteur/All'; // Mon url
   var request = {
       url :  url,
       method: 'GET'
@@ -44,9 +37,9 @@ function AllTypesAuteur(){
     .catch(error => { console.log(error) });
   }
 
-//////////////////// ALL CITATIONS ///////////////////
+//////////////////// ALL CITATIONS /////////////////// - FAIT
 function AllCitations(){
-  let url = './getAllCitations'; // Mon url
+  let url = './citations/All'; // Mon url
   var request = {
       url :  url,
       method: 'GET'
@@ -62,7 +55,7 @@ function AllCitations(){
   /////////////////// GESTION EVENEMENTS /////////////////
   /******************************************************/
 
-  //////////////////// AU CHARGEMENT ///////////////////
+  //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
   document.ready( () => {
     AllCitations();
@@ -71,7 +64,7 @@ function AllCitations(){
   });
 
 //////////////////////////////////////////////////////////////////
-  //////////////// FONCTION AFFICHE CITATIONS ////////////////
+  //////////////// FONCTION AFFICHE CITATIONS //////////////// - FAIT
 
   function displayCitation(dataCitation){
     var data = JSON.parse(dataCitation);
@@ -151,7 +144,7 @@ function displayAllTypesAuteur(dataTypes){
 }
 
 //////////////////////////////////////////////////////////////////
-  //////////////////// GESTION DES CHECKED ///////////////////
+  //////////////////// GESTION DES CHECKED /////////////////// - FAIT
 
   function handleAll() {
     /*C'est le statut avant qu'on clique qui est pris en compte*/
@@ -194,7 +187,7 @@ function displayAllTypesAuteur(dataTypes){
 //////////////////////////////////////////////////////////////////
   /////////////////////// CITATION (ADD) //////////////////////
 
-      //////////////// POP UP APPEAR ///////////
+      //////////////// POP UP APPEAR /////////// - FAIT
       function addCitationPopUp(){
         displayCover();
         document.getElementById("pop_new_citation").style.display = "block";
@@ -216,8 +209,8 @@ function displayAllTypesAuteur(dataTypes){
         // Appel API Create
       }
 
-      /////////// LIKES CITATIONS ////////
-      function likeCitation(){
+      /////////// LIKES CITATIONS //////// - FAIT
+      function likeCitation(){ // A modifier ?
         button = event.target;
         divId=button.parentElement.parentElement.getAttribut(idCitation); // On récupère l'id
         currentLikes = getCitationLikes(divId);
@@ -237,3 +230,41 @@ function displayAllTypesAuteur(dataTypes){
 
   //////////////////////////////////////////////////////////////////
     ///////////////// CRITERES DE RECHERCHE - CAS ////////////////
+
+          function Search(request){
+
+            var data = { // A REMPLIR
+                keyword : ,
+                tags : ,
+                typeAuteur :
+              }
+
+              var url;
+
+            if (/* Tous les critères keyword + T + TA */){
+              url = './citations/Allfactors';
+            } else if (/* juste keyword */){
+              url = './citations/Keyword';
+            } else if (/* juste tags */){
+              url = './citations/Tags';
+            } else if (/* juste type auteur*/){
+              url = './citations/Typesauteur';
+            } else if (/* keyword + tags*/){
+              url = './citations/TagsKeyword';
+            } else if (/* keyword + typeAuteur */){
+              url = './citations/TypesauteurKeyword';
+            } else if (/* tags + types auteur */){
+              url = './citations/TypesauteurTags';
+            } else { // Aucun ou que des all
+              url = './citations/All'; // Mon url
+            }
+
+            var request = {
+                url :  url,
+                method: 'GET',
+                body : data
+            }
+              fetch(chooseRoute(request))
+                .then(displayCitation(data))
+                .catch(error => { console.log(error) });
+          }
