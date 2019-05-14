@@ -1,12 +1,14 @@
 <?php
 
-function chooseRoute(HttpRequest $request){
 header("Content-Type: application/json; charset=UTF-8");
 require '../controller/ControllerCitations.php';
 require '../controller/ControllerSignalements.php';
 require '../controller/ControllerTags.php';
 require '../controller/ControllerTypesAuteur.php';
 require '../controller/ControllerTypesSignalements.php';
+
+function chooseRoute(HttpRequest $request){
+
 
 echo "\n Affiche request : \n \n";
 var_dump($request)

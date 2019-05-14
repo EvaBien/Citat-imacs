@@ -129,7 +129,13 @@ function AllCitations(){
   /////////////////// FONCTION AFFICHE TAGS NAV ///////////////
   function displayAllTags(dataTags){
     var data = JSON.parse(dataTags);
-    data.forEarch(tag => {
+    var dataLeft =;
+    var dataRight = ;
+    dataLeft.forEarch(tag => {
+
+    });
+
+    dataRight.forEach(tag=>{
 
     });
   }
@@ -231,12 +237,28 @@ function displayAllTypesAuteur(dataTypes){
   //////////////////////////////////////////////////////////////////
     ///////////////// CRITERES DE RECHERCHE - CAS ////////////////
 
-          function Search(request){
+    document.getElementById('valid_search').onclick = event => {
+    	event.preventDefault();
+            keywordForm = document.getElementById("input[name='inputKeyword']").value;
+            tagsForm = document.querySelectorAll("input[name='navTagsCheckbox']");
+	           let tagsChecked = new Array();
+	            tagsForm.forEach(function(radioBtn) {
+		              if (radioBtn.checked) {
+			                 tagsChecked.push(JSON.stringify(radioBtn.nomTag));
+		                   }
+	                    });
+            typesAuteurForm = document.querySelectorAll("input[name='navAuthorCheckbox']");
+	           let typesAuteurChecked = new Array();
+	            typesAuteurForm.forEach(function(radioBtn) {
+		              if (radioBtn.checked) {
+			                 typesAuteurChecked.push(JSON.stringify(radioBtn.nomTag));
+		                   }
+	                    });
 
-            var data = { // A REMPLIR
-                keyword : ,
-                tags : ,
-                typeAuteur :
+            var data = {
+                keyWord : keywordForm,
+                tags : tagsChecked,
+                typeAuteur : typesAuteurChecked
               }
 
               var url;
