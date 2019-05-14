@@ -1,5 +1,25 @@
 // index : ON CLICK BUTTON SIGNAL --> pop-up appear
 
+
+//////////////////// MODIF CITATION  ///////////////////
+      //////////////// POP UP APPEAR ///////////
+
+
+      //////////////// POP UP VANISH ///////////
+
+
+      /////////// VALID UPDATE CITATION ////////
+
+//////////////////// DELETE CITATION  ///////////////////
+      //////////////// POP UP APPEAR ///////////
+
+
+      //////////////// POP UP VANISH ///////////
+
+
+      /////////// VALID DELETE CITATION ////////  
+
+
 function signalPopUp(){
   displayCover();
   document.getElementById("pop_signal").style.display = "block";

@@ -135,7 +135,7 @@ SQL
 ////////////////////// GET CITATION BY ID ///////////////////
 
 //URL - GET : citations?id="id"
-public function apiGetCitationById(HttpRequest $request){
+public function apiGetCitationById(HttpRequest $query){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
 if ($method !== 'get') {
@@ -146,7 +146,7 @@ if ($method !== 'get') {
 
 // VERIF//
 if (isset($_GET['idCitation'])) {
-    $request['idcitation'] = $_GET['idCitation'];
+    $query['idcitation'] = $_GET['idCitation'];
 }
 else {
 	http_response_code(404);
@@ -219,7 +219,7 @@ exit();
 
 ////////////////////// GET CITATION BY TAGS ///////////////////
 //URL - GET : citations?tags="tags"
-public function apiGetCitationByTags(HttpRequest $request){
+public function apiGetCitationByTags(HttpRequest $query){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
 if ($method !== 'get') {
@@ -227,16 +227,19 @@ if ($method !== 'get') {
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit();
 }
-$tagsList =''; // Je fais une liste avec mes tags
-foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
-  $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
-}
-$tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
+// $tagsList =''; // Je fais une liste avec mes tags
+// foreach ($query['tags'] as $tag){ // Pour chaque tag dans la requête
+//   $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
+// }
+// $tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
+
+$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
+
 
 $queryStmt = "SELECT * FROM S2_Citations
   INNER JOIN S2_TagCitations ON S2_TagCitation.idCitation = S2_Tags.idCitation
   INNER JOIN S2_Tags ON S2_Tags.idTags = S2_TagCitation.idTag
-  WHERE S2_Tags.nomTag IN $tagsList;"
+  WHERE S2_Tags.nomTag IN ($tagsList);"
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -300,7 +303,7 @@ exit();
 
 //////////////////// GET CITATION BY KEYWORD /////////////////
 //URL - GET : citations?keyword="keyword"
-public function apiGetCitationByKeyword(HttpRequest $request){
+public function apiGetCitationByKeyword(HttpRequest $query){
   // check HTTP method //
 $method = strtolower($_SERVER['REQUEST_METHOD']);
 if ($method !== 'get') {
@@ -380,15 +383,16 @@ if ($method !== 'get') {
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit(); // SInon je sors
 }
-$typesList ='';
-foreach ($query['typesAuteur'] as $type){
-  $typesList.=$type["idTypeAuteur"].', ';
-}
-$typesList=substr($typesList,-2);
+// $typesList ='';
+// foreach ($query['typesAuteur'] as $type){
+//   $typesList.=$type["idTypeAuteur"].', ';
+// }
+// $typesList=substr($typesList,-2);
 
+$typesList = implode(',', array_fill(0, count($query['typesAuteur']), '?'));
 
 $queryStmt = "SELECT * FROM S2_Citations
-  WHERE S2_Citations.idTypeAuteur IN $typesList;"
+  WHERE S2_Citations.idTypeAuteur IN ($typesList);"
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -463,37 +467,30 @@ if ($method !== 'get') {
     exit(); // SInon je sors
 }
 
-$tagsList =''; // Je fais une liste avec mes tags
-foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
-  $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
-}
-$tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
+// $tagsList =''; // Je fais une liste avec mes tags
+// foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
+//   $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
+// }
+// $tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
+//
+// $typesList ='';
+// foreach ($query['typesAuteur'] as $type){
+//   $typesList.=$type["idTypeAuteur"].', ';
+// }
+// $typesList=substr($typesList,-2);
+$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
+$typesList = implode(',', array_fill(0, count($query['typesAuteur']), '?'));
 
-$typesList ='';
-foreach ($query['typesAuteur'] as $type){
-  $typesList.=$type["idTypeAuteur"].', ';
-}
-$typesList=substr($typesList,-2);
-
-$queryStmt = "SELECT * FROM S2_Citations
-WHERE idCitation IN (
-  SELECT idCitation FROM S2_TagCitation
+$queryStmt = "SELECT *
+  FROM S2_Citations
+  JOIN S2_TagCitation ON S2_Citations.idCitation=S2_TagCitation.idCitation
   JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
-  WHERE S2_Tags.nomTags IN :tags
-)
-AND WHERE S2_Citations.idTypeAuteur IN :auteurList
-AND WHERE contenuCitation LIKE %:keyword%"
+  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citations.idTypeAuteur IN ($typesList) AND S2_Citation.contenuCitation LIKE %:keyword%;"
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(
-      array(
-        ':keyword' => $query["keyWord"],
-        ':tags' => $tagsList,
-        ':auteurList' => $typesList
-      )
-);
+$stmt->execute(':keyword' => $query["keyWord"]);
 
 while (($row = $stmt->fetch()) !== false) {
   array_push($citations, $row);
@@ -560,30 +557,26 @@ if ($method !== 'get') {
     exit(); // SInon je sors
 }
 
-$tagsList =''; // Je fais une liste avec mes tags
-foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
-  $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
-}
-$tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
+// $tagsList =''; // Je fais une liste avec mes tags
+// foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
+//   $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
+// }
+// $tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
 
-$queryStmt = "SELECT * FROM S2_Citations
-WHERE idCitation IN (
-  SELECT idCitation FROM S2_TagCitation
+$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
+
+$queryStmt = "SELECT *
+  FROM S2_Citations
+  JOIN S2_TagCitation ON S2_Citations.idCitation=S2_TagCitation.idCitation
   JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
-  WHERE S2_Tags.nomTags IN :tags
-)
-AND WHERE contenuCitation LIKE %:keyword%"
+  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citation.contenuCitation LIKE %:keyword%;"
+
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(
-      array(
-        ':keyword' => $query["keyWord"],
-        ':tags' => $tagsList
-      )
-);
+$stmt->execute(':keyword' => $query["keyWord"]);
 
 while (($row = $stmt->fetch()) !== false) {
   array_push($citations, $row);
@@ -650,25 +643,25 @@ if ($method !== 'get') {
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit(); // SInon je sors
 }
-$typesList ='';
-foreach ($query['typesAuteur'] as $type){
-  $typesList.=$type["idTypeAuteur"].', ';
-}
-$typesList=substr($typesList,-2);
+// $typesList ='';
+// foreach ($query['typesAuteur'] as $type){
+//   $typesList.=$type["idTypeAuteur"].', ';
+// }
+// $typesList=substr($typesList,-2);
 
 
-$queryStmt = "SELECT * FROM S2_Citations
-  WHERE S2_Citations.idTypeAuteur IN :typeAuteur AND S2_Citations.contenuCitation LIKE %:keyword%;"
+$typesList = implode(',', array_fill(0, count($query['typesAuteur']), '?'));
+
+$queryStmt = "SELECT *
+  FROM S2_Citations
+  WHERE S2_Citations.idTypeAuteur IN ($typesList) AND S2_Citation.contenuCitation LIKE %:keyword%;"
+
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(
-      array(
-        ':keyword' => $query["keyWord"],
-        ':typeAuteur' => $typesList
-      )
-);
+$stmt->execute(':keyword' => $query["keyWord"]);
+
 
 while (($row = $stmt->fetch()) !== false) {
   array_push($citations, $row);
@@ -737,36 +730,34 @@ if ($method !== 'get') {
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit(); // SInon je sors
 }
-$typesList ='';
-foreach ($query['typesAuteur'] as $type){
-  $typesList.=$type["idTypeAuteur"].', ';
-}
-$typesList=substr($typesList,-2);
+// $typesList ='';
+// foreach ($query['typesAuteur'] as $type){
+//   $typesList.=$type["idTypeAuteur"].', ';
+// }
+// $typesList=substr($typesList,-2);
+//
+// $tagsList =''; // Je fais une liste avec mes tags
+// foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
+//   $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
+// }
+// $tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
-$tagsList =''; // Je fais une liste avec mes tags
-foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
-  $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
-}
-$tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
+$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
+$typesList = implode(',', array_fill(0, count($query['typesAuteur']), '?'));
 
-$queryStmt = "SELECT * FROM S2_Citations
-WHERE idCitation IN (
-  SELECT idCitation FROM S2_TagCitation
+$queryStmt = "SELECT *
+  FROM S2_Citations
+  JOIN S2_TagCitation ON S2_Citations.idCitation=S2_TagCitation.idCitation
   JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
-  WHERE S2_Tags.nomTags IN :tags
-)
-AND WHERE idTypeAuteur IN :typeAuteur"
+  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citations.idTypeAuteur IN ($typesList);"
+
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(
-      array(
-        ':tags' => $tagsList,
-        ':typeAuteur' => $typesList
-      )
-);
+$stmt->execute();
+
 
 while (($row = $stmt->fetch()) !== false) {
   array_push($citations, $row);
@@ -926,13 +917,13 @@ if ($method !== 'get') {
 }
 
 //URL - GET : citations?id="id"
-public static function getCitationLikes(HttpRequest $query)
+public static function getCitationLikes($idCitation)
   {
 
-    $queryStmt = "SELECT likesCitation FROM S2_Citations WHERE idCitation = $id";
+    $queryStmt = "SELECT likesCitation FROM S2_Citations WHERE idCitation = :idCitation";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
-    $stmt->execute();
+    $stmt->execute('idCitation'=>$idCitation);
 
     exit();
     }
@@ -940,7 +931,7 @@ public static function getCitationLikes(HttpRequest $query)
 
 // Update likes citations
 //URL - PUT : citations?id="id"
-    public static function updateCitationLikes(HttpRequest $query)
+    public static function updateCitationLikes($idCitation, $likes)
       {
 
         // check HTTP method //
@@ -951,10 +942,15 @@ public static function getCitationLikes(HttpRequest $query)
           exit(); // SInon je sors
       }
 
-        $queryStmt = "UPDATE S2_Citations SET likesCitation= $likes WHERE idCitation = $id";
+        $queryStmt = "UPDATE S2_Citations SET likesCitation= :newlikes WHERE idCitation = :id";
 
         $stmt = MyPDO::getInstance()->prepare($queryStmt);
-        $stmt->execute();
+        $stmt->execute(
+          array(
+            'newlikes' =>$likes,
+            'id'=>$idCitation
+          )
+        );
 
         if ($stmt->rowCount() == 0) {
           return NULL;
@@ -965,9 +961,9 @@ public static function getCitationLikes(HttpRequest $query)
   ///////////////////////////// ERROR //////////////////////////
   //////////////////////////////////////////////////////////////
 
-  public static function throwAnError($request)
+  public static function throwAnError($query)
    {
-     echo json_encode("An error occured. \n" $request);
+     echo json_encode("An error occured. \n" $query);
      http_response_code(500);
      exit();
    }

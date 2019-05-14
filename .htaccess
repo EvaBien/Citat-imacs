@@ -1,4 +1,6 @@
+RewriteEngine Off
+
+RewriteRule ^(.*)$ routeur.php?url=$1 [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-
-RewriteRule ^(.*)$ index.html?rt=$1 [L,QSA]

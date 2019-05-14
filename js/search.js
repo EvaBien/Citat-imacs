@@ -1,113 +1,270 @@
+import '../Route/routeur.php'
 
-/*document.ready( () => {
-  displayAllCitations();
-});*/
+//
+// var monElement = document.querySelector('.oJSON').getAttribute('data-edimestre');
+// var monJSON = JSON.parse(monElement); // Ici le miracle sans jQuery!
+// alert(monJSON.nom); // Retourne : Oznog
+// alert(monJSON.fonction); // Retourne : Analyste-programmeur
 
 /****************************************************/
-///////////////// TYPES DE RECHERCHES ///////////////
+////////////////////// APPELS API ////////////////////
 /****************************************************/
 
-// FONCTION ALL CITATIONS
+//////////////////// ALL CITATIONS /////////////////// - FAIT
+function AllTags(){
+  let url = './tags/All'; // Mon url
+  var request = {
+      url :  url,
+      method: 'GET'
+  }
 
-function displayAllCitations(){
+  fetch(chooseRoute(request))
+    .then(displayAllTags(data))
+    .catch(error => { console.log(error) });
+  }
 
-  fetch("./controller/ControllerCitations/getAllCitations") // à corriger si cela ne fonctionne pas
-    .then( response => response.json() )
-    .then( data => {
-      let citations = document.getElementById('list-citations');
-      data.forEach( citation => {
-        // Afficher élements
-      });
-    })
+//////////////////// ALL CITATIONS /////////////////// - FAIT
+
+function AllTypesAuteur(){
+  let url = './typesAuteur/All'; // Mon url
+  var request = {
+      url :  url,
+      method: 'GET'
+  }
+
+  fetch(chooseRoute(request))
+    .then(displayAllTypesAuteur(data))
+    .catch(error => { console.log(error) });
+  }
+
+//////////////////// ALL CITATIONS /////////////////// - FAIT
+function AllCitations(){
+  let url = './citations/All'; // Mon url
+  var request = {
+      url :  url,
+      method: 'GET'
+  }
+
+  fetch(chooseRoute(request))
+    .then(displayCitation(data))
     .catch(error => { console.log(error) });
   }
 
 
+  /*******************************************************/
+  /////////////////// GESTION EVENEMENTS /////////////////
+  /******************************************************/
 
+  //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
+  document.ready( () => {
+    AllCitations();
+    AllTags();
+    AllTypesAuteur();
+  });
 
-// FONCTION LIKE CITATION
+//////////////////////////////////////////////////////////////////
+  //////////////// FONCTION AFFICHE CITATIONS //////////////// - FAIT
 
-//Pop up
+  function displayCitation(dataCitation){
+    var data = JSON.parse(dataCitation);
+    data.forEarch(citation => {
+      let block = document.getElementById("block_citations");
+      let section_block = "<section class=\'one_citation\' idCitation=\"".data.idCitation."\"></section>"
+      let info_block = "<div class=\'infos-citation\'></div>";
+      let commands_block="div class=\'commands-citation\'></div>"
 
+      //// Remplissage premier DIV : info_block ////
 
-function displayCover(){
-  document.getElementById("cover").style.display = "block";
-}
+      // On remplit les tags //
+      let tags_block = "<ul class=\'list-tags\'></ul>";
+      citation.tags.forEarch(tag=>{
+        let tagnom=tag.nomTag;
+        let one_tag = "<li>".tagnom."</li>"; // On ajoute les tags
+        tags_block.appendChild(one_tag);
+      });
 
-function cancelPopUp(){
-  document.getElementById("cover").style.display = "none";
-  document.getElementById("pop_new_citation").style.display = "none";
-  document.getElementById("pop_signal").style.display = "none";
-}
+      // On remplit la date //
+      let date = citation.dateCitation;
+      let date_block = "<p class=\'quote_date\'>".date."</p>";
 
-// ON CLICK BUTTON ADD CITATION --> pop-up appear
+      // On remplit la citation //
+      let contenu = citation.contenuCitation;
+      let quote_block = "<p class=\'quote\'>".contenu."</p>";
 
-function addCitationPopUp(){
-  displayCover();
-  document.getElementById("pop_new_citation").style.display = "block";
-}
+      // On remplit l'auteur + Le type //
+      let auteur = citation.auteurCitation;
+      let typeauteur = citation.typeAuteur.nomTypeAuteur;
+      let author_block = "<p class=\'quote_author\'>".auteur."-\- ".typeauteur."</p>";
 
-// FONCTION ADD CITATION
+      // On met tout dans le div  info_block
+      info_block.appendChild(tags_block);
+      info_block.appendChild(date_block);
+      info_block.appendChild(quote_block);
+      info_block.appendChild(author_block);
 
-//LIKE CITATION
-function getCitationLikes(id){
-  nb = 3 //Chercher dans la BDD à partir de l'ID
-  return nb;
-}
+      //// Remplissage second DIV : commands_block ////
 
-function likeCitation(){
-  button = event.target;
-  divId = button.parentNode.parentNode.id;
-  if(button.classList.contains('clicked')){
-    //On unlike, changer dans la BDD
-    button.classList.remove("clicked");
-  }else{
-    //On like
-    button.classList.add("clicked");
+      // On remplit bouton like //
+      let liker_block ="<button class=\'like-button\' onclick=\"likeCitation()\">J\'aime</button>";
+
+      // On remplit le nombre de like //
+      let nblikes = citation.likesCitation;
+      let likes_block = "<p class=\'number_likes\'>".nblikes."</p>";
+
+      // On remplit le bouton signalement //
+      let signal_block =  "<a onclick=\"signalPopUp()\">signaler un problème</a>"
+
+      // On met le tout dans le div command_block //
+      commands_block.appendChild(liker_block);
+      commands_block.appendChild(likes_block);
+      commands_block.appendChild(signal_block);
+
+    /// On ajoute la section au block global ///
+    block.appendChild(section_block);
+    });
   }
-  numberLikes = getCitationLikes(divId);
-  likeDiv = button.parentNode.children[1];
-   likeDiv.innerHTML = numberLikes;
-  
+
+//////////////////////////////////////////////////////////////////
+  /////////////////// FONCTION AFFICHE TAGS NAV ///////////////
+  function displayAllTags(dataTags){
+    var data = JSON.parse(dataTags);
+    data.forEarch(tag => {
+
+    });
+  }
+
+  //////////////////////////////////////////////////////////////////
+    ///////////// FONCTION AFFICHE TYPES AUTEUR NAV /////////////
+function displayAllTypesAuteur(dataTypes){
+  var data = JSON.parse(dataTypes);
+  data.forEarch(type => {
+
+  });
 }
 
-// FONCTION SEND SIGNALEMENT
+//////////////////////////////////////////////////////////////////
+  //////////////////// GESTION DES CHECKED /////////////////// - FAIT
 
-//ALL CHECKED OR NOT
+  function handleAll() {
+    /*C'est le statut avant qu'on clique qui est pris en compte*/
+    if(!document.getElementById("checkbox1").checked){
+      var items = document.getElementsByName('navTagsCheckbox');
+          for (var i = 1; i < items.length; i++) {
+              if (items[i].type == 'checkbox')
+                  items[i].checked = false;
+          }
+    }
+  }
 
-function handleAll() {
-  /*C'est le statut avant qu'on clique qui est pris en compte*/
-  if(!document.getElementById("checkbox1").checked){
-    var items = document.getElementsByName('navTagsCheckbox');
-        for (var i = 1; i < items.length; i++) {
-            if (items[i].type == 'checkbox')
-                items[i].checked = false;
+  function checkedButAll(){
+    if(document.getElementById("checkbox1").checked){
+      var items = document.getElementsByName('navTagsCheckbox');
+          items[0].checked = false;
+    }
+  }
+
+  function handleAllAuthor() {
+    all = document.getElementsByName('navAuthorCheckbox')[0];
+    if(all.checked){
+      var items = document.getElementsByName('navAuthorCheckbox');
+          for (var i = 1; i < items.length; i++) {
+              if (items[i].type == 'checkbox')
+                  items[i].checked = false;
+          }
+    }
+  }
+
+  function checkedButAllAuthor(){
+    all = document.getElementsByName('navAuthorCheckbox')[0];
+    if(all.checked){
+      all.checked = false;
+    }
+  }
+
+
+
+//////////////////////////////////////////////////////////////////
+  /////////////////////// CITATION (ADD) //////////////////////
+
+      //////////////// POP UP APPEAR /////////// - FAIT
+      function addCitationPopUp(){
+        displayCover();
+        document.getElementById("pop_new_citation").style.display = "block";
+      }
+
+      function displayCover(){
+        document.getElementById("cover").style.display = "block";
+      }
+
+      //////////////// POP UP VANISH ///////////
+      function cancelPopUp(){
+        document.getElementById("cover").style.display = "none";
+        document.getElementById("pop_new_citation").style.display = "none";
+        document.getElementById("pop_signal").style.display = "none";
+      }
+
+        /////////// VALID NEW CITATION ////////
+      function callAddCitation(){
+        // Appel API Create
+      }
+
+      /////////// LIKES CITATIONS //////// - FAIT
+      function likeCitation(){ // A modifier ?
+        button = event.target;
+        divId=button.parentElement.parentElement.getAttribut(idCitation); // On récupère l'id
+        currentLikes = getCitationLikes(divId);
+        divId = button.parentNode.parentNode.id;
+        if(button.classList.contains('clicked')){
+          updateCitationLikes(divId, currentLikes-1); //On unlike, changer dans la BDD
+          button.classList.remove("clicked");
+        }else{
+          updateCitationLikes(divId, currentLikes+1);//On like
+          button.classList.add("clicked");
         }
-  }
-}
+        numberLikes = getCitationLikes(divId);
+        likeDiv = button.parentNode.children[1];
+        likeDiv.innerHTML = numberLikes;
+      }
 
-function checkedButAll(){
-  if(document.getElementById("checkbox1").checked){
-    var items = document.getElementsByName('navTagsCheckbox');
-        items[0].checked = false;
-  }
-}
 
-function handleAllAuthor() {
-  all = document.getElementsByName('navAuthorCheckbox')[0];
-  if(all.checked){
-    var items = document.getElementsByName('navAuthorCheckbox');
-        for (var i = 1; i < items.length; i++) {
-            if (items[i].type == 'checkbox')
-                items[i].checked = false;
-        }
-  }
-}
+  //////////////////////////////////////////////////////////////////
+    ///////////////// CRITERES DE RECHERCHE - CAS ////////////////
 
-function checkedButAllAuthor(){
-  all = document.getElementsByName('navAuthorCheckbox')[0];
-  if(all.checked){
-    all.checked = false;
-  }
-}
+          function Search(request){
+
+            var data = { // A REMPLIR
+                keyword : ,
+                tags : ,
+                typeAuteur :
+              }
+
+              var url;
+
+            if (/* Tous les critères keyword + T + TA */){
+              url = './citations/Allfactors';
+            } else if (/* juste keyword */){
+              url = './citations/Keyword';
+            } else if (/* juste tags */){
+              url = './citations/Tags';
+            } else if (/* juste type auteur*/){
+              url = './citations/Typesauteur';
+            } else if (/* keyword + tags*/){
+              url = './citations/TagsKeyword';
+            } else if (/* keyword + typeAuteur */){
+              url = './citations/TypesauteurKeyword';
+            } else if (/* tags + types auteur */){
+              url = './citations/TypesauteurTags';
+            } else { // Aucun ou que des all
+              url = './citations/All'; // Mon url
+            }
+
+            var request = {
+                url :  url,
+                method: 'GET',
+                body : data
+            }
+              fetch(chooseRoute(request))
+                .then(displayCitation(data))
+                .catch(error => { console.log(error) });
+          }

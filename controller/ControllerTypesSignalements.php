@@ -19,10 +19,16 @@ public function apiGetAllTypeSignalement(HttpRequest $query){
   http_response_code(200);
 
   ////SEARCH TYPE SIGNALEMENT IN DB ////
-  $typeSignalement = array();
+  $typesSignalement = array();
   $queryStmt = "SELECT * FROM S2_TypesSignalement;"
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
+
+  while (($row = $stmt->fetch()) !== false) {
+    array_push($typesSignalement, $row); // Ajoute chaque citation au tableau citations
+  }
+  echo json_encode($typesSignalement);
+
   exit();
 }
 

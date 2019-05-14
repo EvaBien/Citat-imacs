@@ -125,13 +125,13 @@
 
 		<!-- ***************************************************************
 		*************************** BLOCK CITATION *************************
-		**************************************************************** 
+		****************************************************************
 		NE PAS OUBLIER :
 			- dans le button J'aime, le onclick
 			- dans le signaler un pb, le onclick
 		-->
 		<div id="block_citations">
-			<section class='one_citation' id="1">
+			<section class='one_citation' idCitation="1">
 				<div class='infos-citation'>
 					<ul class='list-tags'>
 						<li>race</li>
@@ -217,7 +217,7 @@
 				<input type="checkbox" id="popup_checkbox9" class="tag_checkbox" value="">
 				<label for = "popup_checkbox9" class="tag">sciences</label>
 
-			<button id="add_citation_form" class="button">ajouter</button>
+			<button id="add_citation_form" class="button" onclick="callAddCitation()">Ajouter</button>
 			<p class="cancel" onclick="cancelPopUp()">Annuler</p>
 		</form>
 	</div>
