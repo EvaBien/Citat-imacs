@@ -1,10 +1,5 @@
-import '../Route/routeur.php'
+include('../Route/routeur.php');
 
-//
-// var monElement = document.querySelector('.oJSON').getAttribute('data-edimestre');
-// var monJSON = JSON.parse(monElement); // Ici le miracle sans jQuery!
-// alert(monJSON.nom); // Retourne : Oznog
-// alert(monJSON.fonction); // Retourne : Analyste-programmeur
 
 /****************************************************/
 ////////////////////// APPELS API ////////////////////
@@ -60,7 +55,7 @@ function AllCitations(){
   //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
   document.ready( () => {
-    AllCitations();
+    // AllCitations();
     AllTags();
     AllTypesAuteur();
   });
@@ -72,7 +67,7 @@ function AllCitations(){
     var data = JSON.parse(dataCitation);
     data.forEarch(citation => {
       let block = document.getElementById("block_citations");
-      let section_block = "<section class=\'one_citation\' idCitation=\"".data.idCitation."\"></section>"
+      let section_block = "<section class=\'one_citation\' idCitation=\"".citation['idCitation']."\"></section>"
       let info_block = "<div class=\'infos-citation\'></div>";
       let commands_block="div class=\'commands-citation\'></div>"
 

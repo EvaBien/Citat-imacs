@@ -1,3 +1,6 @@
+include('../Route/routeur.php');
+
+
 // index : ON CLICK BUTTON SIGNAL --> pop-up appear
 
 
