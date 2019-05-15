@@ -1,5 +1,5 @@
-include('../Route/routeur.php');
-
+// include('../Route/routeur.php');
+"<?php include_once(\"..Route/routeur.php\"); ?>"
 
 /****************************************************/
 ////////////////////// APPELS API ////////////////////
@@ -54,7 +54,7 @@ function AllCitations(){
 
   //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
-  document.ready( () => {
+document.addEventListener('DOMContentLoaded', function(){
     // AllCitations();
     AllTags();
     AllTypesAuteur();
