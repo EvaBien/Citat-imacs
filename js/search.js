@@ -12,7 +12,7 @@ function AllTags(){
     method: 'GET'
   })
 
-  fetch('./Route/routeur.php', request)
+  fetch(url, request)
   .then(response => response.json())
   .then(function(data){
     displayTagsNav(data);
@@ -29,7 +29,7 @@ function AllTypesAuteur(){
     method: 'GET'
   })
 
-  fetch('./Route/routeur.php', request) // chooseRoute() est une fonction en php, qui est dans routeur.php
+  fetch(url, request) // chooseRoute() est une fonction en php, qui est dans routeur.php
   .then(response => response.json())
   .then(function(data){
     displayTypesAuteurNav(data);
@@ -45,7 +45,7 @@ function AllCitations(){
     method: 'GET'
   })
 
-  fetch('./Route/routeur.php', request)
+  fetch(url, request)
   .then(response => response.json())
   .then(function(data){
     displayCitation(data);
@@ -319,7 +319,7 @@ function likeCitation(){ // A modifier ?
 
   })
   /// On get la valeur actuelle des likes ///
-  fetch('./Route/routeur.php', requestGet)
+  fetch(urlGet, requestGet)
   .then(response => response.json())
   .then(function(data){
     currentLikes = data['likes'];
@@ -346,12 +346,12 @@ function likeCitation(){ // A modifier ?
     method : 'PUT',
     body : JSON.stringify(dataUpd)
   })
-  fetch('./Route/routeur.php', requestUpd)
+  fetch(urlUpd, requestUpd)
   .then(response => response.json())
   .catch(error => { console.log(error) });
 
   /// On get la nouvelle valeur dans la BDD directement ///
-  fetch('./Route/routeur.php', requestGet)
+  fetch(urlGet, requestGet)
   .then(response => response.json())
   .then(function(data){
     currentLikes = data['likes'];
@@ -415,7 +415,7 @@ function likeCitation(){ // A modifier ?
 //             method: 'GET',
 //             body : JSON.stringify(datas)
 //         })
-//           fetch('./Route/routeur.php', request)
+//           fetch(url, request)
 //           .then(response => response.json())
 //             .then(displayCitation(data))
 //             .catch(error => { console.log(error) });

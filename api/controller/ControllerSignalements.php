@@ -12,9 +12,9 @@ require '../model/ModelTypesSignalement.php';
 public function apiCreateSignalement(HTTPRequest $query)
 {
   ////// VERIF/////
-  
+
   // check HTTP method //
-  $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+  $method = strtolower($query['method']); // Je verifie si c'est bien un get
   if ($method !== 'post') {
       http_response_code(405);
       echo json_encode(array('message' => 'This method is not allowed.'));
@@ -22,7 +22,7 @@ public function apiCreateSignalement(HTTPRequest $query)
   }
 
   // Creation du nouvel objet//
-  $signalement = new signalement($query['typeSignalement'],$query['messageSignalement'],$query['statutSignalement'],$query['idCitation']);
+  $signalement = new signalement($query['body']['typeSignalement'],$query['body']['messageSignalement'],$query['body']['statutSignalement'],$query['body']['idCitation']);
 
   ////// ADD TO DB //////
   $queryStmt = "INSERT INTO signalement (typeSignalement, messageSignalement, statutSignalement, idCitation) VALUES (?, ?, ?, ?);"
@@ -63,7 +63,6 @@ public function apiCreateSignalement(HTTPRequest $query)
 
     // VERIFS //
     if (isset($_GET['idSignalement'])) {
-      $request['idsignalement'] = $_GET['idSignalement'];
     }
     else {
       http_response_code(404);
@@ -77,7 +76,7 @@ public function apiCreateSignalement(HTTPRequest $query)
     $signalement = array();
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-    $stmt->execute(['idsignalement' => $query['idSignalement']]);
+    $stmt->execute(['idsignalement' => $query['body']['idSignalement']]);
 
     while (($row = $stmt->fetch()) !== false) {
       array_push($signalements, $row);
@@ -99,6 +98,7 @@ public function apiCreateSignalement(HTTPRequest $query)
   public static function apiUpdateSignalement(HTTPRequest $query)
     {
       // Sert uniquement à update le statut
+
     }
 
 
@@ -108,7 +108,7 @@ public function apiCreateSignalement(HTTPRequest $query)
     //////////////////////////////////////////////////////////////
 
     public static function sendMailSignalement(HTTPRequest $query){
-      // A appeler quand on a créé le signalement
+      // A appeler quand on a créé le signalement -- Tu peux le faire si tu cherche sur internet
     }
 
 
