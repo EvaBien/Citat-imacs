@@ -103,7 +103,7 @@ function AllCitations(){
       quote_block.innerHTML(contenu);
 
       // On remplit l'auteur + Le type //
-      let auteur = citation.auteurCitation." - ".citation.typeAuteur.nomTypeAuteur;
+      let auteur = citation['auteurCitation']+" - "+citation['typeAuteur']['nomTypeAuteur'];
       let author_block = document.createElement("p");
       author_block.setAttribute('class','quote_author');
       author_block.innerHTML(auteur);
@@ -158,7 +158,7 @@ function AllCitations(){
     let all_tag = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"checkbox0\" name=\"navTagsCheckbox\" class=\"tag_checkbox\" value=\"All\" checked> <label for = \"checkbox0\" class=\"tag\" onclick=\"handleAll()\">All</label></div>"
 
     data.forEarch(tag => {
-      let one_tag = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"checkbox".tag['idTag']." \" name=\"navTagsCheckbox\" class=\"tag_checkbox\" value=\"".tag['nomTag']."\" checked> <label for = \"checkbox".tag['idTag']."\" class=\"tag\" onclick=\"checkedButAll()\">".tag['nomTag']."</label></div>"
+      let one_tag = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"checkbox"+tag['idTag']+" \" name=\"navTagsCheckbox\" class=\"tag_checkbox\" value=\""+tag['nomTag']+"\" checked> <label for = \"checkbox"+tag['idTag']+"\" class=\"tag\" onclick=\"checkedButAll()\">"+tag['nomTag']+"</label></div>"
 
       if (count<middle){
         tagsLeft.appendChild(one_tag);
@@ -186,7 +186,7 @@ function displayTypesAuteurNav(dataTypes){
   let all_author = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"authorCheckbox0\" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\"All\" checked onclick=\"handleAllAuthor()> <label for = \"authorCheckbox0\" class=\"tag\" \">All</label></div>"
 
   data.forEarch(author => {
-    let one_author = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"authorCheckbox".author['idTypeAuteur']." \" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\"".author['nomTypeAuteur']."\" checked onclick=\"checkedButAllAuthor()\"> <label for = \"authorCheckbox".author['idTypeAuteur']."\" class=\"tag\">".author['nomTypeAuteur']."</label></div>"
+    let one_author = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"authorCheckbox"+author['idTypeAuteur']+" \" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\""+author['nomTypeAuteur']+"\" checked onclick=\"checkedButAllAuthor()\"> <label for = \"authorCheckbox"+author['idTypeAuteur']+"\" class=\"tag\">"+author['nomTypeAuteur']+"</label></div>"
 
     if (count<middle){
       authorLeft.appendChild(one_author);
@@ -210,7 +210,7 @@ function displayTypesAuteurPop(dataTypes){
   let authorFormBlock = document.getElementById("type_auteur_form");
 
   data.forEarch(author => {
-    let one_author = "<option value=\"".author['nomTypeAuteur']." \">".author['nomTypeAuteur']."</option>"
+    let one_author = "<option value=\""+author['nomTypeAuteur']+" \">"+author['nomTypeAuteur']+"</option>"
 
     authorFormBlock.appendChild(one_author);
   });
@@ -225,7 +225,7 @@ function displayTypesAuteurPop(dataTypes){
     let tagsFormBlock = document.getElementById("tag_form");
 
     data.forEarch(tag => {
-      let one_tag = "<input type=\"checkbox\" id=\"popup_checkbox".tag['idTag']."\" class=\"tag_checkbox\" value=\"".tag['nomTag']."\"><label for=\"popup_checkbox".tag['idTag']."\" class=\"tag\">".tag['nomTag']."</label>"
+      let one_tag = "<input type=\"checkbox\" id=\"popup_checkbox"+tag['idTag']+"\" class=\"tag_checkbox\" value=\""+tag['nomTag']+"\"><label for=\"popup_checkbox"+tag['idTag']+"\" class=\"tag\">"+tag['nomTag']+"</label>"
 
       tagsFormBlock.appendChild(one_tag);
     });
@@ -318,56 +318,56 @@ function displayTypesAuteurPop(dataTypes){
   //////////////////////////////////////////////////////////////////
     ///////////////// CRITERES DE RECHERCHE - CAS ////////////////
 
-    document.getElementById('valid_search').onclick = event => {
-    	event.preventDefault();
-            keywordForm = document.getElementById("input[name='inputKeyword']").value;
-            tagsForm = document.querySelectorAll("input[name='navTagsCheckbox']");
-	           let tagsChecked = new Array();
-	            tagsForm.forEach(function(radioBtn) {
-		              if (radioBtn.checked) {
-			                 tagsChecked.push(JSON.stringify(radioBtn.nomTag));
-		                   }
-	                    });
-            typesAuteurForm = document.querySelectorAll("input[name='navAuthorCheckbox']");
-	           let typesAuteurChecked = new Array();
-	            typesAuteurForm.forEach(function(radioBtn) {
-		              if (radioBtn.checked) {
-			                 typesAuteurChecked.push(JSON.stringify(radioBtn.nomTag));
-		                   }
-	                    });
-
-            var data = {
-                keyWord : keywordForm,
-                tags : tagsChecked,
-                typeAuteur : typesAuteurChecked
-              }
-
-              var url;
-
-            if (/* Tous les critères keyword + T + TA */){
-              url = './citations/Allfactors';
-            } else if (/* juste keyword */){
-              url = './citations/Keyword';
-            } else if (/* juste tags */){
-              url = './citations/Tags';
-            } else if (/* juste type auteur*/){
-              url = './citations/Typesauteur';
-            } else if (/* keyword + tags*/){
-              url = './citations/TagsKeyword';
-            } else if (/* keyword + typeAuteur */){
-              url = './citations/TypesauteurKeyword';
-            } else if (/* tags + types auteur */){
-              url = './citations/TypesauteurTags';
-            } else { // Aucun ou que des all
-              url = './citations/All'; // Mon url
-            }
-
-            var request = {
-                url :  url,
-                method: 'GET',
-                body : data
-            }
-              fetch(chooseRoute(request))
-                .then(displayCitation(data))
-                .catch(error => { console.log(error) });
-          }
+    // document.getElementById('valid_search').onclick = event => {
+    // 	event.preventDefault();
+    //         keywordForm = document.getElementById("input[name='inputKeyword']").value;
+    //         tagsForm = document.querySelectorAll("input[name='navTagsCheckbox']");
+	  //          let tagsChecked = new Array();
+	  //           tagsForm.forEach(function(radioBtn) {
+		//               if (radioBtn.checked) {
+		// 	                 tagsChecked.push(JSON.stringify(radioBtn.nomTag));
+		//                    }
+	  //                   });
+    //         typesAuteurForm = document.querySelectorAll("input[name='navAuthorCheckbox']");
+	  //          let typesAuteurChecked = new Array();
+	  //           typesAuteurForm.forEach(function(radioBtn) {
+		//               if (radioBtn.checked) {
+		// 	                 typesAuteurChecked.push(JSON.stringify(radioBtn.nomTag));
+		//                    }
+	  //                   });
+    //
+    //         var data = {
+    //             keyWord : keywordForm,
+    //             tags : tagsChecked,
+    //             typeAuteur : typesAuteurChecked
+    //           }
+    //
+    //           var url;
+    //
+    //         if (/* Tous les critères keyword + T + TA */){
+    //           url = './citations/Allfactors';
+    //         } else if (/* juste keyword */){
+    //           url = './citations/Keyword';
+    //         } else if (/* juste tags */){
+    //           url = './citations/Tags';
+    //         } else if (/* juste type auteur*/){
+    //           url = './citations/Typesauteur';
+    //         } else if (/* keyword + tags*/){
+    //           url = './citations/TagsKeyword';
+    //         } else if (/* keyword + typeAuteur */){
+    //           url = './citations/TypesauteurKeyword';
+    //         } else if (/* tags + types auteur */){
+    //           url = './citations/TypesauteurTags';
+    //         } else { // Aucun ou que des all
+    //           url = './citations/All'; // Mon url
+    //         }
+    //
+    //         var request = {
+    //             url :  url,
+    //             method: 'GET',
+    //             body : data
+    //         }
+    //           fetch(chooseRoute(request))
+    //             .then(displayCitation(data))
+    //             .catch(error => { console.log(error) });
+    //       }
