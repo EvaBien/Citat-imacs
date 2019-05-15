@@ -67,32 +67,46 @@ function AllCitations(){
     var data = JSON.parse(dataCitation);
     data.forEarch(citation => {
       let block = document.getElementById("block_citations");
-      let section_block = "<section class=\'one_citation\' idCitation=\"".citation['idCitation']."\"></section>"
-      let info_block = "<div class=\'infos-citation\'></div>";
-      let commands_block="div class=\'commands-citation\'></div>"
+      let section_block = document.createElement("section");
+      section_block.setAttribute('class', 'one_citation');
+      section_block.setAttribute('idCitation', citation['idCitation']);
+
+      let info_block = document.createElement("div");
+      info_block.setAttribute('class', 'infos-citation');
+
+      let commands_block = document.createElement("div");
+      commands_block.setAttribute('class', 'commands-citation');
 
       //// Remplissage premier DIV : info_block ////
 
       // On remplit les tags //
-      let tags_block = "<ul class=\'list-tags\'></ul>";
+      let tags_block = document.createElement("ul");
+      tags_block.setAttributee('class','list-tags');
+
       citation.tags.forEarch(tag=>{
         let tagnom=tag.nomTag;
-        let one_tag = "<li>".tagnom."</li>"; // On ajoute les tags
+        let one_tag = document.createElement("li");
+        one_tag.innerHTML(tagnom);
         tags_block.appendChild(one_tag);
       });
 
       // On remplit la date //
       let date = citation.dateCitation;
-      let date_block = "<p class=\'quote_date\'>".date."</p>";
+      let date_block = document.createElement("p");
+      date_block.setAttribute('class','quote_date');
+      date_block.innerHTML(date);
 
       // On remplit la citation //
       let contenu = citation.contenuCitation;
-      let quote_block = "<p class=\'quote\'>".contenu."</p>";
+      let quote_block = document.createElement("p");
+      quote_block.setAttribute('class','quote');
+      quote_block.innerHTML(contenu);
 
       // On remplit l'auteur + Le type //
-      let auteur = citation.auteurCitation;
-      let typeauteur = citation.typeAuteur.nomTypeAuteur;
-      let author_block = "<p class=\'quote_author\'>".auteur."-\- ".typeauteur."</p>";
+      let auteur = citation.auteurCitation." - ".citation.typeAuteur.nomTypeAuteur;
+      let author_block = document.createElement("p");
+      author_block.setAttribute('class','quote_author');
+      author_block.innerHTML(auteur);
 
       // On met tout dans le div  info_block
       info_block.appendChild(tags_block);
@@ -103,14 +117,23 @@ function AllCitations(){
       //// Remplissage second DIV : commands_block ////
 
       // On remplit bouton like //
-      let liker_block ="<button class=\'like-button\' onclick=\"likeCitation()\">J\'aime</button>";
+      let liker_block = document.createElement("button");
+      liker_block.setAttribute('class','like-button');
+      liker_block.setAttribute('idCitation',citation['idCitation']);
+      liker_block.setAttribute('onclick','likeCitation()');
+      liker_block.innerHTML("J\'aime");
 
       // On remplit le nombre de like //
       let nblikes = citation.likesCitation;
-      let likes_block = "<p class=\'number_likes\'>".nblikes."</p>";
+      let likes_block = document.createElement("p");
+      likes_block.setAttribute('class','number_likes');
+      likes_block.innerHTML(nbLikes);
 
       // On remplit le bouton signalement //
-      let signal_block =  "<a onclick=\"signalPopUp()\">signaler un problème</a>"
+      let signal_block = document.createElement("a");
+      signal_block.setAttribute('onclick','signalPopUp()');
+      signal_block.setAttribute('idCitation',citation['idCitation']);
+      signal_block.innerHTML("Signaler un problème");
 
       // On met le tout dans le div command_block //
       commands_block.appendChild(liker_block);
@@ -277,9 +300,8 @@ function displayTypesAuteurPop(dataTypes){
       /////////// LIKES CITATIONS //////// - FAIT
       function likeCitation(){ // A modifier ?
         button = event.target;
-        divId=button.parentElement.parentElement.getAttribut(idCitation); // On récupère l'id
+        divId=button.getAttribut(idCitation); // On récupère l'id
         currentLikes = getCitationLikes(divId);
-        divId = button.parentNode.parentNode.getAttribut(id);
         if(button.classList.contains('clicked')){
           updateCitationLikes(divId, currentLikes-1); //On unlike, changer dans la BDD
           button.classList.remove("clicked");
