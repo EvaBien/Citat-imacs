@@ -185,6 +185,21 @@ function displayTypesAuteurNav(dataTypes){
 
 
 //////////////////////////////////////////////////////////////////
+  ///////////// FONCTION AFFICHE TYPES AUTEUR POP UP /////////////
+function displayTypesAuteurPop(dataTypes){
+  var data = JSON.parse(dataTypes);
+
+  let authorFormBlock = document.getElementById("type_auteur_form");
+
+  data.forEarch(author => {
+    let one_author = "<option value=\"".author['nomTypeAuteur']." \">".author['nomTypeAuteur']."</option>"
+
+    authorFormBlock.appendChild(one_author);
+  });
+}
+
+
+//////////////////////////////////////////////////////////////////
   /////////////////// FONCTION AFFICHE TAGS POP UP ///////////////
   function displayTagsPop(dataTags){
     var data = JSON.parse(dataTags);
@@ -192,26 +207,11 @@ function displayTypesAuteurNav(dataTypes){
     let tagsFormBlock = document.getElementById("tag_form");
 
     data.forEarch(tag => {
-      let one_tag = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"checkbox".tag['idTag']." \" name=\"navTagsCheckbox\" class=\"tag_checkbox\" value=\"".tag['nomTag']."\" checked> <label for = \"checkbox".tag['idTag']."\" class=\"tag\" onclick=\"checkedButAll()\">".tag['nomTag']."</label></div>"
+      let one_tag = "<input type=\"checkbox\" id=\"popup_checkbox".tag['idTag']."\" class=\"tag_checkbox\" value=\"".tag['nomTag']."\"><label for=\"popup_checkbox".tag['idTag']."\" class=\"tag\">".tag['nomTag']."</label>"
 
       tagsFormBlock.appendChild(one_tag);
     });
   }
-
-  //////////////////////////////////////////////////////////////////
-    ///////////// FONCTION AFFICHE TYPES AUTEUR POP UP /////////////
-function displayTypesAuteurPop(dataTypes){
-  var data = JSON.parse(dataTypes);
-
-  let authorFormBlock = document.getElementById("type_auteur_form");
-
-  data.forEarch(author => {
-    let one_author = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"authorCheckbox".author['idTypeAuteur']." \" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\"".author['nomTypeAuteur']."\" checked onclick=\"checkedButAllAuthor()\"> <label for = \"authorCheckbox".author['idTypeAuteur']."\" class=\"tag\">".author['nomTypeAuteur']."</label></div>"
-
-
-    authorFormBlock.appendChild(one_author);
-  });
-}
 
 //////////////////////////////////////////////////////////////////
   //////////////////// GESTION DES CHECKED /////////////////// - FAIT
