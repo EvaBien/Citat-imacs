@@ -180,9 +180,9 @@
 		    <label for="auteur">Auteur</label>
 		    <input type="text" name="auteur" placeholder="Anonyme" class="text_input" />
 		    <label for="type_auteur">Type d'auteur</label>
-		    	<select name="type_auteur" class="selectForm">
+		    	<select id="type_auteur_form" name="type_auteur" class="selectForm">
 		        	<option selected disabled>-- Selectionnez le type d'auteur</option>
-			        <option value="prof">Prof</option>
+			        	<option value="prof">Prof</option>
 		           	<option value="imac2021">Imac 2021</option>
 		           	<option value="imac2020">Imac 2020</option>
 		           	<option value="imac2019">Imac 2019</option>
@@ -191,31 +191,33 @@
 		           	<option value="imac100">Imac 100 av. Biri</option>
 		      	</select>
 		    <label for="citation">Citation</label>
-		    <textarea name="citation" id="" placeholder="Calmez-vous !" class="text_input"></textarea>
+		    <textarea name="citation" id="citation_form" placeholder="Calmez-vous !" class="text_input"></textarea>
 		    <label>Tags</label>
-				<input type="checkbox" id="popup_checkbox2" class="tag_checkbox" value="">
-				<label for="popup_checkbox2" class="tag">race</label>
+				<div id="tag_form">
+					<input type="checkbox" id="popup_checkbox2" class="tag_checkbox" value="">
+					<label for="popup_checkbox2" class="tag">race</label>
 
-				<input type="checkbox" id="popup_checkbox3" class="tag_checkbox" value="">
-				<label for = "popup_checkbox3" class="tag">crous</label>
+					<input type="checkbox" id="popup_checkbox3" class="tag_checkbox" value="">
+					<label for = "popup_checkbox3" class="tag">crous</label>
 
-				<input type="checkbox" id="popup_checkbox4" class="tag_checkbox" value="">
-				<label for = "popup_checkbox4" class="tag">titre</label>
+					<input type="checkbox" id="popup_checkbox4" class="tag_checkbox" value="">
+					<label for = "popup_checkbox4" class="tag">titre</label>
 
-				<input type="checkbox" id="popup_checkbox5" class="tag_checkbox" value="">
-				<label for = "popup_checkbox5" class="tag">shlag</label>
+					<input type="checkbox" id="popup_checkbox5" class="tag_checkbox" value="">
+					<label for = "popup_checkbox5" class="tag">shlag</label>
 
-				<input type="checkbox" id="popup_checkbox6" class="tag_checkbox" value="">
-				<label for = "popup_checkbox6" class="tag">love</label>
+					<input type="checkbox" id="popup_checkbox6" class="tag_checkbox" value="">
+					<label for = "popup_checkbox6" class="tag">love</label>
 
-				<input type="checkbox" id="popup_checkbox7" class="tag_checkbox" value="">
-				<label for = "popup_checkbox7" class="tag">sel</label>
+					<input type="checkbox" id="popup_checkbox7" class="tag_checkbox" value="">
+					<label for = "popup_checkbox7" class="tag">sel</label>
 
-				<input type="checkbox" id="popup_checkbox8" class="tag_checkbox" value="">
-				<label for = "popup_checkbox8" class="tag">arts</label>
+					<input type="checkbox" id="popup_checkbox8" class="tag_checkbox" value="">
+					<label for = "popup_checkbox8" class="tag">arts</label>
 
-				<input type="checkbox" id="popup_checkbox9" class="tag_checkbox" value="">
-				<label for = "popup_checkbox9" class="tag">sciences</label>
+					<input type="checkbox" id="popup_checkbox9" class="tag_checkbox" value="">
+					<label for = "popup_checkbox9" class="tag">sciences</label>
+			</div>
 
 			<button id="add_citation_form" class="button" onclick="callAddCitation()">Ajouter</button>
 			<p class="cancel" onclick="cancelPopUp()">Annuler</p>

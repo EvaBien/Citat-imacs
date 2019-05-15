@@ -188,56 +188,29 @@ function displayTypesAuteurNav(dataTypes){
   /////////////////// FONCTION AFFICHE TAGS POP UP ///////////////
   function displayTagsPop(dataTags){
     var data = JSON.parse(dataTags);
-    let count=0; // Je met un compteur pour savoir à quel moment je passe dans le second block
-    var lenght = Object.keys(dataTags).length ; // Je récupère la taille du json
-    var middle = lenght/2;
-    let tagsBlock = document.getElementById("Tags");
-    let tagsLeft = "section class=\"left_tight\"></section>";
-    let tagsRight = "section class=\"left_tight\"></section>";
-    let all_tag = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"checkbox0\" name=\"navTagsCheckbox\" class=\"tag_checkbox\" value=\"All\" checked> <label for = \"checkbox0\" class=\"tag\" onclick=\"handleAll()\">All</label></div>"
+
+    let tagsFormBlock = document.getElementById("tag_form");
 
     data.forEarch(tag => {
       let one_tag = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"checkbox".tag['idTag']." \" name=\"navTagsCheckbox\" class=\"tag_checkbox\" value=\"".tag['nomTag']."\" checked> <label for = \"checkbox".tag['idTag']."\" class=\"tag\" onclick=\"checkedButAll()\">".tag['nomTag']."</label></div>"
 
-      if (count<middle){
-        tagsLeft.appendChild(one_tag);
-      } else {
-        tagsRight.appendChild(one_tag);
-      }
-      count = count+1;
+      tagsFormBlock.appendChild(one_tag);
     });
-
-    // On met le tout dans le block principal
-    tagsBlock.appendChild(tagsLeft);
-    tagsBlock.appendChild(tagsRight);
   }
 
   //////////////////////////////////////////////////////////////////
     ///////////// FONCTION AFFICHE TYPES AUTEUR POP UP /////////////
 function displayTypesAuteurPop(dataTypes){
   var data = JSON.parse(dataTypes);
-  var count=0; // Je met un compteur pour savoir à quel moment je passe dans le second block
-  var lenght = Object.keys(dataTypes).length ; // Je récupère la taille du json
-  var middle = lenght/2;
-  let authorBlock = document.getElementById("author");
-  let authorLeft = "section class=\"left_tight\"></section>";
-  let authorRight = "section class=\"left_tight\"></section>";
-  let all_author = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"authorCheckbox0\" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\"All\" checked onclick=\"handleAllAuthor()> <label for = \"authorCheckbox0\" class=\"tag\" \">All</label></div>"
+
+  let authorFormBlock = document.getElementById("type_auteur_form");
 
   data.forEarch(author => {
     let one_author = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"authorCheckbox".author['idTypeAuteur']." \" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\"".author['nomTypeAuteur']."\" checked onclick=\"checkedButAllAuthor()\"> <label for = \"authorCheckbox".author['idTypeAuteur']."\" class=\"tag\">".author['nomTypeAuteur']."</label></div>"
 
-    if (count<middle){
-      authorLeft.appendChild(one_author);
-    } else {
-      authorRight.appendChild(one_author);
-    }
-    count = count+1;
-  });
 
-  // On met le tout dans le block principal
-  tagsBlock.appendChild(tagsLeft);
-  tagsBlock.appendChild(tagsRight);
+    authorFormBlock.appendChild(one_author);
+  });
 }
 
 //////////////////////////////////////////////////////////////////
