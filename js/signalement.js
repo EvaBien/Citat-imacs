@@ -17,7 +17,7 @@
       //////////////// POP UP VANISH ///////////
 
 
-      /////////// VALID DELETE CITATION ////////  
+      /////////// VALID DELETE CITATION ////////
 
 
 function signalPopUp(){
@@ -27,12 +27,12 @@ function signalPopUp(){
 
 //admin : POP UP
 
-function editCitation(){
+function displayEditCitation(){
 	displayCover();
  	document.getElementById("pop-edit").style.display = "block";
 }
 
-function delCitation(){
+function displayDelCitation(){
 	displayCover();
  	document.getElementById("pop-delete").style.display = "block";
 }

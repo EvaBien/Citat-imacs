@@ -29,9 +29,9 @@
 			</div>
 		</section>
 		<section id="choice-signal">
-			<button id="choice-edit" onclick="editCitation()">Editer la citation</button>
-			<button id="choice-delete" onclick="delCitation()">Supprimer la citation</button>
-			<button id="choice-delete">Ne rien fairen</button>
+			<button id="choice-edit" onclick="displayEditCitation()">Editer la citation</button>
+			<button id="choice-delete" onclick="displayDelCitation()">Supprimer la citation</button>
+			<button id="choice-delete">Ne rien faire</button>
 		</section>
 	</div>
 
@@ -56,14 +56,14 @@
 			<label for="pass">Mot de passe administrateur</label><input type="password" name = "pass" id='pass' />
 			<button id="valid-edit" class="button">OK</button>
 			<p class="cancel" onclick="cancelPopUpAdmin()">Annuler</p>
-		</form>	
+		</form>
 	</div>
 
 	<div class="pop-up" id="pop-delete">
 		<p class="warning_popup">Vous allez supprimer une citation signalée</p>
 		<form>
 			<label for="pass">Mot de passe administrateur</label><input type="password" name = "pass" id='pass2' />
-			<button id="valid-delete" class="ok_button_pop">OK</button>	
+			<button id="valid-delete" class="ok_button_pop">OK</button>
 			<p class="cancel" onclick="cancelPopUpAdmin()">Annuler</p>
 		</form>
 	</div>

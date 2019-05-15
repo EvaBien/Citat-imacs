@@ -59,11 +59,11 @@ function AllCitations(){
 
   //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
-  document.ready( () => {
-    AllCitations();
-    AllTags();
-    AllTypesAuteur();
-  });
+  // document.ready( () => {
+  //   AllCitations();
+  //   AllTags();
+  //   AllTypesAuteur();
+  // });
 
 //////////////////////////////////////////////////////////////////
   //////////////// FONCTION AFFICHE CITATIONS //////////////// - FAIT
@@ -185,7 +185,7 @@ function displayTypesAuteurNav(dataTypes){
 
 
 //////////////////////////////////////////////////////////////////
-  ///////////// FONCTION AFFICHE TYPES AUTEUR POP UP /////////////
+  ///////////// FONCTION AFFICHE TYPES AUTEUR POP UP ///////////// - FAIT
 function displayTypesAuteurPop(dataTypes){
   var data = JSON.parse(dataTypes);
 
@@ -200,7 +200,7 @@ function displayTypesAuteurPop(dataTypes){
 
 
 //////////////////////////////////////////////////////////////////
-  /////////////////// FONCTION AFFICHE TAGS POP UP ///////////////
+  /////////////////// FONCTION AFFICHE TAGS POP UP /////////////// - FAIT
   function displayTagsPop(dataTags){
     var data = JSON.parse(dataTags);
 
@@ -218,7 +218,7 @@ function displayTypesAuteurPop(dataTypes){
 
   function handleAll() {
     /*C'est le statut avant qu'on clique qui est pris en compte*/
-    if(!document.getElementById("checkbox1").checked){
+    if(!document.getElementById("checkbox0").checked){
       var items = document.getElementsByName('navTagsCheckbox');
           for (var i = 1; i < items.length; i++) {
               if (items[i].type == 'checkbox')
@@ -228,7 +228,7 @@ function displayTypesAuteurPop(dataTypes){
   }
 
   function checkedButAll(){
-    if(document.getElementById("checkbox1").checked){
+    if(document.getElementById("checkbox0").checked){
       var items = document.getElementsByName('navTagsCheckbox');
           items[0].checked = false;
     }
@@ -267,7 +267,7 @@ function displayTypesAuteurPop(dataTypes){
         document.getElementById("cover").style.display = "block";
       }
 
-      //////////////// POP UP VANISH ///////////
+      //////////////// POP UP VANISH /////////// - FAIT
       function cancelPopUp(){
         document.getElementById("cover").style.display = "none";
         document.getElementById("pop_new_citation").style.display = "none";
@@ -284,7 +284,7 @@ function displayTypesAuteurPop(dataTypes){
         button = event.target;
         divId=button.parentElement.parentElement.getAttribut(idCitation); // On récupère l'id
         currentLikes = getCitationLikes(divId);
-        divId = button.parentNode.parentNode.id;
+        divId = button.parentNode.parentNode.getAttribut(id);
         if(button.classList.contains('clicked')){
           updateCitationLikes(divId, currentLikes-1); //On unlike, changer dans la BDD
           button.classList.remove("clicked");
