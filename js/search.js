@@ -1,4 +1,4 @@
-// include('.index.html/Route/routeur.php');
+// include('../Route/routeur.php');
 // "<?php include_once(..Route/routeur.php); ?>";
 
 /****************************************************/
@@ -7,13 +7,13 @@
 
 //////////////////// ALL TAGS /////////////////// - FAIT
 function AllTags(){
-  let url = 'index.html/tags/All'; // Mon url
+  let url = './tags/All'; // Mon url
   var request = new Request(url, {
       method: 'GET'
   })
 
-  fetch(url, request)
-  .then(response => console.log('Success:', JSON.stringify(response)))
+  fetch('./Route/routeur.php', request)
+  .then(response => response.json())
     .then(function(data){
       displayTagsNav(data);
       displayTagsPop(data);
@@ -24,13 +24,13 @@ function AllTags(){
 //////////////////// ALL TYPES AUTEUR /////////////////// - FAIT
 
 function AllTypesAuteur(){
-  let url = 'index.html/typesAuteur/All'; // Mon url
+  let url = './typesAuteur/All'; // Mon url
   var request = new Request(url, {
       method: 'GET'
   })
 
-  fetch(url, request) // chooseRoute() est une fonction en php, qui est dans routeur.php
-    .then(response => console.log('Success:', JSON.stringify(response)))
+  fetch('./Route/routeur.php', request) // chooseRoute() est une fonction en php, qui est dans routeur.php
+    .then(response => response.json())
     .then(function(data){
       displayTypesAuteurNav(data);
       displayTypesAuteurPop(data);
@@ -40,13 +40,13 @@ function AllTypesAuteur(){
 
 //////////////////// ALL CITATIONS /////////////////// - FAIT
 function AllCitations(){
-  let url = 'index.html/citations/All'; // Mon url
+  let url = './citations/All'; // Mon url
   var request = new Request(url, {
       method: 'GET'
   })
 
-  fetch(url, request)
-  .then(response => console.log('Success:', JSON.stringify(response)))
+  fetch('./Route/routeur.php', request)
+  .then(response => response.json())
     .then(function(data){
       displayCitation(data);
     })
@@ -305,19 +305,61 @@ function displayTypesAuteurPop(dataTypes){
 
       /////////// LIKES CITATIONS //////// - FAIT
       function likeCitation(){ // A modifier ?
+
+        let divId=button.getAttribut(idCitation); // On récupère l'id
+        let currentLikes;
+        let newValue;
+        let urlGet = './citations/GetLikes'; // Mon url
+        let dataGet ={
+          idCitation : divId
+        }
+        var requestGet = new Request(urlGet, {
+            method: 'GET',
+            body : JSON.stringify(dataGet)
+
+        })
+        /// On get la valeur actuelle des likes ///
+        fetch('./Route/routeur.php', requestGet)
+        .then(response => response.json())
+          .then(function(data){
+            currentLikes = data['likes'];
+          })
+          .catch(error => { console.log(error) });
+
+
         button = event.target;
-        divId=button.getAttribut(idCitation); // On récupère l'id
-        currentLikes = getCitationLikes(divId);
         if(button.classList.contains('clicked')){
-          updateCitationLikes(divId, currentLikes-1); //On unlike, changer dans la BDD
+          newValue=currentLikes-1;
           button.classList.remove("clicked");
         }else{
-          updateCitationLikes(divId, currentLikes+1);//On like
+          newValue=currentLikes-1;
           button.classList.add("clicked");
         }
-        numberLikes = getCitationLikes(divId);
+
+        /// On update les likes ///
+        let urlUpd='./citation/UpdateLikes'
+        let dataUpd={
+          idCitation : divId,
+          likes : newValue
+        }
+        var requestUpd = new Request(urlUpd, {
+          method : 'PUT',
+          body : JSON.stringify(dataUpd)
+        })
+        fetch('./Route/routeur.php', requestUpd)
+        .then(response => response.json())
+          .catch(error => { console.log(error) });
+
+        /// On get la nouvelle valeur dans la BDD directement ///
+        fetch('./Route/routeur.php', requestGet)
+        .then(response => response.json())
+          .then(function(data){
+            currentLikes = data['likes'];
+          })
+          .catch(error => { console.log(error) });
+
         likeDiv = button.parentNode.children[1];
-        likeDiv.innerHTML = numberLikes;
+        likeDiv.innerHTML = currentLikes;
       }
 
 
@@ -351,21 +393,21 @@ function displayTypesAuteurPop(dataTypes){
     //           var url;
     //
     //         if (/* Tous les critères keyword + T + TA */){
-    //           url = 'index.html/citations/Allfactors';
+    //           url = './citations/Allfactors';
     //         } else if (/* juste keyword */){
-    //           url = 'index.html/citations/Keyword';
+    //           url = './citations/Keyword';
     //         } else if (/* juste tags */){
-    //           url = 'index.html/citations/Tags';
+    //           url = './citations/Tags';
     //         } else if (/* juste type auteur*/){
-    //           url = 'index.html/citations/Typesauteur';
+    //           url = './citations/Typesauteur';
     //         } else if (/* keyword + tags*/){
-    //           url = 'index.html/citations/TagsKeyword';
+    //           url = './citations/TagsKeyword';
     //         } else if (/* keyword + typeAuteur */){
-    //           url = 'index.html/citations/TypesauteurKeyword';
+    //           url = './citations/TypesauteurKeyword';
     //         } else if (/* tags + types auteur */){
-    //           url = 'index.html/citations/TypesauteurTags';
+    //           url = './citations/TypesauteurTags';
     //         } else { // Aucun ou que des all
-    //           url = 'index.html/citations/All'; // Mon url
+    //           url = './citations/All'; // Mon url
     //         }
     //
     //         var request = new Request(url, {
@@ -373,8 +415,8 @@ function displayTypesAuteurPop(dataTypes){
     //             method: 'GET',
     //             body : JSON.stringify(datas)
     //         })
-    //           fetch(url, request)
-    //           .then(response => console.log('Success:', JSON.stringify(response)))
+    //           fetch('./Route/routeur.php', request)
+    //           .then(response => response.json())
     //             .then(displayCitation(data))
     //             .catch(error => { console.log(error) });
     //       }

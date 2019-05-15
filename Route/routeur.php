@@ -63,12 +63,12 @@ $url = $request.url(); // ?? OU RECUPERER LA REQUETE
     case './citations/Delete' :
       apiDeleteCitation($request); // Delete
         break;
-    // case './citations/GetLikes' :
-    //   getCitationLikes($request); // get citation likes
-    //     break;
-    // case './citations/UpdateLikes' :
-    //   updateCitationLikes($request); // Update citation likes
-    //     break;
+    case './citations/GetLikes' :
+      getCitationLikes($request); // get citation likes
+        break;
+    case './citations/UpdateLikes' :
+      updateCitationLikes($request); // Update citation likes
+        break;
         ///////////// ALL TAGS, TYPESAUTEURS & TYPESSIGNALEMENTS /////////////
     case './tags/All' :
       apiGetAllTags($request); // Get All Tags
