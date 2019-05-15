@@ -59,11 +59,11 @@ function AllCitations(){
 
   //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
-  // document.ready( () => {
-  //   AllCitations();
-  //   AllTags();
-  //   AllTypesAuteur();
-  // });
+  document.ready( () => {
+    AllCitations();
+    AllTags();
+    AllTypesAuteur();
+  });
 
 //////////////////////////////////////////////////////////////////
   //////////////// FONCTION AFFICHE CITATIONS //////////////// - FAIT
