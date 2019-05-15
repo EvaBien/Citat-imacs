@@ -24,12 +24,9 @@ if ($method == 'GET'){
 } else {
   $url = $_DELETE['url']; // A tester dans le switch case
   $request = $_DELETE['request'];
-
 }
 
-
 //https://www.primfx.com/tuto-php-creer-router-479/
-
 //https://www.grafikart.fr/tutoriels/router-628
 //
 ///// TOUS LES URLS POSSIBLES /////
