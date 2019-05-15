@@ -49,7 +49,7 @@ function AllCitations(){
   fetch(chooseRoute(request))
     .then(function(data){
       displayCitation(data);
-    });
+    })
     .catch(error => { console.log(error) });
   }
 

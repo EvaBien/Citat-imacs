@@ -17,7 +17,7 @@ public function apiCreateCitation(HttpRequest $query)
     ////// VERIF/////
 
     // check HTTP method //
-  $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+  $method = strtolower($query['method']); // Je verifie si c'est bien un get
   if ($method !== 'post') {
       http_response_code(405);
       echo json_encode(array('message' => 'This method is not allowed.'));
@@ -40,7 +40,7 @@ public function apiCreateCitation(HttpRequest $query)
 //     $query["idTypeAuteur"] = $_POST['typeAuteur'];
 // }
     // Creation du nouvel objet//
-    $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
+    $citation = new Citation($query['body']['contenuCitation'],$query['body']['dateCitation'],$query['body']['auteurCitation'],$query['body']['idTypeAuteur']);
 
     ////// ADD TO DB //////
     $queryStmt = "INSERT INTO Citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);"
@@ -72,7 +72,7 @@ public function apiCreateCitation(HttpRequest $query)
 //URL - GET : citations?all
 public function apiGetAllCitations(HttpRequest $query){
   // check HTTP method //
-  $method = strtolower($_SERVER['REQUEST_METHOD']);
+  $method = strtolower($query['method']);
 
   if ($method !== 'get') {
   	http_response_code(405);
@@ -137,7 +137,7 @@ SQL
 //URL - GET : citations?id="id"
 public function apiGetCitationById(HttpRequest $query){
   // check HTTP method //
-$method = strtolower($_SERVER['REQUEST_METHOD']);
+$method = strtolower($query['method']);
 if ($method !== 'get') {
     http_response_code(405);
     echo json_encode(array('message' => 'This method is not allowed.'));
@@ -159,7 +159,7 @@ $queryStmt = "SELECT * FROM S2_Citations WHERE S2_Citations.idCitation = :idcita
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(['idcitation' => $query['idCitation']]);
+$stmt->execute(['idcitation' => $query['body']['idCitation']]);
 
 while (($row = $stmt->fetch()) !== false) {
 	array_push($citations, $row);
@@ -205,7 +205,7 @@ $citations[$key]['tags'] = $tags;
 // VERIFICATION QUE RESULTAT NON VIDE //
 if (empty($citation)) {
   http_response_code(404);
-  $citation = "Cannot found movie with id {$query['idCitation']}.";
+  $citation = "Cannot found citation with this factors";
 }
 else {
   http_response_code(200);
@@ -221,7 +221,7 @@ exit();
 //URL - GET : citations?tags="tags"
 public function apiGetCitationByTags(HttpRequest $query){
   // check HTTP method //
-$method = strtolower($_SERVER['REQUEST_METHOD']);
+$method = strtolower($query['method']);
 if ($method !== 'get') {
     http_response_code(405);
     echo json_encode(array('message' => 'This method is not allowed.'));
@@ -233,7 +233,7 @@ if ($method !== 'get') {
 // }
 // $tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
-$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
+$tagsList = implode(',', array_fill(0, count($query['body']['tags']), '?'));
 
 
 $queryStmt = "SELECT * FROM S2_Citations
@@ -290,7 +290,7 @@ $citations[$key]['tags'] = $tags;
 // VERIFICATION QUE RESULTAT NON VIDE //
 if (empty($citation)) {
   http_response_code(404);
-  $citation = "Cannot found movie with tags {$query['Tags']}.";
+$citation = "Cannot found citation with this factors";
 }
 else {
   http_response_code(200);
@@ -305,7 +305,7 @@ exit();
 //URL - GET : citations?keyword="keyword"
 public function apiGetCitationByKeyword(HttpRequest $query){
   // check HTTP method //
-$method = strtolower($_SERVER['REQUEST_METHOD']);
+$method = strtolower($query['method']);
 if ($method !== 'get') {
     http_response_code(405);
     echo json_encode(array('message' => 'This method is not allowed.'));
@@ -317,7 +317,7 @@ $queryStmt = "SELECT * FROM S2_Citations WHERE contenuCitation LIKE %:keyword% O
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(['keyword' => $query['keyWord']]);
+$stmt->execute(['keyword' => $query['body']['keyWord']]);
 
 while (($row = $stmt->fetch()) !== false) {
 	array_push($citations, $row);
@@ -363,7 +363,7 @@ $citations[$key]['tags'] = $tags;
 // VERIFICATION QUE RESULTAT NON VIDE //
 if (empty($citation)) {
   http_response_code(404);
-  $citation = "Cannot found movie with keyword {$query['keyWord']}.";
+$citation = "Cannot found citation with this factors";
 }
 else {
   http_response_code(200);
@@ -377,7 +377,7 @@ exit();
 //URL - GET : citations?typesAuteur="types"
 public function apiGetCitationByTypeAuteur(HttpRequest $query){
   // check HTTP method //
-$method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+$method = strtolower($query['method']); // Je verifie si c'est bien un get
 if ($method !== 'get') {
     http_response_code(405);
     echo json_encode(array('message' => 'This method is not allowed.'));
@@ -389,7 +389,7 @@ if ($method !== 'get') {
 // }
 // $typesList=substr($typesList,-2);
 
-$typesList = implode(',', array_fill(0, count($query['typesAuteur']), '?'));
+$typesList = implode(',', array_fill(0, count($query['body']['typesauteur']), '?'));
 
 $queryStmt = "SELECT * FROM S2_Citations
   WHERE S2_Citations.idTypeAuteur IN ($typesList);"
@@ -443,7 +443,7 @@ $citations[$key]['tags'] = $tags;
 // VERIFICATION QUE RESULTAT NON VIDE //
 if (empty($citation)) {
   http_response_code(404);
-  $citation = "Cannot found movie with keyword {$query['keyWord']}.";
+$citation = "Cannot found citation with this factors";
 }
 else {
   http_response_code(200);
@@ -460,7 +460,7 @@ exit();
 //URL - GET : citations?keyword="keyword"&tags="tags"&typesAuteur="types"
 public function apiGetCitationByAll(HttpRequest $query){
   // check HTTP method //
-$method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+$method = strtolower($query['method']); // Je verifie si c'est bien un get
 if ($method !== 'get') {
     http_response_code(405);
     echo json_encode(array('message' => 'This method is not allowed.'));
@@ -478,8 +478,8 @@ if ($method !== 'get') {
 //   $typesList.=$type["idTypeAuteur"].', ';
 // }
 // $typesList=substr($typesList,-2);
-$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
-$typesList = implode(',', array_fill(0, count($query['typesAuteur']), '?'));
+$tagsList = implode(',', array_fill(0, count($query['body']['tags']), '?'));
+$typesList = implode(',', array_fill(0, count($query['body']['typesauteur']), '?'));
 
 $queryStmt = "SELECT *
   FROM S2_Citations
@@ -490,7 +490,7 @@ $queryStmt = "SELECT *
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(':keyword' => $query["keyWord"]);
+$stmt->execute(':keyword' => $query['body']["keyWwrd"]);
 
 while (($row = $stmt->fetch()) !== false) {
   array_push($citations, $row);
@@ -536,7 +536,7 @@ $citations[$key]['tags'] = $tags;
 // VERIFICATION QUE RESULTAT NON VIDE //
 if (empty($citation)) {
   http_response_code(404);
-  $citation = "Cannot found movie with keyword {$query['keyWord']}.";
+$citation = "Cannot found citation with this factors";
 }
 else {
   http_response_code(200);
@@ -550,21 +550,15 @@ exit();
 //URL - GET : citations?keyword="keyword"&tags="tags"
 public function apiGetCitationByTagsAndKeyword(HttpRequest $query){
   // check HTTP method //
-$method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+$method = strtolower($query['method']); // Je verifie si c'est bien un get
 if ($method !== 'get') {
     http_response_code(405);
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit(); // SInon je sors
 }
 
-// $tagsList =''; // Je fais une liste avec mes tags
-// foreach ($query['Tags'] as $tag){ // Pour chaque tag dans la requête
-//   $tagsList+=$tag["nomTag"].', '; // Je l'ajoute à ma liste en les séparant d'une ,
-// }
-// $tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
-
-$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
+$tagsList = implode(',', array_fill(0, count($query['body']['tags']), '?'));
 
 $queryStmt = "SELECT *
   FROM S2_Citations
@@ -576,7 +570,7 @@ $queryStmt = "SELECT *
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(':keyword' => $query["keyWord"]);
+$stmt->execute(':keyword' => $query['body']["keyword"]);
 
 while (($row = $stmt->fetch()) !== false) {
   array_push($citations, $row);
@@ -622,7 +616,7 @@ $citations[$key]['tags'] = $tags;
 // VERIFICATION QUE RESULTAT NON VIDE //
 if (empty($citation)) {
   http_response_code(404);
-  $citation = "Cannot found movie with keyword {$query['keyWord']}.";
+$citation = "Cannot found citation with this factors";
 }
 else {
   http_response_code(200);
@@ -637,20 +631,14 @@ exit();
 //URL - GET : citations?keyword="keyword"&typesAuteur="types"
 public function apiGetCitationByTypeAuteurAndKeyword(HttpRequest $query){
   // check HTTP method //
-$method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+$method = strtolower($query['method']); // Je verifie si c'est bien un get
 if ($method !== 'get') {
     http_response_code(405);
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit(); // SInon je sors
 }
-// $typesList ='';
-// foreach ($query['typesAuteur'] as $type){
-//   $typesList.=$type["idTypeAuteur"].', ';
-// }
-// $typesList=substr($typesList,-2);
 
-
-$typesList = implode(',', array_fill(0, count($query['typesAuteur']), '?'));
+$typesList = implode(',', array_fill(0, count($query['body']['typesauteur']), '?'));
 
 $queryStmt = "SELECT *
   FROM S2_Citations
@@ -660,7 +648,7 @@ $queryStmt = "SELECT *
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(':keyword' => $query["keyWord"]);
+$stmt->execute(':keyword' => $query['body']["keyword"]);
 
 
 while (($row = $stmt->fetch()) !== false) {
@@ -707,7 +695,7 @@ $citations[$key]['tags'] = $tags;
 // VERIFICATION QUE RESULTAT NON VIDE //
 if (empty($citation)) {
   http_response_code(404);
-  $citation = "Cannot found movie with keyword {$query['keyWord']}.";
+$citation = "Cannot found citation with this factors";
 }
 else {
   http_response_code(200);
@@ -724,7 +712,7 @@ exit();
 
 public function apiGetCitationByTypeAuteurAndTags(HttpRequest $query){
   // check HTTP method //
-$method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+$method = strtolower($query['method']); // Je verifie si c'est bien un get
 if ($method !== 'get') {
     http_response_code(405);
     echo json_encode(array('message' => 'This method is not allowed.'));
@@ -743,8 +731,8 @@ if ($method !== 'get') {
 // $tagsList=substr($tagsList,-2) // J'enlève le virgule + espace à la fin
 
 
-$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
-$typesList = implode(',', array_fill(0, count($query['typesAuteur']), '?'));
+$tagsList = implode(',', array_fill(0, count($query['body']['tags']), '?'));
+$typesList = implode(',', array_fill(0, count($query['body']['typesauteur']), '?'));
 
 $queryStmt = "SELECT *
   FROM S2_Citations
@@ -803,7 +791,7 @@ $citations[$key]['tags'] = $tags;
 // VERIFICATION QUE RESULTAT NON VIDE //
 if (empty($citation)) {
   http_response_code(404);
-  $citation = "Cannot found movie with keyword {$query['keyWord']}.";
+$citation = "Cannot found citation with this factors";
 }
 else {
   http_response_code(200);
@@ -821,7 +809,7 @@ public static function apiUpdateCitation(HttpRequest $query)
   {
 
     // check HTTP method //
-  $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+  $method = strtolower($query['method']); // Je verifie si c'est bien un get
   if ($method !== 'put') {
       http_response_code(405);
       echo json_encode(array('message' => 'This method is not allowed.'));
@@ -829,19 +817,18 @@ public static function apiUpdateCitation(HttpRequest $query)
   }
 
     if (isset($_PUT['contenu'])) {
-        $query["contenuCitation"] = $_PUT['contenu'];
-    }
-    if (isset($_PUT["date"])) {
-        $date = new DateTime($_PUT["date"]);
-        $query["dateCitation"] = $date->format("d-m-Y");
+      var_dump($_PUT['contenu']));
+        // $query['body']["contenuCitation"] = $_PUT['contenu'];
     }
 
     if (isset($_PUT['auteur'])) {
-        $query["auteurCitation"] = $_PUT['auteur'];
+      var_dump($_PUT['auteur']));
+        // $query['body']["auteurCitation"] = $_PUT['auteur'];
     }
 
     if (isset($_PUT['typeAuteur'])) {
-        $query["idTypeAuteur"] = $_PUT['typeAuteur'];
+      var_dump($_PUT['typeAuteur']));
+        // $query['body']["idTypeAuteur"] = $_PUT['typeAuteur'];
     }
     // Ajouter les else --> même valeur
 
@@ -850,10 +837,10 @@ public static function apiUpdateCitation(HttpRequest $query)
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
     $stmt->execute(
       array(
-        ':contenu' => $query["contenuCitation"],
-        ':auteur' => $query["auteurCitation"],
-        ':typeauteur'=> $query["idTypeAuteur"],
-        ':id'=>$query["idCitation"]
+        ':contenu' => $query['body']["contenuCitation"],
+        ':auteur' => $query['body']["auteurCitation"],
+        ':typeauteur'=> $query['body']["idTypeAuteur"],
+        ':id'=>$query['body']["idCitation"]
       )
     );
 
@@ -873,7 +860,7 @@ public static function apiDeleteCitation(HttpRequest $query)
   {
 
     // check HTTP method //
-  $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+  $method = strtolower($query['method']); // Je verifie si c'est bien un get
   if ($method !== 'delete') {
       http_response_code(405);
       echo json_encode(array('message' => 'This method is not allowed.'));
@@ -883,12 +870,12 @@ public static function apiDeleteCitation(HttpRequest $query)
     $queryStmt1 = "DELETE FROM S2_TagCitation WHERE idCitation = :idcitation";
 
     $stmt1 = MyPDO::getInstance()->prepare($queryStmt1);
-    $stmt1->execute(['idcitation' => $query['idCitation']);
+    $stmt1->execute(['idcitation' => $query['body']['idCitation']);
 
     $queryStmt2 = "DELETE FROM S2_Citations WHERE idCitation = :idcitation";
 
     $stmt2 = MyPDO::getInstance()->prepare($queryStmt2);
-    $stmt2->execute(['idcitation' => $query['idCitation']);
+    $stmt2->execute(['idcitation' => $query['body']['idCitation']);
 
     if ($stmt2->rowCount() == 0) {
       return NULL;
@@ -909,7 +896,7 @@ public static function verifMdp($string){
 }
 
 // check HTTP method //
-$method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+$method = strtolower($query['method']); // Je verifie si c'est bien un get
 if ($method !== 'get') {
   http_response_code(405);
   echo json_encode(array('message' => 'This method is not allowed.'));
@@ -935,7 +922,7 @@ public static function getCitationLikes($idCitation)
       {
 
         // check HTTP method //
-      $method = strtolower($_SERVER['REQUEST_METHOD']); // Je verifie si c'est bien un get
+      $method = strtolower($query['method']); // Je verifie si c'est bien un get
       if ($method !== 'put') {
           http_response_code(405);
           echo json_encode(array('message' => 'This method is not allowed.'));
