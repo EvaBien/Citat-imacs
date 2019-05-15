@@ -1,11 +1,11 @@
 // include('../Route/routeur.php');
-"<?php include_once(\"..Route/routeur.php\"); ?>"
+"<?php include_once(..Route/routeur.php); ?>";
 
 /****************************************************/
 ////////////////////// APPELS API ////////////////////
 /****************************************************/
 
-//////////////////// ALL CITATIONS /////////////////// - FAIT
+//////////////////// ALL TAGS /////////////////// - FAIT
 function AllTags(){
   let url = './tags/All'; // Mon url
   var request = {
@@ -14,12 +14,14 @@ function AllTags(){
   }
 
   fetch(chooseRoute(request))
-    .then(displayTagsNav(data))
-    .then(displayTagsPop(data))
+    .then(function(data){
+      displayTagsNav(data);
+      displayTagsPop(data);
+    })
     .catch(error => { console.log(error) });
   }
 
-//////////////////// ALL CITATIONS /////////////////// - FAIT
+//////////////////// ALL TYPES AUTEUR /////////////////// - FAIT
 
 function AllTypesAuteur(){
   let url = './typesAuteur/All'; // Mon url
@@ -28,9 +30,11 @@ function AllTypesAuteur(){
       method: 'GET'
   }
 
-  fetch(chooseRoute(request))
-    .then(displayTypesAuteurNav(data))
-    .then(displayTypesAuteurPop(data))
+  fetch(chooseRoute(request)) // chooseRoute() est une fonction en php, qui est dans routeur.php
+    .then(function(data){
+      displayTypesAuteurNav(data);
+      displayTypesAuteurPop(data);
+    })
     .catch(error => { console.log(error) });
   }
 
@@ -43,7 +47,9 @@ function AllCitations(){
   }
 
   fetch(chooseRoute(request))
-    .then(displayCitation(data))
+    .then(function(data){
+      displayCitation(data);
+    });
     .catch(error => { console.log(error) });
   }
 
@@ -55,7 +61,7 @@ function AllCitations(){
   //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
 document.addEventListener('DOMContentLoaded', function(){
-    // AllCitations();
+    AllCitations();
     AllTags();
     AllTypesAuteur();
   });
