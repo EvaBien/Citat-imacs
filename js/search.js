@@ -1,5 +1,5 @@
-// include('../Route/routeur.php');
-"<?php include_once(..Route/routeur.php); ?>";
+// include('.index.html/Route/routeur.php');
+// "<?php include_once(..Route/routeur.php); ?>";
 
 /****************************************************/
 ////////////////////// APPELS API ////////////////////
@@ -7,13 +7,13 @@
 
 //////////////////// ALL TAGS /////////////////// - FAIT
 function AllTags(){
-  let url = './tags/All'; // Mon url
-  var request = {
-      url :  url,
+  let url = 'index.html/tags/All'; // Mon url
+  var request = new Request(url, {
       method: 'GET'
-  }
+  })
 
-  fetch(chooseRoute(request))
+  fetch(url, request)
+  .then(response => console.log('Success:', JSON.stringify(response)))
     .then(function(data){
       displayTagsNav(data);
       displayTagsPop(data);
@@ -24,13 +24,13 @@ function AllTags(){
 //////////////////// ALL TYPES AUTEUR /////////////////// - FAIT
 
 function AllTypesAuteur(){
-  let url = './typesAuteur/All'; // Mon url
-  var request = {
-      url :  url,
+  let url = 'index.html/typesAuteur/All'; // Mon url
+  var request = new Request(url, {
       method: 'GET'
-  }
+  })
 
-  fetch(chooseRoute(request)) // chooseRoute() est une fonction en php, qui est dans routeur.php
+  fetch(url, request) // chooseRoute() est une fonction en php, qui est dans routeur.php
+    .then(response => console.log('Success:', JSON.stringify(response)))
     .then(function(data){
       displayTypesAuteurNav(data);
       displayTypesAuteurPop(data);
@@ -40,13 +40,13 @@ function AllTypesAuteur(){
 
 //////////////////// ALL CITATIONS /////////////////// - FAIT
 function AllCitations(){
-  let url = './citations/All'; // Mon url
-  var request = {
-      url :  url,
+  let url = 'index.html/citations/All'; // Mon url
+  var request = new Request(url, {
       method: 'GET'
-  }
+  })
 
-  fetch(chooseRoute(request))
+  fetch(url, request)
+  .then(response => console.log('Success:', JSON.stringify(response)))
     .then(function(data){
       displayCitation(data);
     })
@@ -342,7 +342,7 @@ function displayTypesAuteurPop(dataTypes){
 		//                    }
 	  //                   });
     //
-    //         var data = {
+    //         var datas = {
     //             keyWord : keywordForm,
     //             tags : tagsChecked,
     //             typeAuteur : typesAuteurChecked
@@ -351,29 +351,30 @@ function displayTypesAuteurPop(dataTypes){
     //           var url;
     //
     //         if (/* Tous les critères keyword + T + TA */){
-    //           url = './citations/Allfactors';
+    //           url = 'index.html/citations/Allfactors';
     //         } else if (/* juste keyword */){
-    //           url = './citations/Keyword';
+    //           url = 'index.html/citations/Keyword';
     //         } else if (/* juste tags */){
-    //           url = './citations/Tags';
+    //           url = 'index.html/citations/Tags';
     //         } else if (/* juste type auteur*/){
-    //           url = './citations/Typesauteur';
+    //           url = 'index.html/citations/Typesauteur';
     //         } else if (/* keyword + tags*/){
-    //           url = './citations/TagsKeyword';
+    //           url = 'index.html/citations/TagsKeyword';
     //         } else if (/* keyword + typeAuteur */){
-    //           url = './citations/TypesauteurKeyword';
+    //           url = 'index.html/citations/TypesauteurKeyword';
     //         } else if (/* tags + types auteur */){
-    //           url = './citations/TypesauteurTags';
+    //           url = 'index.html/citations/TypesauteurTags';
     //         } else { // Aucun ou que des all
-    //           url = './citations/All'; // Mon url
+    //           url = 'index.html/citations/All'; // Mon url
     //         }
     //
-    //         var request = {
-    //             url :  url,
+    //         var request = new Request(url, {
+    //
     //             method: 'GET',
-    //             body : data
-    //         }
-    //           fetch(chooseRoute(request))
+    //             body : JSON.stringify(datas)
+    //         })
+    //           fetch(url, request)
+    //           .then(response => console.log('Success:', JSON.stringify(response)))
     //             .then(displayCitation(data))
     //             .catch(error => { console.log(error) });
     //       }

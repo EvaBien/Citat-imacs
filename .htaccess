@@ -1,6 +1,6 @@
-RewriteEngine Off
+RewriteEngine On
 
-RewriteRule ^(.*)$ routeur.php?url=$1 [L]
+RewriteRule ^(.*)$ routeur.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
