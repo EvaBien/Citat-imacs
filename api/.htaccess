@@ -1,6 +1,6 @@
 RewriteEngine On
 
-RewriteRule ^(.*)$ /Route/routeur.php [L]
+RewriteRule ^(.*)$/Route/routeur.php [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

@@ -35,69 +35,69 @@ switch ($url) {
   apiGetAllCitations($request); // GET ALL
   break;
   /////CITATIONS//////
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/New' : // Create
+  case '/~akohlmul/citations/New' : // Create
   apiCreateCitation($request);
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/All' :
+  case '/~akohlmul/citations/All' :
   apiGetAllCitations($request); // GET ALL
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/Id' :
+  case '/~akohlmul/citations/Id' :
   apiGetCitationById($request); // Get By Id
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/Tags' :
+  case '/~akohlmul/citations/Tags' :
   apiGetCitationByTags($request); // Get by Tags
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/Keyword' :
+  case '/~akohlmul/citations/Keyword' :
   apiGetCitationByKeyword($request); // Get by keyword
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/Typesauteur' :
+  case '/~akohlmul/citations/Typesauteur' :
   apiGetCitationByTypeAuteur($request); // Get by typesAuteur
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/TagsKeyword' :
+  case '/~akohlmul/citations/TagsKeyword' :
   apiGetCitationByTagsAndKeyword($request); // Get by tags & keywords
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/TypesauteurKeyword' :
+  case '/~akohlmul/citations/TypesauteurKeyword' :
   apiGetCitationByTypeAuteurAndKeyword($request); // Get by typesAuteur & keyword
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/TypesauteurTags' :
+  case '/~akohlmul/citations/TypesauteurTags' :
   apiGetCitationByTypeAuteurAndTags($request); // Get by typesAuteur & Tags
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/Allfactors' :
+  case '/~akohlmul/citations/Allfactors' :
   apiGetCitationByAll($request); // Get by typesAut+keyword+tags
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/Update' :
+  case '/~akohlmul/citations/Update' :
   apiUpdateCitation($request); // Update
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/Delete' :
+  case '/~akohlmul/citations/Delete' :
   apiDeleteCitation($request); // Delete
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/GetLikes' :
+  case '/~akohlmul/citations/GetLikes' :
   getCitationLikes($request); // get citation likes
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/citations/UpdateLikes' :
+  case '/~akohlmul/citations/UpdateLikes' :
   updateCitationLikes($request); // Update citation likes
   break;
   ///////////// ALL TAGS, TYPESAUTEURS & TYPESSIGNALEMENTS /////////////
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/tags/All' :
+  case '/~akohlmul/tags/All' :
   apiGetAllTags($request); // Get All Tags
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/typesAuteur/All' :
+  case '/~akohlmul/typesAuteur/All' :
   apiGetAllTypeAuteurs($request); // Get AlL TypesAuteur
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/typesSignalement/All' :
+  case '/~akohlmul/typesSignalement/All' :
   apiGetAllTypesSignalement($request); // GetAllTypesSignalement
   break;
   //////////////// SIGNALEMENTS /////////
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/signalement/New' :
+  case '/~akohlmul/signalement/New' :
   apiCreateSignalement($request); // Create Signalement
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/signalement/Id' :
+  case '/~akohlmul/signalement/Id' :
   apiGetSignalementById($request); // Get By id
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/signalement/Update' :
+  case '/~akohlmul/signalement/Update' :
   apiUpdateSignalement($request); // Update signalement
   break;
-  case 'http://perso-etudiant.u-pem.fr/~akohlmul/signalement/Send' :
+  case '/~akohlmul/signalement/Send' :
   sendMailSignalement($request); // Send Mail
   break;
   default:
