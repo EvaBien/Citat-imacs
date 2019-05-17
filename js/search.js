@@ -187,6 +187,7 @@ function displayTypesAuteurNav(dataTypes){
   var lenght = Object.keys(dataTypes).length ; // Je récupère la taille du json
   var middle = lenght/2;
   let authorBlock = document.getElementById("author");
+
   let authorLeft = "section class=\"left_tight\"></section>";
   let authorRight = "section class=\"left_tight\"></section>";
   let all_author = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"authorCheckbox0\" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\"All\" checked onclick=\"handleAllAuthor()> <label for = \"authorCheckbox0\" class=\"tag\" \">All</label></div>"
