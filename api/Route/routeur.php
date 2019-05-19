@@ -35,69 +35,69 @@ switch ($url) {
   apiGetAllCitations($request); // GET ALL
   break;
   /////CITATIONS//////
-  case '/~akohlmul/citations/New' : // Create
+  case '/~lsangare/citations/New' : // Create
   apiCreateCitation($request);
   break;
-  case '/~akohlmul/citations/All' :
+  case '/~lsangare/citations/All' :
   apiGetAllCitations($request); // GET ALL
   break;
-  case '/~akohlmul/citations/Id' :
+  case '/~lsangare/citations/Id' :
   apiGetCitationById($request); // Get By Id
   break;
-  case '/~akohlmul/citations/Tags' :
+  case '/~lsangare/citations/Tags' :
   apiGetCitationByTags($request); // Get by Tags
   break;
-  case '/~akohlmul/citations/Keyword' :
+  case '/~lsangare/citations/Keyword' :
   apiGetCitationByKeyword($request); // Get by keyword
   break;
-  case '/~akohlmul/citations/Typesauteur' :
+  case '/~lsangare/citations/Typesauteur' :
   apiGetCitationByTypeAuteur($request); // Get by typesAuteur
   break;
-  case '/~akohlmul/citations/TagsKeyword' :
+  case '/~lsangare/citations/TagsKeyword' :
   apiGetCitationByTagsAndKeyword($request); // Get by tags & keywords
   break;
-  case '/~akohlmul/citations/TypesauteurKeyword' :
+  case '/~lsangare/citations/TypesauteurKeyword' :
   apiGetCitationByTypeAuteurAndKeyword($request); // Get by typesAuteur & keyword
   break;
-  case '/~akohlmul/citations/TypesauteurTags' :
+  case '/~lsangare/citations/TypesauteurTags' :
   apiGetCitationByTypeAuteurAndTags($request); // Get by typesAuteur & Tags
   break;
-  case '/~akohlmul/citations/Allfactors' :
+  case '/~lsangare/citations/Allfactors' :
   apiGetCitationByAll($request); // Get by typesAut+keyword+tags
   break;
-  case '/~akohlmul/citations/Update' :
+  case '/~lsangare/citations/Update' :
   apiUpdateCitation($request); // Update
   break;
-  case '/~akohlmul/citations/Delete' :
+  case '/~lsangare/citations/Delete' :
   apiDeleteCitation($request); // Delete
   break;
-  case '/~akohlmul/citations/GetLikes' :
+  case '/~lsangare/citations/GetLikes' :
   getCitationLikes($request); // get citation likes
   break;
-  case '/~akohlmul/citations/UpdateLikes' :
+  case '/~lsangare/citations/UpdateLikes' :
   updateCitationLikes($request); // Update citation likes
   break;
   ///////////// ALL TAGS, TYPESAUTEURS & TYPESSIGNALEMENTS /////////////
-  case '/~akohlmul/tags/All' :
+  case '/~lsangare/tags/All' :
   apiGetAllTags($request); // Get All Tags
   break;
-  case '/~akohlmul/typesAuteur/All' :
+  case '/~lsangare/typesAuteur/All' :
   apiGetAllTypeAuteurs($request); // Get AlL TypesAuteur
   break;
-  case '/~akohlmul/typesSignalement/All' :
+  case '/~lsangare/typesSignalement/All' :
   apiGetAllTypesSignalement($request); // GetAllTypesSignalement
   break;
   //////////////// SIGNALEMENTS /////////
-  case '/~akohlmul/signalement/New' :
+  case '/~lsangare/signalement/New' :
   apiCreateSignalement($request); // Create Signalement
   break;
-  case '/~akohlmul/signalement/Id' :
+  case '/~lsangare/signalement/Id' :
   apiGetSignalementById($request); // Get By id
   break;
-  case '/~akohlmul/signalement/Update' :
+  case '/~lsangare/signalement/Update' :
   apiUpdateSignalement($request); // Update signalement
   break;
-  case '/~akohlmul/signalement/Send' :
+  case '/~lsangare/signalement/Send' :
   sendMailSignalement($request); // Send Mail
   break;
   default:
