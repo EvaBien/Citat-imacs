@@ -8,6 +8,11 @@ require '../controller/ControllerTypesAuteur.php';
 require '../controller/ControllerTypesSignalements.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
+<<<<<<< HEAD
+=======
+$url='';
+var_dump($_POST['url']);
+>>>>>>> master
 
 if ($method == 'GET'){
   $url = $_GET['url'];
