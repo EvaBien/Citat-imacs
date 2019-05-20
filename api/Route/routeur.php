@@ -24,8 +24,6 @@ if ($method == 'GET'){
   $request = $_DELETE['getData'];
 }
 
-echo "\n test hihi je suis dans routeur \n";
-
 ///// TOUS LES URLS POSSIBLES /////
 switch ($url) {
   case '' :

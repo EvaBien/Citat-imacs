@@ -16,7 +16,7 @@ function AllTags(){
   fetch('./api/Route/routeur.php', {
 		method: "POST",
 		body: formData})
-  .then(response => response.json())
+  .then(function(response) { return response.json(); })
   .then(function(data){
     displayTagsNav(data);
     displayTagsPop(data);
@@ -38,7 +38,7 @@ function AllTypesAuteur(){
   fetch('./api/Route/routeur.php', {
     method: "POST",
     body: formData}) // chooseRoute() est une fonction en php, qui est dans routeur.php
-  .then(response => response.json())
+  .then(function(response) { return response.json(); })
   .then(function(data){
     displayTypesAuteurNav(data);
     displayTypesAuteurPop(data);
@@ -59,7 +59,7 @@ function AllCitations(){
   fetch('./api/Route/routeur.php', {
     method: "POST",
     body: formData})
-  .then(response => response.json())
+  .then(function(response) { return response.json(); })
   .then(function(data){
     displayCitation(data);
   })
@@ -342,7 +342,7 @@ function likeCitation(){ // A modifier ?
   fetch('./api/Route/routeur.php',  {
 		method: "POST",
 		body: formDataGet})
-  .then(response => response.json())
+  .then(function(response) { return response.json(); })
   .then(function(data){
     currentLikes = data['likes'];
   })
@@ -373,14 +373,14 @@ function likeCitation(){ // A modifier ?
   fetch('./api/Route/routeur.php', {
 		method: "PUT",
 		body: formDataUpd})
-  .then(response => response.json())
+  .then(function(response) { return response.json(); })
   .catch(error => { console.log(error) });
 
   /// On get la nouvelle valeur dans la BDD directement ///
   fetch('./api/Route/routeur.php',  {
 		method: "POST",
 		body: formDataGet})
-  .then(response => response.json())
+  .then(function(response) { return response.json(); })
   .then(function(data){
     currentLikes = data['likes'];
   })
@@ -452,7 +452,7 @@ function likeCitation(){ // A modifier ?
 //           fetch('./api/Route/routeur.php',{
 //             method: "POST",
 //             body: formData})
-//           .then(response => response.json())
+//           .then(function(response) { return response.json(); })
 //             .then(displayCitation(data))
 //             .catch(error => { console.log(error) });
 //       }
