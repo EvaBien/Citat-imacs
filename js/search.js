@@ -394,65 +394,65 @@ function likeCitation(){ // A modifier ?
 //////////////////////////////////////////////////////////////////
 ///////////////// CRITERES DE RECHERCHE - CAS ////////////////
 
-document.getElementById('valid_search').onclick = event => {
-	event.preventDefault();
-        keywordForm = document.getElementById("input[name='inputKeyword']").value;
-        tagsForm = document.querySelectorAll("input[name='navTagsCheckbox']");
-         let tagsChecked = new Array();
-          tagsForm.forEach(function(radioBtn) {
-              if (radioBtn.checked) {
-	                 tagsChecked.push(JSON.stringify(radioBtn.nomTag));
-                   }
-                  });
-        typesAuteurForm = document.querySelectorAll("input[name='navAuthorCheckbox']");
-         let typesAuteurChecked = new Array();
-          typesAuteurForm.forEach(function(radioBtn) {
-              if (radioBtn.checked) {
-	                 typesAuteurChecked.push(JSON.stringify(radioBtn.nomTag));
-                   }
-                  });
-
-        let formData = new FormData();
-        let data = new Object();
-
-        data['keyWord'] = keywordForm;
-        formData.append("keyword",keywordForm );
-        data['tags'] = tagsChecked;
-        formData.append("tags", tagsChecked);
-        data['tags'] = typesAuteurChecked;
-        formData.append("tags", typesAuteurChecked);
-
-        var url;
-
-        if (/* Tous les critères keyword + T + TA */){
-          url = './citations/Allfactors';
-        } else if (/* juste keyword */){
-          url = './citations/Keyword';
-        } else if (/* juste tags */){
-          url = './citations/Tags';
-        } else if (/* juste type auteur*/){
-          url = './citations/Typesauteur';
-        } else if (/* keyword + tags*/){
-          url = './citations/TagsKeyword';
-        } else if (/* keyword + typeAuteur */){
-          url = './citations/TypesauteurKeyword';
-        } else if (/* tags + types auteur */){
-          url = './citations/TypesauteurTags';
-        } else { // Aucun ou que des all
-          url = './citations/All'; // Mon url
-        }
-
-        data['url'] = url;
-        formData.append("url", url);
-
-
-        data = JSON.stringify(data);
-        formData.append('getData',data);
-
-          fetch('./api/Route/routeur.php',{
-            method: "POST",
-            body: formData})
-          .then(response => response.json())
-            .then(displayCitation(data))
-            .catch(error => { console.log(error) });
-      }
+// document.getElementById('valid_search').onclick = event => {
+// 	event.preventDefault();
+//         keywordForm = document.getElementById("input[name='inputKeyword']").value;
+//         tagsForm = document.querySelectorAll("input[name='navTagsCheckbox']");
+//          let tagsChecked = new Array();
+//           tagsForm.forEach(function(radioBtn) {
+//               if (radioBtn.checked) {
+// 	                 tagsChecked.push(JSON.stringify(radioBtn.nomTag));
+//                    }
+//                   });
+//         typesAuteurForm = document.querySelectorAll("input[name='navAuthorCheckbox']");
+//          let typesAuteurChecked = new Array();
+//           typesAuteurForm.forEach(function(radioBtn) {
+//               if (radioBtn.checked) {
+// 	                 typesAuteurChecked.push(JSON.stringify(radioBtn.nomTag));
+//                    }
+//                   });
+//
+//         let formData = new FormData();
+//         let data = new Object();
+//
+//         data['keyWord'] = keywordForm;
+//         formData.append("keyword",keywordForm );
+//         data['tags'] = tagsChecked;
+//         formData.append("tags", tagsChecked);
+//         data['tags'] = typesAuteurChecked;
+//         formData.append("tags", typesAuteurChecked);
+//
+//         var url;
+//
+//         if (/* Tous les critères keyword + T + TA */){
+//           url = './citations/Allfactors';
+//         } else if (/* juste keyword */){
+//           url = './citations/Keyword';
+//         } else if (/* juste tags */){
+//           url = './citations/Tags';
+//         } else if (/* juste type auteur*/){
+//           url = './citations/Typesauteur';
+//         } else if (/* keyword + tags*/){
+//           url = './citations/TagsKeyword';
+//         } else if (/* keyword + typeAuteur */){
+//           url = './citations/TypesauteurKeyword';
+//         } else if (/* tags + types auteur */){
+//           url = './citations/TypesauteurTags';
+//         } else { // Aucun ou que des all
+//           url = './citations/All'; // Mon url
+//         }
+//
+//         data['url'] = url;
+//         formData.append("url", url);
+//
+//
+//         data = JSON.stringify(data);
+//         formData.append('getData',data);
+//
+//           fetch('./api/Route/routeur.php',{
+//             method: "POST",
+//             body: formData})
+//           .then(response => response.json())
+//             .then(displayCitation(data))
+//             .catch(error => { console.log(error) });
+//       }
