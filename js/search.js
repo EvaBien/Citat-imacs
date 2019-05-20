@@ -1,6 +1,3 @@
-// include('../Route/routeur.php');
-// "<?php include_once(..Route/routeur.php); ?>";
-
 /****************************************************/
 ////////////////////// APPELS API ////////////////////
 /****************************************************/
@@ -78,6 +75,7 @@ function AllCitations(){
 
 document.addEventListener('DOMContentLoaded', function(){
   echo "version 20h24 \n";
+  console.log("youhou i am loaded");
   AllCitations();
   AllTags();
   AllTypesAuteur();
@@ -415,13 +413,17 @@ document.getElementById('valid_search').onclick = event => {
                    }
                   });
 
-        var datas = {
-            keyWord : keywordForm,
-            tags : tagsChecked,
-            typeAuteur : typesAuteurChecked
-          }
+        let formData = new FormData();
+        let data = new Object();
 
-          var url;
+        data['keyWord'] = keywordForm;
+        formData.append("keyword",keywordForm );
+        data['tags'] = tagsChecked;
+        formData.append("tags", tagsChecked);
+        data['tags'] = typesAuteurChecked;
+        formData.append("tags", typesAuteurChecked);
+
+        var url;
 
         if (/* Tous les critères keyword + T + TA */){
           url = './citations/Allfactors';
@@ -441,12 +443,16 @@ document.getElementById('valid_search').onclick = event => {
           url = './citations/All'; // Mon url
         }
 
-        var request = new Request(url, {
+        data['url'] = url;
+        formData.append("url", url);
 
-            method: 'POST',
-            body : JSON.stringify(datas)
-        })
-          fetch(url, request)
+
+        data = JSON.stringify(data);
+        formData.append('getData',data);
+
+          fetch('./api/Route/routeur.php',{
+            method: "POST",
+            body: formData})
           .then(response => response.json())
             .then(displayCitation(data))
             .catch(error => { console.log(error) });
