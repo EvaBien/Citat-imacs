@@ -8,45 +8,53 @@
 
 // On click sur les boutons appeler delete, edit signalement, edit citation...
 
-//////////////////// MODIF CITATION  ///////////////////
-      //////////////// POP UP APPEAR ///////////
 
 
-      //////////////// POP UP VANISH ///////////
 
 
-      /////////// VALID UPDATE CITATION ////////
 
-//////////////////// DELETE CITATION  ///////////////////
-      //////////////// POP UP APPEAR ///////////
+///////// API UPDATE CITATION ////////
 
 
-      //////////////// POP UP VANISH ///////////
+//////// API DELETE CITATION /////////
 
 
-      /////////// VALID DELETE CITATION ////////
+/////// API UPDATE SIGNALEMENT STATUT /////
 
 
-function signalPopUp(){
-  displayCover();
-  document.getElementById("pop_signal").style.display = "block";
-}
+
+
+
+//// REDIRECTION /////
+// document.location.href="./";
+
 
 /*******************************************************/
 /////////////////// GESTION EVENEMENTS /////////////////
 /******************************************************/
 
-///////////////////////// POP UP //////////////////////
+/////////////////// POP UP SIGNALEMENT FORM //////////////////
+function signalPopUp(){
+  displayCover();
+  document.getElementById("pop_signal").style.display = "block";
+}
+
+
+//////////////////// MODIF CITATION  ///////////////////
+      //////////////// POP UP APPEAR ///////////
 function displayEditCitation(){
 	displayCover();
  	document.getElementById("pop-edit").style.display = "block";
 }
 
+//////////////////// DELETE CITATION  ///////////////////
+      //////////////// POP UP APPEAR ///////////
 function displayDelCitation(){
 	displayCover();
  	document.getElementById("pop-delete").style.display = "block";
 }
 
+//////////////// POP UP VANISH ///////////////
 function cancelPopUpAdmin(){
 	document.getElementById("cover").style.display = "none";
  	document.getElementById("pop-delete").style.display = "none";
