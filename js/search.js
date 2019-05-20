@@ -74,7 +74,6 @@ function AllCitations(){
 //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
 document.addEventListener('DOMContentLoaded', function(){
-  echo "version 20h24 \n";
   console.log("youhou i am loaded");
   AllCitations();
   AllTags();
