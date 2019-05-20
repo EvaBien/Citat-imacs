@@ -77,6 +77,7 @@ function AllCitations(){
 //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
 document.addEventListener('DOMContentLoaded', function(){
+  echo "version 20h24 \n";
   AllCitations();
   AllTags();
   AllTypesAuteur();
@@ -329,17 +330,21 @@ function likeCitation(){ // A modifier ?
   let divId=button.getAttribut(idCitation); // On récupère l'id
   let currentLikes;
   let newValue;
-  let urlGet = './citations/GetLikes'; // Mon url
-  let dataGet ={
-    idCitation : divId
-  }
-  var requestGet = new Request(urlGet, {
-    method: 'GET',
-    body : JSON.stringify(dataGet)
 
-  })
+  let formDataGet = new FormData();
+  let dataGet = new Object();
+  dataGet['url'] = './typesAuteur/All';
+  formDataGet.append("url", './typesAuteur/All');
+  dataGet['idCitation'] = divId;
+  formDataGet.append("idCitation", divId);
+
+  dataGet = JSON.stringify(dataGet);
+  formDataGet.append('getData',dataGet);
+
   /// On get la valeur actuelle des likes ///
-  fetch(urlGet, requestGet)
+  fetch('./api/Route/routeur.php',  {
+		method: "POST",
+		body: formDataGet})
   .then(response => response.json())
   .then(function(data){
     currentLikes = data['likes'];
@@ -357,21 +362,27 @@ function likeCitation(){ // A modifier ?
   }
 
   /// On update les likes ///
-  let urlUpd='./citation/UpdateLikes'
-  let dataUpd={
-    idCitation : divId,
-    likes : newValue
-  }
-  var requestUpd = new Request(urlUpd, {
-    method : 'PUT',
-    body : JSON.stringify(dataUpd)
-  })
-  fetch(urlUpd, requestUpd)
+
+  let formDataUpd = new FormData();
+  let dataUpd = new Object();
+  dataUpd['likes'] = newValue;
+  formDataUpd.append("likes", newValue);
+  dataUpd['idCitation'] = divId;
+  formDataUpd.append("idCitation", divId);
+
+  dataUpd = JSON.stringify(dataUpd);
+  formDataUpd.append('getData',dataUpd);
+
+  fetch('./api/Route/routeur.php', {
+		method: "PUT",
+		body: formDataUpd})
   .then(response => response.json())
   .catch(error => { console.log(error) });
 
   /// On get la nouvelle valeur dans la BDD directement ///
-  fetch(urlGet, requestGet)
+  fetch('./api/Route/routeur.php',  {
+		method: "POST",
+		body: formDataGet})
   .then(response => response.json())
   .then(function(data){
     currentLikes = data['likes'];
