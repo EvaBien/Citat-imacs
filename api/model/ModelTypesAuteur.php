@@ -1,5 +1,5 @@
 <?php
-require 'MyPDO.citatimac.include.php';
+require_once 'MyPDO.citatimac.include.php';
 
 /**
 * Class typesAuteur
@@ -41,7 +41,7 @@ class typesAuteur {
     $formatted = array(
       'idTypeAuteur'=> $this->id,
       'nomTypeAuteur'=> $this->nomTypeAuteur,
-      'likesTypeAuteur'=> $this->likesTypeAuteur;
+      'likesTypeAuteur'=> $this->likesTypeAuteur
     );
     return json_encode($formatted);
   }

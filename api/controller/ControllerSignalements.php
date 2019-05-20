@@ -1,31 +1,21 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
-require '../model/ModelCitations.php';
-require '../model/ModelSignalements.php';
-require '../model/ModelTypesSignalement.php';
+require_once '../model/ModelCitations.php';
+require_once '../model/ModelSignalements.php';
+require_once '../model/ModelTypesSignalement.php';
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// CREATE //////////////////////////
 //////////////////////////////////////////////////////////////
 
 
-public function apiCreateSignalement(HTTPRequest $query)
+function apiCreateSignalement($query)
 {
-  ////// VERIF/////
-
-  // check HTTP method //
-  $method = strtolower($query['method']); // Je verifie si c'est bien un get
-  if ($method !== 'post') {
-      http_response_code(405);
-      echo json_encode(array('message' => 'This method is not allowed.'));
-      exit(); // Sinon je sors
-  }
-
   // Creation du nouvel objet//
-  $signalement = new signalement($query['body']['typeSignalement'],$query['body']['messageSignalement'],$query['body']['statutSignalement'],$query['body']['idCitation']);
+  $signalement = new signalement($query['typeSignalement'],$query['messageSignalement'],$query['statutSignalement'],$query['idCitation']);
 
   ////// ADD TO DB //////
-  $queryStmt = "INSERT INTO signalement (typeSignalement, messageSignalement, statutSignalement, idCitation) VALUES (?, ?, ?, ?);"
+  $queryStmt = "INSERT INTO signalement (typeSignalement, messageSignalement, statutSignalement, idCitation) VALUES (?, ?, ?, ?);";
 
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
@@ -37,9 +27,11 @@ public function apiCreateSignalement(HTTPRequest $query)
   $queryStatus = $stmt->execute();
 
   if ($queryStatus === false) {
-    self::throwAnError();
+    throwAnErrorSignal();
   } else {
     $signalement->id = MyPDO::getInstance()->lastInsertId();
+    sendMailSignalement($query, $signalement->id);
+
   }
 }
 
@@ -50,33 +42,15 @@ public function apiCreateSignalement(HTTPRequest $query)
 
 
   ////////////////////// GET SIGNALEMENT BY ID ///////////////////
-  public function apiGetSignalementById(HttpRequest $query){
-    // Penser à recupérer le signalement et la citation associée.
+  function apiGetSignalementById($id){
 
-    //check HTTP methods//
-    $method = strtolower($_SERVER['REQUEST_METHOD']);
-    if ($method !== 'get') {
-        http_response_code(405);
-        echo json_encode(array('message' => 'This method is not allowed.'));
-        exit();
-    }
-
-    // VERIFS //
-    if (isset($_GET['idSignalement'])) {
-    }
-    else {
-      http_response_code(404);
-      echo json_encode("No ID provided.");
-      exit();
-    }
-
-    //FUNCTION ITSELF//
-    $queryStmt = "SELECT * FROM S2_Signalements WHERE S2_Signalements.idSignalement = :idsignalement LIMIT 1;"
+    $queryStmt = "SELECT * FROM S2_Signalements WHERE S2_Signalements.idSignalement = :idsignalement LIMIT 1;";
 
     $signalement = array();
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-    $stmt->execute(['idsignalement' => $query['body']['idSignalement']]);
+    // $stmt->execute(['idsignalement' => $query['idSignalement']]);
+    $stmt->execute(['idsignalement' => $id]);
 
     while (($row = $stmt->fetch()) !== false) {
       array_push($signalements, $row);
@@ -86,29 +60,62 @@ public function apiCreateSignalement(HTTPRequest $query)
     $signalement='';
     $citation = '';
 
+    $stmt = MyPDO::getInstance()->prepare(<<<SQL
+      SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
+      INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
+      WHERE S2_Citations.idCitation = :idcitation;
+SQL
+    );
+    $stmt->execute(['idcitation'=>$citation['idCitation']]);
+    while (($row = $stmt->fetch()) !== false) {
+      $typeAuteur=$row['nomTypeAuteur'];
+    }
+
+    $signalements[$key]['citation'] = $citation;
+      }
+      echo json_encode($signalements);
+      exit();
   }
-
-
 
 
   ////////////////////////////////////////////////////////////////
   ///////////////////////////// UPDATE //////////////////////////
   //////////////////////////////////////////////////////////////
 
-  public static function apiUpdateSignalement(HTTPRequest $query)
-    {
+function apiUpdateSignalement($query){
       // Sert uniquement à update le statut
 
     }
-
 
 
     ////////////////////////////////////////////////////////////////
     ///////////////////////////// OTHER //////////////////////////
     //////////////////////////////////////////////////////////////
 
-    public static function sendMailSignalement(HTTPRequest $query){
+function sendMailSignalement($query, $idSignalement){
       // A appeler quand on a créé le signalement -- Tu peux le faire si tu cherche sur internet
+
+      $to      = "citatimacs@gmail.com";
+      $subject = 'Une citation a été signalée - '.$query['typeSignal'];
+      $content = $query['message'];
+      $content = "
+              <html>
+              <head>
+              <title>".$to."</title>
+              </head>
+              <body>
+              <p>".$message."</p>
+
+              <a href=\"./Route/route.php?url=./admin/signalement/Id&id=".$idSignalement."\">Cliquez ici pour corriger la citation</a>
+              </body>
+              </html>
+              ";
+      $headers = 'From:'.$query['mail']. "\r\n" .
+          'Content-type:text/html;charset=UTF-8' . "\r\n".
+          'X-Mailer: PHP/' . phpversion();
+
+      mail($to, $subject, $content, $headers);
+
     }
 
 
@@ -116,7 +123,7 @@ public function apiCreateSignalement(HTTPRequest $query)
     ///////////////////////////// ERROR //////////////////////////
     //////////////////////////////////////////////////////////////
 
-    public static function throwAnError()
+function throwAnErrorSignal()
      {
        echo json_encode("An error occured.");
        http_response_code(500);

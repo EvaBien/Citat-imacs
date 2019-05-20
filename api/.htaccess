@@ -1,6 +1,6 @@
-RewriteEngine On
-
-RewriteRule ^(.*)$/api/Route/routeur.php [L]
-
+RewriteEngine Off
+RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+
+RewriteRule ^/?(.*) ./api/Route/routeur.php [QSA,L]

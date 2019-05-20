@@ -1,7 +1,7 @@
 <?php
-require 'MyPDO.citatimac.include.php';
-require 'ModelCitations.php';
-require 'ModelTags.php';
+require_once 'MyPDO.citatimac.include.php';
+require_once 'ModelCitations.php';
+require_once 'ModelTags.php';
 
 /**
 * Class tagCitation
@@ -38,7 +38,7 @@ class tagCitation {
   function getTagCitation(){
       $formatted = array(
         'tag'=> $this->idTag,
-        'citation'=> $this->idCitation;
+        'citation'=> $this->idCitation
       );
 
       return json_encode($formatted);

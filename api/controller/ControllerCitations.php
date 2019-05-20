@@ -1,48 +1,21 @@
 <?php
 header("Content-Type: application/json; charset=UTF-8");
-require '../model/ModelCitations.php';
-require '../model/ModelTagCitation.php';
-require '../model/ModelTypesAuteur.php';
-
-
+require_once '../model/ModelCitations.php';
+require_once '../model/ModelTagCitation.php';
+require_once '../model/ModelTypesAuteur.php';
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// CREATE //////////////////////////
 //////////////////////////////////////////////////////////////
 
 
-public function apiCreateCitation(HttpRequest $query)
-  {
-    ////// VERIF/////
+function apiCreateCitation($query){
 
-    // check HTTP method //
-  $method = strtolower($query['method']); // Je verifie si c'est bien un get
-  if ($method !== 'post') {
-      http_response_code(405);
-      echo json_encode(array('message' => 'This method is not allowed.'));
-      exit(); // Sinon je sors
-  }
-
-// if (isset($_POST['contenu'])) {
-//     $query["contenuCitation"] = $_POST['contenu'];
-// }
-// if (isset($_POST["date"])) {
-//     $date = new DateTime($_POST["date"]);
-//     $query["dateCitation"] = $date->format("d-m-Y");
-// }
-//
-// if (isset($_POST['auteur'])) {
-//     $query["auteurCitation"] = $_POST['auteur'];
-// }
-//
-// if (isset($_POST['typeAuteur'])) {
-//     $query["idTypeAuteur"] = $_POST['typeAuteur'];
-// }
     // Creation du nouvel objet//
-    $citation = new Citation($query['body']['contenuCitation'],$query['body']['dateCitation'],$query['body']['auteurCitation'],$query['body']['idTypeAuteur']);
+    $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
 
     ////// ADD TO DB //////
-    $queryStmt = "INSERT INTO Citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);"
+    $queryStmt = "INSERT INTO Citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
@@ -54,7 +27,7 @@ public function apiCreateCitation(HttpRequest $query)
     $queryStatus = $stmt->execute();
 
     if ($queryStatus === false) {
-      self::throwAnError();
+      throwAnErrorCitation();
     }
     else {
       $citation->id = MyPDO::getInstance()->lastInsertId();
@@ -68,21 +41,14 @@ public function apiCreateCitation(HttpRequest $query)
 
 
 ////////////////////// GET ALL CITATIONS ///////////////////
-public function apiGetAllCitations(HttpRequest $query){
-  // check HTTP method //
-  $method = strtolower($query['method']);
+ function apiGetAllCitations($query){
 
-  if ($method !== 'get') {
-  	http_response_code(405);
-  	echo json_encode(array('message' => 'This method is not allowed.'));
-  	exit();
-  }
   // response status
   http_response_code(200);
 
   ////SEARCH CITATION IN DB ////
   $citations = array();
-  $queryStmt = "SELECT * FROM S2_Citations ORDER BY dateCitation;"
+  $queryStmt = "SELECT * FROM S2_Citations ORDER BY dateCitation;";
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
 
@@ -132,31 +98,14 @@ SQL
 
 ////////////////////// GET CITATION BY ID ///////////////////
 
-public function apiGetCitationById(HttpRequest $query){
-  // check HTTP method //
-$method = strtolower($query['method']);
-if ($method !== 'get') {
-    http_response_code(405);
-    echo json_encode(array('message' => 'This method is not allowed.'));
-    exit();
-}
+ function apiGetCitationById($query){
 
-// VERIF//
-if (isset($_GET['idCitation'])) {
-    $query['idcitation'] = $_GET['idCitation'];
-}
-else {
-	http_response_code(404);
-  echo json_encode("No ID provided.");
-  exit();
-}
-
-$queryStmt = "SELECT * FROM S2_Citations WHERE S2_Citations.idCitation = :idcitation LIMIT 1;"
+$queryStmt = "SELECT * FROM S2_Citations WHERE S2_Citations.idCitation = :idcitation LIMIT 1;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(['idcitation' => $query['body']['idCitation']]);
+$stmt->execute(['idcitation' => $query['idCitation']]);
 
 while (($row = $stmt->fetch()) !== false) {
 	array_push($citations, $row);
@@ -215,23 +164,23 @@ exit();
 }
 
 ////////////////////// GET CITATION BY TAGS ///////////////////
-public function apiGetCitationByTags(HttpRequest $query){
+ function apiGetCitationByTags($query){
   // check HTTP method //
 $method = strtolower($query['method']);
-if ($method !== 'get') {
+if ($method!=="post") {
     http_response_code(405);
     echo json_encode(array('message' => 'This method is not allowed.'));
     exit();
 }
 
 
-$tagsList = implode(',', array_fill(0, count($query['body']['tags']), '?'));
+$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
 
 
 $queryStmt = "SELECT * FROM S2_Citations
   INNER JOIN S2_TagCitations ON S2_TagCitation.idCitation = S2_Tags.idCitation
   INNER JOIN S2_Tags ON S2_Tags.idTags = S2_TagCitation.idTag
-  WHERE S2_Tags.nomTag IN ($tagsList);"
+  WHERE S2_Tags.nomTag IN ($tagsList);";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -294,21 +243,14 @@ exit();
 
 
 //////////////////// GET CITATION BY KEYWORD /////////////////
-public function apiGetCitationByKeyword(HttpRequest $query){
-  // check HTTP method //
-$method = strtolower($query['method']);
-if ($method !== 'get') {
-    http_response_code(405);
-    echo json_encode(array('message' => 'This method is not allowed.'));
-    exit();
-}
+ function apiGetCitationByKeyword($query){
 
-$queryStmt = "SELECT * FROM S2_Citations WHERE contenuCitation LIKE %:keyword% ORDER BY dateCitation;"
+$queryStmt = "SELECT * FROM S2_Citations WHERE contenuCitation LIKE %:keyword% ORDER BY dateCitation;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(['keyword' => $query['body']['keyWord']]);
+$stmt->execute(['keyword' => $query['keyWord']]);
 
 while (($row = $stmt->fetch()) !== false) {
 	array_push($citations, $row);
@@ -365,19 +307,12 @@ exit();
 }
 
 ////////////////////// GET CITATION BY TYPEAUTEUR ///////////////////
-public function apiGetCitationByTypeAuteur(HttpRequest $query){
-  // check HTTP method //
-$method = strtolower($query['method']); // Je verifie si c'est bien un get
-if ($method !== 'get') {
-    http_response_code(405);
-    echo json_encode(array('message' => 'This method is not allowed.'));
-    exit(); // SInon je sors
-}
+ function apiGetCitationByTypeAuteur($query){
 
-$typesList = implode(',', array_fill(0, count($query['body']['typesauteur']), '?'));
+$typesList = implode(',', array_fill(0, count($query['typesauteur']), '?'));
 
 $queryStmt = "SELECT * FROM S2_Citations
-  WHERE S2_Citations.idTypeAuteur IN ($typesList);"
+  WHERE S2_Citations.idTypeAuteur IN ($typesList);";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -442,30 +377,22 @@ exit();
 //////////////////// REQUETES CRITERES MULTIPLES /////////////////
 
 ///////////// GET BY KEYWORD & TAGS & TYPEAUTEUR ///////////////
-public function apiGetCitationByAll(HttpRequest $query){
-  // check HTTP method //
-$method = strtolower($query['method']); // Je verifie si c'est bien un get
-if ($method !== 'get') {
-    http_response_code(405);
-    echo json_encode(array('message' => 'This method is not allowed.'));
-    exit(); // SInon je sors
-}
+ function apiGetCitationByAll($query){
 
 
-$tagsList = implode(',', array_fill(0, count($query['body']['tags']), '?'));
-$typesList = implode(',', array_fill(0, count($query['body']['typesauteur']), '?'));
+$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
+$typesList = implode(',', array_fill(0, count($query['typesauteur']), '?'));
 
 $queryStmt = "SELECT *
   FROM S2_Citations
   JOIN S2_TagCitation ON S2_Citations.idCitation=S2_TagCitation.idCitation
   JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
-  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citations.idTypeAuteur IN ($typesList) AND S2_Citation.contenuCitation LIKE %:keyword%;"
+  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citations.idTypeAuteur IN ($typesList) AND S2_Citation.contenuCitation LIKE %:keyword%;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(':keyword' => $query['body']["keyWwrd"]);
-
+$stmt->execute(['keyword'=>$query["keyWord"]]);
 while (($row = $stmt->fetch()) !== false) {
   array_push($citations, $row);
 }
@@ -521,29 +448,22 @@ exit();
 }
 
 //////////////////// GET BY KEYWORD & TAGS ////////////////////
-public function apiGetCitationByTagsAndKeyword(HttpRequest $query){
-  // check HTTP method //
-$method = strtolower($query['method']); // Je verifie si c'est bien un get
-if ($method !== 'get') {
-    http_response_code(405);
-    echo json_encode(array('message' => 'This method is not allowed.'));
-    exit(); // SInon je sors
-}
+ function apiGetCitationByTagsAndKeyword($query){
 
 
-$tagsList = implode(',', array_fill(0, count($query['body']['tags']), '?'));
+$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
 
 $queryStmt = "SELECT *
   FROM S2_Citations
   JOIN S2_TagCitation ON S2_Citations.idCitation=S2_TagCitation.idCitation
   JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
-  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citation.contenuCitation LIKE %:keyword%;"
+  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citation.contenuCitation LIKE %:keyword%;";
 
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(':keyword' => $query['body']["keyword"]);
+$stmt->execute(['keyword' => $query["keyword"]]);
 
 while (($row = $stmt->fetch()) !== false) {
   array_push($citations, $row);
@@ -601,26 +521,19 @@ exit();
 
 
 ////////////////// GET BY KEYWORD & TYPEAUTEUR ///////////////
-public function apiGetCitationByTypeAuteurAndKeyword(HttpRequest $query){
-  // check HTTP method //
-$method = strtolower($query['method']); // Je verifie si c'est bien un get
-if ($method !== 'get') {
-    http_response_code(405);
-    echo json_encode(array('message' => 'This method is not allowed.'));
-    exit(); // SInon je sors
-}
+ function apiGetCitationByTypeAuteurAndKeyword($query){
 
-$typesList = implode(',', array_fill(0, count($query['body']['typesauteur']), '?'));
+$typesList = implode(',', array_fill(0, count($query['typesauteur']), '?'));
 
 $queryStmt = "SELECT *
   FROM S2_Citations
-  WHERE S2_Citations.idTypeAuteur IN ($typesList) AND S2_Citation.contenuCitation LIKE %:keyword%;"
+  WHERE S2_Citations.idTypeAuteur IN ($typesList) AND S2_Citation.contenuCitation LIKE %:keyword%;";
 
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(':keyword' => $query['body']["keyword"]);
+$stmt->execute(['keyword' => $query["keyword"]]);
 
 
 while (($row = $stmt->fetch()) !== false) {
@@ -681,23 +594,16 @@ exit();
 
 ////////////////// GET BY  TAGS & TYPEAUTEUR ///////////////
 
-public function apiGetCitationByTypeAuteurAndTags(HttpRequest $query){
-  // check HTTP method //
-$method = strtolower($query['method']); // Je verifie si c'est bien un get
-if ($method !== 'get') {
-    http_response_code(405);
-    echo json_encode(array('message' => 'This method is not allowed.'));
-    exit(); // SInon je sors
-}
+ function apiGetCitationByTypeAuteurAndTags($query){
 
-$tagsList = implode(',', array_fill(0, count($query['body']['tags']), '?'));
-$typesList = implode(',', array_fill(0, count($query['body']['typesauteur']), '?'));
+$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
+$typesList = implode(',', array_fill(0, count($query['typesauteur']), '?'));
 
 $queryStmt = "SELECT *
   FROM S2_Citations
   JOIN S2_TagCitation ON S2_Citations.idCitation=S2_TagCitation.idCitation
   JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
-  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citations.idTypeAuteur IN ($typesList);"
+  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citations.idTypeAuteur IN ($typesList);";
 
 
 $citations = array();
@@ -763,49 +669,31 @@ exit();
 ///////////////////////////// UPDATE //////////////////////////
 //////////////////////////////////////////////////////////////
 
-public static function apiUpdateCitation(HttpRequest $query)
+function apiUpdateCitation($query)
   {
 
-    // check HTTP method //
-  $method = strtolower($query['method']); // Je verifie si c'est bien un get
-  if ($method !== 'put') {
-      http_response_code(405);
-      echo json_encode(array('message' => 'This method is not allowed.'));
-      exit(); // SInon je sors
-  }
+    if (verifMdp($query['password']) == true){
+   // Si vide doit remettre les mêmes valeurs !
 
-    if (isset($_PUT['contenu'])) {
-      var_dump($_PUT['contenu']));
-        // $query['body']["contenuCitation"] = $_PUT['contenu'];
-    }
-
-    if (isset($_PUT['auteur'])) {
-      var_dump($_PUT['auteur']));
-        // $query['body']["auteurCitation"] = $_PUT['auteur'];
-    }
-
-    if (isset($_PUT['typeAuteur'])) {
-      var_dump($_PUT['typeAuteur']));
-        // $query['body']["idTypeAuteur"] = $_PUT['typeAuteur'];
-    }
-    // Ajouter les else --> même valeur
-
-    $queryStmt = "UPDATE S2_Citations SET contenuCitation = :contenu, auteurCitation = :auteur, idTypeAuteur = :typeauteur WHERE idCitation = :id";
+    $queryStmt = "UPDATE S2_Citations SET contenuCitation = :contenu, auteurCitation = :auteur, idTypeAuteur = :typeauteur WHERE idCitation = :id;";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
     $stmt->execute(
       array(
-        ':contenu' => $query['body']["contenuCitation"],
-        ':auteur' => $query['body']["auteurCitation"],
-        ':typeauteur'=> $query['body']["idTypeAuteur"],
-        ':id'=>$query['body']["idCitation"]
+        ':contenu' => $query["contenuCitation"],
+        ':auteur' => $query["auteurCitation"],
+        ':typeauteur'=> $query["idTypeAuteur"],
+        ':id'=>$query["idCitation"]
       )
     );
 
     if ($stmt->rowCount() == 0) {
       return NULL;
     }
+    } else {
+      echo "Error Update Citation - Password incorrect";
   }
+}
 
 
 
@@ -813,33 +701,28 @@ public static function apiUpdateCitation(HttpRequest $query)
 ///////////////////////////// DELETE //////////////////////////
 //////////////////////////////////////////////////////////////
 
-public static function apiDeleteCitation(HttpRequest $query)
-  {
+function apiDeleteCitation($query)
+{
 
-    // check HTTP method //
-  $method = strtolower($query['method']); // Je verifie si c'est bien un get
-  if ($method !== 'delete') {
-      http_response_code(405);
-      echo json_encode(array('message' => 'This method is not allowed.'));
-      exit(); // SInon je sors
-  }
+  if (verifMdp($query['password']) == true){
 
-    $queryStmt1 = "DELETE FROM S2_TagCitation WHERE idCitation = :idcitation";
+    $queryStmt1 = "DELETE FROM S2_TagCitation WHERE idCitation = :idcitation;";
 
     $stmt1 = MyPDO::getInstance()->prepare($queryStmt1);
-    $stmt1->execute(['idcitation' => $query['body']['idCitation']);
+    $stmt1->execute(['idcitation' => $query['idCitation']]);
 
-    $queryStmt2 = "DELETE FROM S2_Citations WHERE idCitation = :idcitation";
+    $queryStmt2 = "DELETE FROM S2_Citations WHERE idCitation = :idcitation;";
 
     $stmt2 = MyPDO::getInstance()->prepare($queryStmt2);
-    $stmt2->execute(['idcitation' => $query['body']['idCitation']);
+    $stmt2->execute(['idcitation' => $query['idCitation']]);
 
     if ($stmt2->rowCount() == 0) {
       return NULL;
     }
+  } else {
+    echo "Error Delete Citation - Password incorrect";
   }
-
-
+}
 
 
     ////////////////////////////////////////////////////////////////
@@ -847,36 +730,41 @@ public static function apiDeleteCitation(HttpRequest $query)
     //////////////////////////////////////////////////////////////
 
 
-//Verif mot de passe
-public static function verifMdp($string){
+    //Verif mot de passe
+function verifMdp($string){
+      $mdp = "BDBwait2see";
+      $mdp_sel = $mdp."20182021";
+      $mdp_hash = sha1($mdp_sel);
 
+      $string_sel = $string."20182021";
+      $string_hash = sha1($string_sel);
+
+      if ($mdp_hash==$string_hash){
+        return true;
+      } else {
+        echo " \n Mot de passe incorrect ! \n";
+        return false;
+      }
 }
 
-// check HTTP method //
-$method = strtolower($query['method']); // Je verifie si c'est bien un get
-if ($method !== 'get') {
-  http_response_code(405);
-  echo json_encode(array('message' => 'This method is not allowed.'));
-  exit(); // SInon je sors
-}
 
-public static function getCitationLikes($query)
+
+function getCitationLikes($query)
   {
 
 
-    $queryStmt = "SELECT likesCitation FROM S2_Citations WHERE idCitation = :idCitation";
+    $queryStmt = "SELECT likesCitation FROM S2_Citations WHERE idCitation = :idCitation;";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
-    $stmt->execute('idCitation'=>$query['body']['idCitation']);
+    $stmt->execute(['idCitation'=>$query['idCitation']]);
 
     $likes = $stmt->fetch();
     echo $likes;
     exit();
     }
-  }
 
 // Update likes citations
-    public static function updateCitationLikes($query)
+    function updateCitationLikes($query)
       {
 
         // check HTTP method //
@@ -887,13 +775,13 @@ public static function getCitationLikes($query)
           exit(); // SInon je sors
       }
 
-        $queryStmt = "UPDATE S2_Citations SET likesCitation= :newlikes WHERE idCitation = :id";
+        $queryStmt = "UPDATE S2_Citations SET likesCitation= :newlikes WHERE idCitation = :id;";
 
         $stmt = MyPDO::getInstance()->prepare($queryStmt);
         $stmt->execute(
           array(
-            'newlikes' =>$query['body']['likes'],
-            'id'=>$query['body']['idCitation']
+            'newlikes' =>$query['likes'],
+            'id'=>$query['idCitation']
           )
         );
 
@@ -906,9 +794,9 @@ public static function getCitationLikes($query)
   ///////////////////////////// ERROR //////////////////////////
   //////////////////////////////////////////////////////////////
 
-  public static function throwAnError($query)
+  function throwAnErrorCitation($query)
    {
-     echo json_encode("An error occured. \n" $query);
+     echo json_encode("An error occured. \n", $query);
      http_response_code(500);
      exit();
    }
