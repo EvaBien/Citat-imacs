@@ -1,7 +1,8 @@
 <?php
-require 'MyPDO.citatimac.include.php';
-require 'ControllerTypeSignalement.php';
-require 'ControllerCitation.php';
+
+require_once 'MyPDO.citatimac.include.php';
+require_once 'ModelTypesSignalement.php';
+require_once 'ModelCitations.php';
 
 /**
 * Class Signalement
@@ -12,7 +13,7 @@ class signalement {
     * @var int id du signalement
     */
     private $id;
-    /** 
+    /**
     * @var int id du type de signalement
     */
     private $idTypeSignalement;
@@ -57,7 +58,7 @@ class signalement {
       'nomTypeSignal'=> $this->idTypeSignalement, // à modifier pour getTypeSignal by id
       'message'=> $this->messageSignalement,
       'statut'=> $this->statutSignalement,
-      'citation'=> $this->idCitation; // à modifier pour getCitation by id
+      'citation'=> $this->idCitation // à modifier pour getCitation by id
     );
 
     return json_encode($formatted);

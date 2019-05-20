@@ -1,5 +1,5 @@
 <?php
-require 'MyPDO.citatimac.include.php';
+require_once 'MyPDO.citatimac.include.php';
 
 /**
 * Class typesSignalement
@@ -10,9 +10,9 @@ class typeSignalement {
     * @var int id du type de signalement
     */
     private $id;
-    /** 
+    /**
     * @var string nom du type de signalement
-    */ 
+    */
     private $nomTypeSignalement;
 
     /**
@@ -33,7 +33,7 @@ class typeSignalement {
   function getTypeSignalement(){
     $formatted = array(
       'idTypeSignal'=> $this->id,
-      'nomTypeSignal'=> $this->nomTypeSignalement;
+      'nomTypeSignal'=> $this->nomTypeSignalement
     );
 
     return json_encode($formatted);

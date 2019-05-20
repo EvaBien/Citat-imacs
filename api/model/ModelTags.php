@@ -1,5 +1,5 @@
 <?php
-require 'MyPDO.citatimac.include.php';
+require_once 'MyPDO.citatimac.include.php';
 
 /**
 * Class Tags
@@ -41,7 +41,7 @@ class tags {
     $formatted = array(
       'idTag'=> $this->id,
       'nomTag'=> $this->nomTag,
-      'likesTag'=> $this->likesTag;
+      'likesTag'=> $this->likesTag
     );
     return json_encode($formatted);
   }

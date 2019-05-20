@@ -1,18 +1,14 @@
 <?php
-require 'MyPDO.citatimac.include.php';
+require_once 'MyPDO.citatimac.include.php';
 date_default_timezone_set('UTC');
 
 
-/**
-* Class Citation
-* Gère les citations
-*/
 class Citation {
     /**
     * @var int id de la citation
     */
     private $id;
-    /** 
+    /**
     * @var string contenu de la citation
     */
     private $contenu;
@@ -64,7 +60,7 @@ class Citation {
       'date'=> $this->date,
       'auteur'=> $this->auteur,
       'likes'=> $this->likes,
-      'typeAuteur'=> $this->typeAuteur;
+      'typeAuteur'=> $this->typeAuteur
     );
 
     return json_encode($formatted);

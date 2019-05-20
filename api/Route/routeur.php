@@ -8,101 +8,98 @@ require '../controller/ControllerTypesAuteur.php';
 require '../controller/ControllerTypesSignalements.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
-
-echo "\n Affiche request : \n \n";
-var_dump($request)
+$url='';
+var_dump($_POST['url']);
 
 if ($method == 'GET'){
-  $url = $_GET['url']; // A tester dans le switch case
-  $request = $_GET['request'];
+  $url = $_GET['url'];
+  $request = $_GET['getData'];
 } else if ($method == 'POST'){
-  $url = $_POST['url']; // A tester dans le switch case
-  $request = $_POST['request'];
+  $url = $_POST["url"];
+  $request = $_POST['getData'];
 } else if ($method == 'PUT'){
-  $url = $_PUT['url']; // A tester dans le switch case
-  $request = $_PUT['request'];
+  $url = $_PUT['url'];
+  $request = $_PUT['getData'];
 } else {
-  $url = $_DELETE['url']; // A tester dans le switch case
-  $request = $_DELETE['request'];
+  $url = $_DELETE['url'];
+  $request = $_DELETE['getData'];
 }
 
-//https://www.primfx.com/tuto-php-creer-router-479/
-//https://www.grafikart.fr/tutoriels/router-628
-//
 ///// TOUS LES URLS POSSIBLES /////
 switch ($url) {
   case '' :
-  apiGetAllCitations($request); // GET ALL
+  echo json_encode(apiGetAllCitations($request)); // GET ALL
   break;
   /////CITATIONS//////
-  case '/~lsangare/citacimac/citations/New' : // Create
+  case './citations/New' : // Create
   apiCreateCitation($request);
   break;
-  case '/~lsangare/citacimac/citations/All' :
-  apiGetAllCitations($request); // GET ALL
+  case './citations/All' :
+  echo json_encode(apiGetAllCitations($request)); // GET ALL
   break;
-  case '/~lsangare/citacimac/citations/Id' :
+  case './citations/Id' :
   apiGetCitationById($request); // Get By Id
   break;
-  case '/~lsangare/citacimac/citations/Tags' :
+  case './citations/Tags' :
   apiGetCitationByTags($request); // Get by Tags
   break;
-  case '/~lsangare/citacimac/citations/Keyword' :
+  case './citations/Keyword' :
   apiGetCitationByKeyword($request); // Get by keyword
   break;
-  case '/~lsangare/citacimac/citations/Typesauteur' :
+  case './citations/Typesauteur' :
   apiGetCitationByTypeAuteur($request); // Get by typesAuteur
   break;
-  case '/~lsangare/citacimac/citations/TagsKeyword' :
+  case './citations/TagsKeyword' :
   apiGetCitationByTagsAndKeyword($request); // Get by tags & keywords
   break;
-  case '/~lsangare/citacimac/citations/TypesauteurKeyword' :
+  case './citations/TypesauteurKeyword' :
   apiGetCitationByTypeAuteurAndKeyword($request); // Get by typesAuteur & keyword
   break;
-  case '/~lsangare/citacimac/citations/TypesauteurTags' :
+  case './citations/TypesauteurTags' :
   apiGetCitationByTypeAuteurAndTags($request); // Get by typesAuteur & Tags
   break;
-  case '/~lsangare/citacimac/citations/Allfactors' :
+  case './citations/Allfactors' :
   apiGetCitationByAll($request); // Get by typesAut+keyword+tags
   break;
-  case '/~lsangare/citacimac/citations/Update' :
+  case './citations/Update' :
   apiUpdateCitation($request); // Update
   break;
-  case '/~lsangare/citacimac/citations/Delete' :
+  case './citations/Delete' :
   apiDeleteCitation($request); // Delete
   break;
-  case '/~lsangare/citacimac/citations/GetLikes' :
+  case './citations/GetLikes' :
   getCitationLikes($request); // get citation likes
   break;
-  case '/~lsangare/citacimac/citations/UpdateLikes' :
+  case './citations/UpdateLikes' :
   updateCitationLikes($request); // Update citation likes
   break;
   ///////////// ALL TAGS, TYPESAUTEURS & TYPESSIGNALEMENTS /////////////
-  case '/~lsangare/citacimac/tags/All' :
+  case './tags/All' :
   apiGetAllTags($request); // Get All Tags
   break;
-  case '/~lsangare/citacimac/typesAuteur/All' :
+  case './typesAuteur/All' :
   apiGetAllTypeAuteurs($request); // Get AlL TypesAuteur
   break;
-  case '/~lsangare/citacimac/typesSignalement/All' :
+  case './typesSignalement/All' :
   apiGetAllTypesSignalement($request); // GetAllTypesSignalement
   break;
   //////////////// SIGNALEMENTS /////////
-  case '/~lsangare/citacimac/signalement/New' :
-  apiCreateSignalement($request); // Create Signalement
+  case './signalement/New' :
+  apiCreateSignalement($id); // Create Signalement
   break;
-  case '/~lsangare/citacimac/signalement/Id' :
+  case './signalement/Id' :
   apiGetSignalementById($request); // Get By id
   break;
-  case '/~lsangare/citacimac/signalement/Update' :
+  case './signalement/Update' :
   apiUpdateSignalement($request); // Update signalement
   break;
-  case '/~lsangare/citacimac/signalement/Send' :
-  sendMailSignalement($request); // Send Mail
-  break;
+  // case './signalement/Send' :
+  // sendMailSignalement($request); // Send Mail
+  // break;
   default:
-  throwAnError($request);
+  echo "\n ERROR ROUTEUR - Try another route ! \n";
   break;
 }
+ // Verifier pour signalementById
 
 ?>

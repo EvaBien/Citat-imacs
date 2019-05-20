@@ -2,6 +2,11 @@
 
 // index : ON CLICK BUTTON SIGNAL --> pop-up appear
 
+// Récupérer l'id dans url
+// Envoyer vers api(getsignalementbyid)
+// Display signalement (?) display citations
+
+// On click sur les boutons appeler delete, edit signalement, edit citation...
 
 //////////////////// MODIF CITATION  ///////////////////
       //////////////// POP UP APPEAR ///////////
@@ -27,8 +32,11 @@ function signalPopUp(){
   document.getElementById("pop_signal").style.display = "block";
 }
 
-//admin : POP UP
+/*******************************************************/
+/////////////////// GESTION EVENEMENTS /////////////////
+/******************************************************/
 
+///////////////////////// POP UP //////////////////////
 function displayEditCitation(){
 	displayCover();
  	document.getElementById("pop-edit").style.display = "block";

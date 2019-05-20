@@ -7,12 +7,18 @@
 
 //////////////////// ALL TAGS /////////////////// - FAIT
 function AllTags(){
-  let url = './tags/All'; // Mon url
-  var request = new Request(url, {
-    method: 'GET'
-  })
+  let formData = new FormData();
+  let data = new Object();
+  data['url'] = './tags/All';
+  formData.append("url", './tags/All');
 
-  fetch(url, request)
+  data = JSON.stringify(data);
+  formData.append('getData',data);
+  console.log(formData);
+
+  fetch('./api/Route/routeur.php', {
+		method: "POST",
+		body: formData})
   .then(response => response.json())
   .then(function(data){
     displayTagsNav(data);
@@ -24,12 +30,17 @@ function AllTags(){
 //////////////////// ALL TYPES AUTEUR /////////////////// - FAIT
 
 function AllTypesAuteur(){
-  let url = './typesAuteur/All'; // Mon url
-  var request = new Request(url, {
-    method: 'GET'
-  })
+  let formData = new FormData();
+  let data = new Object();
+  data['url'] = './typesAuteur/All';
+  formData.append("url", './typesAuteur/All');
 
-  fetch(url, request) // chooseRoute() est une fonction en php, qui est dans routeur.php
+  data = JSON.stringify(data);
+  formData.append('getData',data);
+
+  fetch('./api/Route/routeur.php', {
+    method: "POST",
+    body: formData}) // chooseRoute() est une fonction en php, qui est dans routeur.php
   .then(response => response.json())
   .then(function(data){
     displayTypesAuteurNav(data);
@@ -40,12 +51,17 @@ function AllTypesAuteur(){
 
 //////////////////// ALL CITATIONS /////////////////// - FAIT
 function AllCitations(){
-  let url = './citations/All'; // Mon url
-  var request = new Request(url, {
-    method: 'GET'
-  })
+  let formData = new FormData();
+  let data = new Object();
+  data['url'] = './citations/All';
+  formData.append("url",  './citations/All');
 
-  fetch(url, request)
+  data = JSON.stringify(data);
+  formData.append('getData',data);
+
+  fetch('./api/Route/routeur.php', {
+    method: "POST",
+    body: formData})
   .then(response => response.json())
   .then(function(data){
     displayCitation(data);
