@@ -703,16 +703,12 @@ function apiUpdateCitation($query)
 ///////////////////////////// DELETE //////////////////////////
 //////////////////////////////////////////////////////////////
 
-function apiDeleteCitation($query)
-<<<<<<< HEAD
-{
+function apiDeleteCitation($query){
 
   if (verifMdp($query['password']) == true){
-=======
   {
 
     if (verifMdp($query['password']) == true){
->>>>>>> master
 
     $queryStmt1 = "DELETE FROM S2_TagCitation WHERE idCitation = :idcitation;";
 
@@ -729,14 +725,10 @@ function apiDeleteCitation($query)
     }
   } else {
     echo "Error Delete Citation - Password incorrect";
-<<<<<<< HEAD
   }
 }
-=======
   }
   }
->>>>>>> master
-
 
     ////////////////////////////////////////////////////////////////
     ///////////////////////////// OTHER //////////////////////////
