@@ -8,7 +8,7 @@ require_once '../model/ModelTags.php';
 
 
 ///////////////////////// GET ALL TAGS //////////////////////
-// Pour mettre les champs dynamiquement dans search
+
 function apiGetAllTags($query){
   // response status
   http_response_code(200);
@@ -20,7 +20,7 @@ function apiGetAllTags($query){
   $stmt->execute();
 
   while (($row = $stmt->fetch()) !== false) {
-  	array_push($tags, $row); // Ajoute chaque citation au tableau citations
+  	array_push($tags, $row);
   }
   echo json_encode($tags);
 

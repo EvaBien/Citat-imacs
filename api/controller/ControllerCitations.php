@@ -34,6 +34,7 @@ function apiCreateCitation($query){
     }
 }
 
+ // TAGS
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// READ ////////////////////////////
@@ -689,7 +690,7 @@ function apiUpdateCitation($query)
 
     if ($stmt->rowCount() == 0) {
       return NULL;
-    } 
+    }
      } else {
       echo "Error Update Citation - Password incorrect";
   }

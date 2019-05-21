@@ -82,21 +82,21 @@ SQL
   ///////////////////////////// UPDATE //////////////////////////
   //////////////////////////////////////////////////////////////
 
-function apiUpdateSignalement($query){
-      // Sert uniquement à update le statut
-      $queryStmt = "UPDATE S2_Signalements SET statutSignalement = 1 WHERE idSignal = :id;";
+  function apiUpdateSignalement($query){
+    // Sert uniquement à update le statut
+    $queryStmt = "UPDATE S2_Signalements SET statutSignalement = 1 WHERE idSignal = :id;";
 
-      $stmt = MyPDO::getInstance()->prepare($queryStmt);
-      $stmt->execute(
-        array(
-          ':id'=>$query["idSignal"]
-        )
-      );
+    $stmt = MyPDO::getInstance()->prepare($queryStmt);
+    $stmt->execute(
+      array(
+        ':id'=>$query["idSignal"]
+      )
+    );
 
-      if ($stmt->rowCount() == 0) {
-        return NULL;
-      }
+    if ($stmt->rowCount() == 0) {
+      return NULL;
     }
+  }
 
 
     ////////////////////////////////////////////////////////////////

@@ -19,7 +19,7 @@ function apiGetAllTypeAuteurs($query){
   $stmt->execute();
 
   while (($row = $stmt->fetch()) !== false) {
-    array_push($typeAuteur, $row); // Ajoute chaque citation au tableau citations
+    array_push($typeAuteur, $row);
   }
   echo json_encode($typeAuteur);
   exit();

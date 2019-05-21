@@ -21,7 +21,9 @@ function AllTags(){
     displayTagsNav(data);
     displayTagsPop(data);
   })
-  .catch(error => { console.log(error) });
+  .catch( error => {
+    window.alert(error);
+  })
 }
 
 //////////////////// ALL TYPES AUTEUR /////////////////// - FAIT
@@ -43,7 +45,9 @@ function AllTypesAuteur(){
     displayTypesAuteurNav(data);
     displayTypesAuteurPop(data);
   })
-  .catch(error => { console.log(error) });
+  .catch( error => {
+    window.alert(error);
+  })
 }
 
 //////////////////// ALL CITATIONS /////////////////// - FAIT
@@ -63,7 +67,9 @@ function AllCitations(){
   .then(function(data){
     displayCitation(data);
   })
-  .catch(error => { console.log(error) });
+  .catch( error => {
+    window.alert(error);
+  })
 }
 
 //////////////////// ALL TYPES SIGNALEMENT ///////////////////
@@ -83,7 +89,9 @@ function  AllTypesSignal(){
   .then(function(data){
     displayTypesSignal(data);
   })
-  .catch(error => { console.log(error) });
+  .catch( error => {
+    window.alert(error);
+  })
 }
 
 
@@ -97,14 +105,61 @@ function addCitation(){
   let formData = new FormData();
   let data = new Object();
 
+  let url = "./citation/New";
+  let date = new Date();
   let nom_auteur = document.getElementById("auteur_form").value;
   let type_auteur = document.getElementById("type_auteur_form").value;
   let citation = document.getElementById("citation_form").value;
-  let tags = document.getSelectorAll("input[name='tag']");
+  let tags = document.getSelectorAll("input[name='tag_form']");
   let tagsChecked = new Array();
+  tags.forEach(function(checkBtn){
+    if(checkBtn.checked){
+      tagsChecked.push(checkBtn.value);
+    }
+  });
 
-  alert("Citation créée ! \n Redirection..."");
-  window.location.reload();
+
+    data['url']= url;
+    formData.append('url',url);
+
+  if(citation){
+    data['contenuCitation'] = citation;
+    formData.append("contenuCitation", citation);
+  }
+
+  data['dateCitation'] = date;
+  formData.append("dateCitation",date);
+
+  if(nom_auteur){
+    data['auteurCitation'] = nom_auteur;
+    formData.append("auteurCitation", nom_auteur);
+  }
+
+  if(type_auteur){
+    data['idTypeAuteur'] = type_auteur;
+    formData.append("idTypeAuteur", type_auteur);
+  }
+
+  if(tagsChecked){
+    data['tagsCitation'] = tagsChecked;
+    formData.append("tagsCitation",tagsChecked);
+  }
+
+  data = JSON.stringify(data);
+ formData.append('postData',data);
+ console.log(data);
+
+ fetch("./api/Route/routeur.php", {
+		method: "POST",
+		body: formData})
+    .then( response => response.json() )
+		.then( data => {
+      alert("Citation créée ! \n Redirection..."");
+      window.location.reload();
+    })
+    .catch( error => {
+      window.alert(error);
+		});
 }
 
 
@@ -273,7 +328,7 @@ function displayTypesAuteurPop(dataTypes){
   let authorFormBlock = document.getElementById("type_auteur_form");
 
   data.forEarch(author => {
-    let one_author = "<option value=\""+author['nomTypeAuteur']+" \">"+author['nomTypeAuteur']+"</option>"
+    let one_author = "<option value=\""+author['idTypeAuteur']+" \">"+author['nomTypeAuteur']+"</option>"
 
     authorFormBlock.appendChild(one_author);
   });
@@ -288,7 +343,7 @@ function displayTagsPop(dataTags){
   let tagsFormBlock = document.getElementById("tag_form");
 
   data.forEarch(tag => {
-    let one_tag = "<input type=\"checkbox\" id=\"popup_checkbox"+tag['idTag']+"\" class=\"tag_checkbox\" value=\""+tag['nomTag']+"\"><label for=\"popup_checkbox"+tag['idTag']+"\" class=\"tag\">"+tag['nomTag']+"</label>"
+    let one_tag = "<input type=\"checkbox\" id=\"popup_checkbox"+tag['idTag']+"\" class=\"tag_checkbox\" name=\"tag_form\" value=\""+tag['idTag']+"\"><label for=\"popup_checkbox"+tag['idTag']+"\" class=\"tag\">"+tag['nomTag']+"</label>"
 
     tagsFormBlock.appendChild(one_tag);
   });
@@ -395,7 +450,9 @@ function likeCitation(){ // A modifier ?
   .then(function(data){
     currentLikes = data['likes'];
   })
-  .catch(error => { console.log(error) });
+  .catch( error => {
+    window.alert(error);
+  })
 
 
   button = event.target;
@@ -423,7 +480,9 @@ function likeCitation(){ // A modifier ?
 		method: "PUT",
 		body: formDataUpd})
   .then(function(response) { return response.json(); })
-  .catch(error => { console.log(error) });
+  .catch( error => {
+    window.alert(error);
+  })
 
   /// On get la nouvelle valeur dans la BDD directement ///
   fetch('./api/Route/routeur.php',  {
@@ -433,7 +492,9 @@ function likeCitation(){ // A modifier ?
   .then(function(data){
     currentLikes = data['likes'];
   })
-  .catch(error => { console.log(error) });
+  .catch( error => {
+    window.alert(error);
+  })
 
   likeDiv = button.parentNode.children[1];
   likeDiv.innerHTML = currentLikes;
@@ -443,65 +504,67 @@ function likeCitation(){ // A modifier ?
 //////////////////////////////////////////////////////////////////
 ///////////////// CRITERES DE RECHERCHE - CAS ////////////////
 
-// document.getElementById('valid_search').onclick = event => {
-// 	event.preventDefault();
-//         keywordForm = document.getElementById("input[name='inputKeyword']").value;
-//         tagsForm = document.querySelectorAll("input[name='navTagsCheckbox']");
-//          let tagsChecked = new Array();
-//           tagsForm.forEach(function(radioBtn) {
-//               if (radioBtn.checked) {
-// 	                 tagsChecked.push(JSON.stringify(radioBtn.nomTag));
-//                    }
-//                   });
-//         typesAuteurForm = document.querySelectorAll("input[name='navAuthorCheckbox']");
-//          let typesAuteurChecked = new Array();
-//           typesAuteurForm.forEach(function(radioBtn) {
-//               if (radioBtn.checked) {
-// 	                 typesAuteurChecked.push(JSON.stringify(radioBtn.nomTag));
-//                    }
-//                   });
-//
-//         let formData = new FormData();
-//         let data = new Object();
-//
-//         data['keyWord'] = keywordForm;
-//         formData.append("keyword",keywordForm );
-//         data['tags'] = tagsChecked;
-//         formData.append("tags", tagsChecked);
-//         data['tags'] = typesAuteurChecked;
-//         formData.append("tags", typesAuteurChecked);
-//
-//         var url;
-//
-//         if (/* Tous les critères keyword + T + TA */){
-//           url = './citations/Allfactors';
-//         } else if (/* juste keyword */){
-//           url = './citations/Keyword';
-//         } else if (/* juste tags */){
-//           url = './citations/Tags';
-//         } else if (/* juste type auteur*/){
-//           url = './citations/Typesauteur';
-//         } else if (/* keyword + tags*/){
-//           url = './citations/TagsKeyword';
-//         } else if (/* keyword + typeAuteur */){
-//           url = './citations/TypesauteurKeyword';
-//         } else if (/* tags + types auteur */){
-//           url = './citations/TypesauteurTags';
-//         } else { // Aucun ou que des all
-//           url = './citations/All'; // Mon url
-//         }
-//
-//         data['url'] = url;
-//         formData.append("url", url);
-//
-//
-//         data = JSON.stringify(data);
-//         formData.append('getData',data);
-//
-//           fetch('./api/Route/routeur.php',{
-//             method: "POST",
-//             body: formData})
-//           .then(function(response) { return response.json(); })
-//             .then(displayCitation(data))
-//             .catch(error => { console.log(error) });
+document.getElementById('valid_search').onclick = event => {
+	event.preventDefault();
+        keywordForm = document.getElementById("input[name='inputKeyword']").value;
+        tagsForm = document.querySelectorAll("input[name='navTagsCheckbox']");
+         let tagsChecked = new Array();
+          tagsForm.forEach(function(checkBtn) {
+              if (checkBtn.checked) {
+	                 tagsChecked.push(JSON.stringify(checkBtn.value));
+                   }
+                  });
+        typesAuteurForm = document.querySelectorAll("input[name='navAuthorCheckbox']");
+         let typesAuteurChecked = new Array();
+          typesAuteurForm.forEach(function(radioBtn) {
+              if (radioBtn.checked) {
+	                 typesAuteurChecked.push(JSON.stringify(radioBtn.value));
+                   }
+                  });
+
+        let formData = new FormData();
+        let data = new Object();
+
+        data['keyWord'] = keywordForm;
+        formData.append("keyword",keywordForm );
+        data['tags'] = tagsChecked;
+        formData.append("tags", tagsChecked);
+        data['types'] = typesAuteurChecked;
+        formData.append("tags", typesAuteurChecked);
+
+        var url;
+
+        if ((keywordForm.length > 0) && (tagsChecked.length > 0) && (typesAuteurChecked.length > 0)){
+          url = './citations/Allfactors';
+        } else if ((keywordForm.length > 0) && !(tagsChecked.length > 0) && !(typesAuteurChecked.length > 0){
+          url = './citations/Keyword';
+        } else if (!(keywordForm.length > 0) && (tagsChecked.length > 0) && !(typesAuteurChecked.length > 0)){
+          url = './citations/Tags';
+        } else if (!(keywordForm.length > 0) && !(tagsChecked.length > 0) && (typesAuteurChecked.length > 0)){
+          url = './citations/Typesauteur';
+        } else if ((keywordForm.length > 0) && (tagsChecked.length > 0) && !(typesAuteurChecked.length > 0)){
+          url = './citations/TagsKeyword';
+        } else if ((keywordForm.length > 0) && !(tagsChecked.length > 0) && (typesAuteurChecked.length > 0)){
+          url = './citations/TypesauteurKeyword';
+        } else if (!(keywordForm.length > 0) && (tagsChecked.length > 0) && (typesAuteurChecked.length > 0)){
+          url = './citations/TypesauteurTags';
+        } else { // Aucun ou que des all
+          url = './citations/All'; // Mon url
+        }
+
+        data['url'] = url;
+        formData.append("url", url);
+
+
+        data = JSON.stringify(data);
+        formData.append('getData',data);
+
+          fetch('./api/Route/routeur.php',{
+            method: "POST",
+            body: formData})
+          .then(function(response) { return response.json(); })
+            .then(displayCitation(data))
+            .catch( error => {
+              window.alert(error);
+})
 //       }
