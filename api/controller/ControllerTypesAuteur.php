@@ -14,7 +14,7 @@ function apiGetAllTypeAuteurs($query){
 
   ////SEARCH TYPE AUTEUR IN DB ////
   $typeAuteur = array();
-  $queryStmt = "SELECT * FROM S2_TypesAuteur;";
+  $queryStmt = "SELECT * FROM s2_typesauteur;";
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
 

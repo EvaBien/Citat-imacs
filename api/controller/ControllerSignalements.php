@@ -15,7 +15,7 @@ function apiCreateSignalement($query)
   $signalement = new signalement($query['typeSignalement'],$query['messageSignalement'],$query['statutSignalement'],$query['idCitation']);
 
   ////// ADD TO DB //////
-  $queryStmt = "INSERT INTO signalement (typeSignalement, messageSignalement, statutSignalement, idCitation) VALUES (?, ?, ?, ?);";
+  $queryStmt = "INSERT INTO s2_signalements (typeSignalement, messageSignalement, statutSignalement, idCitation) VALUES (?, ?, ?, ?);";
 
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
@@ -44,7 +44,7 @@ function apiCreateSignalement($query)
   ////////////////////// GET SIGNALEMENT BY ID ///////////////////
   function apiGetSignalementById($id){
 
-    $queryStmt = "SELECT * FROM S2_Signalements WHERE S2_Signalements.idSignalement = :idsignalement LIMIT 1;";
+    $queryStmt = "SELECT * FROM s2_signalements WHERE s2_signalements.idSignalement = :idsignalement LIMIT 1;";
 
     $signalement = array();
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -61,9 +61,9 @@ function apiCreateSignalement($query)
     $citation = '';
 
     $stmt = MyPDO::getInstance()->prepare(<<<SQL
-      SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
-      INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
-      WHERE S2_Citations.idCitation = :idcitation;
+      SELECT s2_TypesAuteur.nomTypeAuteur FROM `s2_TypesAuteur`
+      INNER JOIN s2_Citations ON s2_Citations.idTypeAuteur = s2_TypesAuteur.idTypeAuteur
+      WHERE s2_Citations.idCitation = :idcitation;
 SQL
     );
     $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -84,7 +84,7 @@ SQL
 
   function apiUpdateSignalement($query){
     // Sert uniquement à update le statut
-    $queryStmt = "UPDATE S2_Signalements SET statutSignalement = 1 WHERE idSignal = :id;";
+    $queryStmt = "UPDATE s2_signalements SET statutSignalement = 1 WHERE idSignal = :id;";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
     $stmt->execute(

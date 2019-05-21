@@ -15,7 +15,7 @@ function apiCreateCitation($query){
     $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
 
     ////// ADD TO DB //////
-    $queryStmt = "INSERT INTO S2_Citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);";
+    $queryStmt = "INSERT INTO s2_citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
@@ -37,7 +37,7 @@ function apiCreateCitation($query){
     foreach ($query['tagsCitation'] as $idTag) { // On va chercher les tags et le typeAuteur
       $association = new tagCitation($idTag,$citation->getIdCitation());
 
-      $queryStmt = "INSERT INTO S2_TagCitation (idCitation, idTag) VALUES (?, ?,);";
+      $queryStmt = "INSERT INTO s2_tagcitation (idCitation, idTag) VALUES (?, ?,);";
 
       $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
@@ -61,7 +61,7 @@ function apiCreateCitation($query){
 
   ////SEARCH CITATION IN DB ////
   $citations = array();
-  $queryStmt = "SELECT * FROM S2_Citations ORDER BY dateCitation;";
+  $queryStmt = "SELECT * FROM s2_citations ORDER BY dateCitation;";
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
 
@@ -76,9 +76,9 @@ function apiCreateCitation($query){
 
 ////SEARCH TYPEAUTEUR IN DB ////
 	$stmt = MyPDO::getInstance()->prepare(<<<SQL
-		SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
-		INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
-		WHERE S2_Citations.idCitation = :idcitation;
+		SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+		INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+		WHERE s2_citations.idCitation = :idcitation;
 SQL
 	);
 	$stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -88,10 +88,10 @@ SQL
 
 ////SEARCH TAGS IN DB ////
   $stmt = MyPDO::getInstance()->prepare(<<<SQL
-		SELECT S2_Tags.nomTag FROM `S2_Tags`
-		INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
-		INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
-		WHERE S2_TagCitation.idCitation = :idcitation;
+		SELECT s2_tags.nomTag FROM `s2_tags`
+		INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+		WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
 	);
 	$stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -113,7 +113,7 @@ SQL
 
  function apiGetCitationById($query){
 
-$queryStmt = "SELECT * FROM S2_Citations WHERE S2_Citations.idCitation = :idcitation LIMIT 1;";
+$queryStmt = "SELECT * FROM s2_citations WHERE s2_citations.idCitation = :idcitation LIMIT 1;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -131,9 +131,9 @@ $tags = array();
 
 ////SEARCH TYPEAUTEUR IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
-  INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
-  WHERE S2_Citations.idCitation = :idcitation;
+  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_citations.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -143,10 +143,10 @@ while (($row = $stmt->fetch()) !== false) {
 
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_Tags.nomTag FROM `S2_Tags`
-  INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
-  INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
-  WHERE S2_TagCitation.idCitation = :idcitation;
+  SELECT s2_tags.nomTag FROM `s2_tags`
+  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+  WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -190,10 +190,10 @@ if ($method!=="post") {
 $tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
 
 
-$queryStmt = "SELECT * FROM S2_Citations
-  INNER JOIN S2_TagCitations ON S2_TagCitation.idCitation = S2_Tags.idCitation
-  INNER JOIN S2_Tags ON S2_Tags.idTags = S2_TagCitation.idTag
-  WHERE S2_Tags.nomTag IN ($tagsList);";
+$queryStmt = "SELECT * FROM s2_citations
+  INNER JOIN s2_tagcitations ON s2_tagcitation.idCitation = s2_tags.idCitation
+  INNER JOIN s2_tags ON s2_tags.idTags = s2_tagcitation.idTag
+  WHERE s2_tags.nomTag IN ($tagsList);";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -211,9 +211,9 @@ $tags = array();
 
 ////SEARCH TYPEAUTEUR IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
-  INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
-  WHERE S2_Citations.idCitation = :idcitation;
+  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_citations.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -223,10 +223,10 @@ while (($row = $stmt->fetch()) !== false) {
 
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_Tags.nomTag FROM `S2_Tags`
-  INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
-  INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
-  WHERE S2_TagCitation.idCitation = :idcitation;
+  SELECT s2_tags.nomTag FROM `s2_tags`
+  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+  WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -258,7 +258,7 @@ exit();
 //////////////////// GET CITATION BY KEYWORD /////////////////
  function apiGetCitationByKeyword($query){
 
-$queryStmt = "SELECT * FROM S2_Citations WHERE contenuCitation LIKE %:keyword% ORDER BY dateCitation;";
+$queryStmt = "SELECT * FROM s2_citations WHERE contenuCitation LIKE %:keyword% ORDER BY dateCitation;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -276,9 +276,9 @@ $tags = array();
 
 ////SEARCH TYPEAUTEUR IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
-  INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
-  WHERE S2_Citations.idCitation = :idcitation;
+  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_citations.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -288,10 +288,10 @@ while (($row = $stmt->fetch()) !== false) {
 
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_Tags.nomTag FROM `S2_Tags`
-  INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
-  INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
-  WHERE S2_TagCitation.idCitation = :idcitation;
+  SELECT s2_tags.nomTag FROM `s2_tags`
+  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+  WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -324,8 +324,8 @@ exit();
 
 $typesList = implode(',', array_fill(0, count($query['typesauteur']), '?'));
 
-$queryStmt = "SELECT * FROM S2_Citations
-  WHERE S2_Citations.idTypeAuteur IN ($typesList);";
+$queryStmt = "SELECT * FROM s2_citations
+  WHERE s2_citations.idTypeAuteur IN ($typesList);";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -343,9 +343,9 @@ $tags = array();
 
 ////SEARCH TYPEAUTEUR IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
-  INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
-  WHERE S2_Citations.idCitation = :idcitation;
+  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_citations.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -355,10 +355,10 @@ while (($row = $stmt->fetch()) !== false) {
 
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_Tags.nomTag FROM `S2_Tags`
-  INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
-  INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
-  WHERE S2_TagCitation.idCitation = :idcitation;
+  SELECT s2_tags.nomTag FROM `s2_tags`
+  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+  WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -397,10 +397,10 @@ $tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
 $typesList = implode(',', array_fill(0, count($query['typesauteur']), '?'));
 
 $queryStmt = "SELECT *
-  FROM S2_Citations
-  JOIN S2_TagCitation ON S2_Citations.idCitation=S2_TagCitation.idCitation
-  JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
-  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citations.idTypeAuteur IN ($typesList) AND S2_Citation.contenuCitation LIKE %:keyword%;";
+  FROM s2_citations
+  JOIN s2_tagcitation ON s2_citations.idCitation=s2_tagcitation.idCitation
+  JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
+  WHERE s2_tags.nomTags IN ($tagslist) AND s2_citations.idTypeAuteur IN ($typesList) AND s2_citation.contenuCitation LIKE %:keyword%;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -417,9 +417,9 @@ $tags = array();
 
 ////SEARCH TYPEAUTEUR IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
-  INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
-  WHERE S2_Citations.idCitation = :idcitation;
+  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_citations.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -429,10 +429,10 @@ while (($row = $stmt->fetch()) !== false) {
 
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_Tags.nomTag FROM `S2_Tags`
-  INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
-  INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
-  WHERE S2_TagCitation.idCitation = :idcitation;
+  SELECT s2_tags.nomTag FROM `s2_tags`
+  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+  WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -467,10 +467,10 @@ exit();
 $tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
 
 $queryStmt = "SELECT *
-  FROM S2_Citations
-  JOIN S2_TagCitation ON S2_Citations.idCitation=S2_TagCitation.idCitation
-  JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
-  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citation.contenuCitation LIKE %:keyword%;";
+  FROM s2_citations
+  JOIN s2_tagcitation ON s2_citations.idCitation=s2_tagcitation.idCitation
+  JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
+  WHERE s2_tags.nomTags IN ($tagslist) AND s2_citation.contenuCitation LIKE %:keyword%;";
 
 
 $citations = array();
@@ -489,9 +489,9 @@ $tags = array();
 
 ////SEARCH TYPEAUTEUR IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
-  INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
-  WHERE S2_Citations.idCitation = :idcitation;
+  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_citations.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -501,10 +501,10 @@ while (($row = $stmt->fetch()) !== false) {
 
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_Tags.nomTag FROM `S2_Tags`
-  INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
-  INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
-  WHERE S2_TagCitation.idCitation = :idcitation;
+  SELECT s2_tags.nomTag FROM `s2_tags`
+  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+  WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -539,8 +539,8 @@ exit();
 $typesList = implode(',', array_fill(0, count($query['typesauteur']), '?'));
 
 $queryStmt = "SELECT *
-  FROM S2_Citations
-  WHERE S2_Citations.idTypeAuteur IN ($typesList) AND S2_Citation.contenuCitation LIKE %:keyword%;";
+  FROM s2_citations
+  WHERE s2_citations.idTypeAuteur IN ($typesList) AND s2_citation.contenuCitation LIKE %:keyword%;";
 
 
 $citations = array();
@@ -560,9 +560,9 @@ $tags = array();
 
 ////SEARCH TYPEAUTEUR IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
-  INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
-  WHERE S2_Citations.idCitation = :idcitation;
+  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_citations.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -572,10 +572,10 @@ while (($row = $stmt->fetch()) !== false) {
 
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_Tags.nomTag FROM `S2_Tags`
-  INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
-  INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
-  WHERE S2_TagCitation.idCitation = :idcitation;
+  SELECT s2_tags.nomTag FROM `s2_tags`
+  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+  WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -613,10 +613,10 @@ $tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
 $typesList = implode(',', array_fill(0, count($query['typesauteur']), '?'));
 
 $queryStmt = "SELECT *
-  FROM S2_Citations
-  JOIN S2_TagCitation ON S2_Citations.idCitation=S2_TagCitation.idCitation
-  JOIN S2_Tags ON S2_TagCitation.idTag = S2_Tags.idTag
-  WHERE S2_Tags.nomTags IN ($tagslist) AND S2_Citations.idTypeAuteur IN ($typesList);";
+  FROM s2_citations
+  JOIN s2_tagcitation ON s2_citations.idCitation=s2_tagcitation.idCitation
+  JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
+  WHERE s2_tags.nomTags IN ($tagslist) AND s2_citations.idTypeAuteur IN ($typesList);";
 
 
 $citations = array();
@@ -636,9 +636,9 @@ $tags = array();
 
 ////SEARCH TYPEAUTEUR IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_TypesAuteur.nomTypeAuteur FROM `S2_TypesAuteur`
-  INNER JOIN S2_Citations ON S2_Citations.idTypeAuteur = S2_TypesAuteur.idTypeAuteur
-  WHERE S2_Citations.idCitation = :idcitation;
+  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_citations.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -648,10 +648,10 @@ while (($row = $stmt->fetch()) !== false) {
 
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT S2_Tags.nomTag FROM `S2_Tags`
-  INNER JOIN S2_TagCitations ON S2_TagCitation.idTag = S2_Tags.idTag
-  INNER JOIN S2_Citations ON S2_Citations.idCitation = S2_TagCitation.idCitation
-  WHERE S2_TagCitation.idCitation = :idcitation;
+  SELECT s2_tags.nomTag FROM `s2_tags`
+  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+  WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
 );
 $stmt->execute(['idcitation'=>$citation['idCitation']]);
@@ -688,7 +688,7 @@ function apiUpdateCitation($query)
     if (verifMdp($query['password']) == true){
    // Si vide doit remettre les mêmes valeurs !
 
-    $queryStmt = "UPDATE S2_Citations SET contenuCitation = :contenu, auteurCitation = :auteur, idTypeAuteur = :typeauteur WHERE idCitation = :id;";
+    $queryStmt = "UPDATE s2_citations SET contenuCitation = :contenu, auteurCitation = :auteur, idTypeAuteur = :typeauteur WHERE idCitation = :id;";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
     $stmt->execute(
@@ -721,12 +721,12 @@ function apiDeleteCitation($query){
 
     if (verifMdp($query['password']) == true){
 
-    $queryStmt1 = "DELETE FROM S2_TagCitation WHERE idCitation = :idcitation;";
+    $queryStmt1 = "DELETE FROM s2_tagcitation WHERE idCitation = :idcitation;";
 
     $stmt1 = MyPDO::getInstance()->prepare($queryStmt1);
     $stmt1->execute(['idcitation' => $query['idCitation']]);
 
-    $queryStmt2 = "DELETE FROM S2_Citations WHERE idCitation = :idcitation;";
+    $queryStmt2 = "DELETE FROM s2_citations WHERE idCitation = :idcitation;";
 
     $stmt2 = MyPDO::getInstance()->prepare($queryStmt2);
     $stmt2->execute(['idcitation' => $query['idCitation']]);
@@ -769,7 +769,7 @@ function getCitationLikes($query)
   {
 
 
-    $queryStmt = "SELECT likesCitation FROM S2_Citations WHERE idCitation = :idCitation;";
+    $queryStmt = "SELECT likesCitation FROM s2_citations WHERE idCitation = :idCitation;";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
     $stmt->execute(['idCitation'=>$query['idCitation']]);
@@ -791,7 +791,7 @@ function getCitationLikes($query)
           exit(); // SInon je sors
       }
 
-        $queryStmt = "UPDATE S2_Citations SET likesCitation= :newlikes WHERE idCitation = :id;";
+        $queryStmt = "UPDATE s2_citations SET likesCitation= :newlikes WHERE idCitation = :id;";
 
         $stmt = MyPDO::getInstance()->prepare($queryStmt);
         $stmt->execute(

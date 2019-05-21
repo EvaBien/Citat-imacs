@@ -15,7 +15,7 @@ function apiGetAllTags($query){
 
   ////SEARCH TAGS IN DB ////
   $tags = array();
-  $queryStmt = "SELECT * FROM S2_Tags;";
+  $queryStmt = "SELECT * FROM s2_tags;";
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
 

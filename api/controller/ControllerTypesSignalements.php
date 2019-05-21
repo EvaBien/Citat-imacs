@@ -12,7 +12,7 @@ function apiGetAllTypeSignalement($query){
 
   ////SEARCH TYPE SIGNALEMENT IN DB ////
   $typesSignalement = array();
-  $queryStmt = "SELECT * FROM S2_TypesSignalement;";
+  $queryStmt = "SELECT * FROM s2_typessignalement;";
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
 
