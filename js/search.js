@@ -94,10 +94,14 @@ function  AllTypesSignal(){
 function addCitation(){
   event.preventDefault();
 
-  // nom_auteur DANS auteur_form
-  // type_auteur DANS type_auteur_form
-  // citation DANS citation_form
-  // tag DANS tag_form
+  let formData = new FormData();
+  let data = new Object();
+
+  let nom_auteur = document.getElementById("auteur_form").value;
+  let type_auteur = document.getElementById("type_auteur_form").value;
+  let citation = document.getElementById("citation_form").value;
+  let tags = document.getSelectorAll("input[name='tag']");
+  let tagsChecked = new Array();
 
   alert("Citation créée ! \n Redirection..."");
   window.location.reload();
