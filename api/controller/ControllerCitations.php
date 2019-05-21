@@ -144,7 +144,7 @@ while (($row = $stmt->fetch()) !== false) {
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
   SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
   INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
   WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
@@ -191,7 +191,7 @@ $tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
 
 
 $queryStmt = "SELECT * FROM s2_citations
-  INNER JOIN s2_tagcitations ON s2_tagcitation.idCitation = s2_tags.idCitation
+  INNER JOIN s2_tagcitation ON s2_tagcitation.idCitation = s2_tags.idCitation
   INNER JOIN s2_tags ON s2_tags.idTags = s2_tagcitation.idTag
   WHERE s2_tags.nomTag IN ($tagsList);";
 
@@ -224,7 +224,7 @@ while (($row = $stmt->fetch()) !== false) {
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
   SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
   INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
   WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
@@ -289,7 +289,7 @@ while (($row = $stmt->fetch()) !== false) {
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
   SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
   INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
   WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
@@ -356,7 +356,7 @@ while (($row = $stmt->fetch()) !== false) {
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
   SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
   INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
   WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
@@ -430,7 +430,7 @@ while (($row = $stmt->fetch()) !== false) {
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
   SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
   INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
   WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
@@ -502,7 +502,7 @@ while (($row = $stmt->fetch()) !== false) {
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
   SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
   INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
   WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
@@ -573,7 +573,7 @@ while (($row = $stmt->fetch()) !== false) {
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
   SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
   INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
   WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
@@ -649,7 +649,7 @@ while (($row = $stmt->fetch()) !== false) {
 ////SEARCH TAGS IN DB ////
 $stmt = MyPDO::getInstance()->prepare(<<<SQL
   SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
   INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
   WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
