@@ -87,6 +87,24 @@ function  AllTypesSignal(){
 }
 
 
+
+
+/////////////////////// ADD CITATION //////////////////////
+
+function addCitation(){
+  event.preventDefault();
+
+  // nom_auteur DANS auteur_form
+  // type_auteur DANS type_auteur_form
+  // citation DANS citation_form
+  // tag DANS tag_form
+
+  alert("Citation créée ! \n Redirection..."");
+  window.location.reload();
+}
+
+
+
 /*******************************************************/
 /////////////////// GESTION EVENEMENTS /////////////////
 /******************************************************/
@@ -347,13 +365,6 @@ function cancelPopUp(){
   document.getElementById("pop_signal").style.display = "none";
 }
 
-/////////// VALID NEW CITATION ////////
-function callAddCitation(){
-  // Appel API Create
-
-
-    window.location.reload();
-}
 
 /////////// LIKES CITATIONS //////// - FAIT
 function likeCitation(){ // A modifier ?

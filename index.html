@@ -178,7 +178,7 @@
 	<p class="warning_popup">Afin de respecter la vie privée de chacun, veillez à avoir l'autorisation d'un auteur avant de le notifier</p>
 	<form method="post" action="">
 		<label for="auteur">Auteur</label>
-		<input type="text" name="auteur" placeholder="Anonyme" class="text_input" />
+		<input type="text" id="auteur_form" name="auteur" placeholder="Anonyme" class="text_input" />
 		<label for="type_auteur">Type d'auteur</label>
 		<select id="type_auteur_form" name="type_auteur" class="selectForm">
 			<option selected disabled>-- Selectionnez le type d'auteur</option>
@@ -219,7 +219,7 @@
 			<label for = "popup_checkbox9" class="tag">sciences</label>
 		</div>
 
-		<button id="add_citation_form" class="button" onclick="callAddCitation()">Ajouter</button>
+		<button id="add_citation_form" class="button" onclick="AddCitation()">Ajouter</button>
 		<p class="cancel" onclick="cancelPopUp()">Annuler</p>
 	</form>
 </div>
@@ -238,16 +238,9 @@
 		<label for="type_signalement">Type de signalement</label>
 		<select name="type_signalement" class="selectForm">
 			<option selected disabled>-- Selectionnez le type de signalement</option>
-			<option value="france">France</option>
-			<option value="espagne">Espagne</option>
-			<option value="italie">Italie</option>
-			<option value="royaume-uni">Royaume-Uni</option>
-			<option value="canada">Canada</option>
-			<option value="etats-unis">États-Unis</option>
-			<option value="chine">Chine</option>
-			<option value="japon">Japon</option>
+			<!--Types signalement-->
 		</select>
-		<label for="message">Message</label>
+		<label for="message">Votre Message</label>
 		<textarea name="message" class="text_input" id="" placeholder="Il y a une faute d'orthographe"></textarea>
 
 		<button id="send_citation_warning" class="button">Envoyer</button>

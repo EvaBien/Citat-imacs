@@ -12,9 +12,18 @@
 ////////////////////// APPELS API ////////////////////
 /****************************************************/
 
+///// API CREATE SIGNALEMENT //////
+function createSignal(){
+
+  alert("Votre signalement a bien été envoyé ! \n Redirection..."");
+}
+
+
+
 
 //////// API GET TYPE SIGNALEMENT //////
 function SignalById(){
+
 
 }
 
@@ -22,23 +31,25 @@ function SignalById(){
 ///////// API UPDATE CITATION ////////
 function updateCitation(){
 
+alert("Citation éditée ! \n Redirection..."");
+document.location.href="./";
 }
 
 //////// API DELETE CITATION /////////
 function deleteCitation(idCitation){
 
+alert("Citation supprimée ! \n Redirection...");
+document.location.href="./";
 }
 
 /////// API UPDATE SIGNALEMENT STATUT /////
 function updateSignalStatus(signalId){
 
+alert("Aucune modification appliquée ! \n Redirection...");
+document.location.href="./";
 }
 
 
-
-
-//// REDIRECTION /////
-// document.location.href="./";
 
 
 
@@ -59,23 +70,6 @@ function updateSignalStatus(signalId){
 document.addEventListener('DOMContentLoaded', function(){
   SignalById();
 });
-
-
-
-
-//////////////////////////////////////////////////////////////////
-//////////////////////// ON CLICK BUTTONS /////////S//////////////
-
-
-////////////////////// DELETE VALID BUTTON ///////////////////////
-
-
-/////////////////////// UPDATE VALID BUTTON //////////////////////
-
-
-////////////////////// NOTHING  VALID BUTTON /////////////////////
-
-
 
 //////////////////////////////////////////////////////////////////
 ///////////////////////////// POP UP ////////////////////////////
