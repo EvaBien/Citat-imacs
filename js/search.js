@@ -15,7 +15,7 @@ function AllTags(){
   fetch('./api/Route/routeur.php', {
 		method: "POST",
 		body: formData})
-  .then(function(response) { return response.json(); })
+  .then(res => res.json())
   .then(function(data){
     console.log(data);
     displayTagsNav(data);
@@ -40,7 +40,7 @@ function AllTypesAuteur(){
   fetch('./api/Route/routeur.php', {
     method: "POST",
     body: formData}) // chooseRoute() est une fonction en php, qui est dans routeur.php
-  .then(function(response) { return response.json(); })
+  .then(res => res.json())
   .then(function(data){
     console.log(data);
     displayTypesAuteurNav(data);
@@ -64,13 +64,16 @@ function AllCitations(){
   fetch('./api/Route/routeur.php', {
     method: "POST",
     body: formData})
-  .then(function(response) { return response.json(); })
+  // .then(res => res.json())
+  .then(res => res.text())          // convert to plain text
+  .then(text => console.log(text))
   .then(function(data){
     console.log(data);
     displayCitation(data);
   })
   .catch( error => {
     window.alert(error);
+    window.alert(response.json());
   })
 }
 
@@ -87,7 +90,7 @@ function  AllTypesSignal(){
   fetch('./api/Route/routeur.php', {
     method: "POST",
     body: formData})
-  .then(function(response) { return response.json(); })
+  .then(res => res.json())
   .then(function(data){
     displayTypesSignal(data);
   })
@@ -449,7 +452,7 @@ function likeCitation(){ // A modifier ?
   fetch('./api/Route/routeur.php',  {
 		method: "POST",
 		body: formDataGet})
-  .then(function(response) { return response.json(); })
+  .then(res => res.json())
   .then(function(data){
     currentLikes = data['likes'];
   })
@@ -482,7 +485,7 @@ function likeCitation(){ // A modifier ?
   fetch('./api/Route/routeur.php', {
 		method: "PUT",
 		body: formDataUpd})
-  .then(function(response) { return response.json(); })
+  .then(res => res.json())
   .catch( error => {
     window.alert(error);
   })
@@ -491,7 +494,7 @@ function likeCitation(){ // A modifier ?
   fetch('./api/Route/routeur.php',  {
 		method: "POST",
 		body: formDataGet})
-  .then(function(response) { return response.json(); })
+  .then(res => res.json())
   .then(function(data){
     currentLikes = data['likes'];
   })
@@ -565,7 +568,7 @@ document.getElementById('valid_search').onclick = event => {
           fetch('./api/Route/routeur.php',{
             method: "POST",
             body: formData})
-          .then(function(response) { return response.json(); })
+          .then(res => res.json())
             .then(displayCitation(data))
             .catch( error => {
               window.alert(error);
