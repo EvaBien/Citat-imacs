@@ -96,7 +96,7 @@ SQL
 	);
 	$stmt->execute(['idcitation'=>$citation['idCitation']]);
 	while (($row = $stmt->fetch()) !== false) {
-		array_push($tags, $row['nomTag']);
+		array_push($tags, $row);
 	}
 
   // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
@@ -156,8 +156,9 @@ while (($row = $stmt->fetch()) !== false) {
 
 
 // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citation['typeAuteur'] = $typeAuteur;
-$citation['tags'] = $tags;
+
+array_push($citation,$typeAuteur);
+array_push($citation,$tags);
 }
 
 

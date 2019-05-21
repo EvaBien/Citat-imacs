@@ -17,7 +17,6 @@ function AllTags(){
 		body: formData})
   .then(res => res.json())
   .then(function(data){
-    console.log(data);
     displayTagsNav(data);
     displayTagsPop(data);
   })
@@ -25,7 +24,6 @@ function AllTags(){
     window.alert(error);
   })
 }
-
 //////////////////// ALL TYPES AUTEUR /////////////////// - FAIT
 
 function AllTypesAuteur(){
@@ -42,7 +40,6 @@ function AllTypesAuteur(){
     body: formData}) // chooseRoute() est une fonction en php, qui est dans routeur.php
   .then(res => res.json())
   .then(function(data){
-    console.log(data);
     displayTypesAuteurNav(data);
     displayTypesAuteurPop(data);
   })
@@ -64,18 +61,14 @@ function AllCitations(){
   fetch('./api/Route/routeur.php', {
     method: "POST",
     body: formData})
-  // .then(res => res.json())
-  .then(res => res.text())          // convert to plain text
-  .then(text => console.log(text))
+  .then(res => res.json())
   .then(function(data){
-    console.log(data);
-    displayCitation(data);
+  displayCitation(data);
   })
   .catch( error => {
     window.alert(error);
-    window.alert(response.json());
   })
-}
+} // Où sont les tags ?
 
 //////////////////// ALL TYPES SIGNALEMENT ///////////////////
 function  AllTypesSignal(){
@@ -186,8 +179,10 @@ document.addEventListener('DOMContentLoaded', function(){
 //////////////// FONCTION AFFICHE CITATIONS //////////////// - FAIT
 
 function displayCitation(dataCitation){
-  var data = JSON.parse(dataCitation);
-  data.forEarch(citation => {
+  console.log(dataCitation);
+
+  dataCitation.forEach(citation => {
+    console.log("dataCitation i am here");
     let block = document.getElementById("block_citations");
     let section_block = document.createElement("section");
     section_block.setAttribute('class', 'one_citation');
@@ -203,9 +198,9 @@ function displayCitation(dataCitation){
 
     // On remplit les tags //
     let tags_block = document.createElement("ul");
-    tags_block.setAttributee('class','list-tags');
+    tags_block.setAttribute('class','list-tags');
 
-    citation.tags.forEarch(tag=>{
+      citation['tags'].forEach(tag=>{
       let tagnom=tag.nomTag;
       let one_tag = document.createElement("li");
       one_tag.innerHTML(tagnom);
@@ -270,17 +265,57 @@ function displayCitation(dataCitation){
 //////////////////////////////////////////////////////////////////
 /////////////////// FONCTION AFFICHE TAGS NAV /////////////// - FAIT
 function displayTagsNav(dataTags){
-  var data = JSON.parse(dataTags);
+  // var data = JSON.parse(dataTags);
   let count=0; // Je met un compteur pour savoir à quel moment je passe dans le second block
   var lenght = Object.keys(dataTags).length ; // Je récupère la taille du json
   var middle = lenght/2;
   let tagsBlock = document.getElementById("Tags");
-  let tagsLeft = "section class=\"left_tight\"></section>";
-  let tagsRight = "section class=\"left_tight\"></section>";
-  let all_tag = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"checkbox0\" name=\"navTagsCheckbox\" class=\"tag_checkbox\" value=\"All\" checked> <label for = \"checkbox0\" class=\"tag\" onclick=\"handleAll()\">All</label></div>"
+  let tagsLeft = document.createElement("section");
+  tagsLeft.setAttribute('class', 'left_right');
+  let tagsRight = document.createElement("section");
+  tagsRight.setAttribute('class', 'left_right');
 
-  data.forEarch(tag => {
-    let one_tag = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"checkbox"+tag['idTag']+" \" name=\"navTagsCheckbox\" class=\"tag_checkbox\" value=\""+tag['nomTag']+"\" checked> <label for = \"checkbox"+tag['idTag']+"\" class=\"tag\" onclick=\"checkedButAll()\">"+tag['nomTag']+"</label></div>"
+  let all_tag=document.createElement("div");
+  all_tag.setAttribute('class','input-display');
+  let all_tag_input = document.createElement("input");
+  all_tag_input.setAttribute('type',"checkbox");
+  all_tag_input.setAttribute('id',"checkbox0");
+  all_tag_input.setAttribute('name',"allTagsCheckbox");
+  all_tag_input.setAttribute('class',"tag_checkbox");
+  all_tag_input.setAttribute('value',"All");
+  all_tag_input.setAttribute('checked',"");
+
+  all_tag_label=document.createElement("label");
+  all_tag_label.setAttribute('for',"checkbox0");
+  all_tag_label.setAttribute('class',"tag");
+  all_tag_label.setAttribute('onclick',"handleAll()");
+  all_tag_label.innerHTML="All";
+
+  all_tag.appendChild(all_tag_input);
+  all_tag.appendChild(all_tag_label);
+  tagsLeft.appendChild(all_tag);
+  dataTags.forEach(tag => {
+
+    let one_tag=document.createElement("div");
+    one_tag.setAttribute('class','input-display');
+    let one_tag_input = document.createElement("input");
+    one_tag_input.setAttribute('type',"checkbox");
+    one_tag_input.setAttribute('id',"checkbox"+tag['idTag']);
+    one_tag_input.setAttribute('name',"navTagsCheckbox");
+    one_tag_input.setAttribute('class',"tag_checkbox");
+    one_tag_input.setAttribute('value',tag['nomTag']);
+
+    one_tag_label=document.createElement("label");
+    one_tag_label.setAttribute('for',"checkbox"+tag['idTag']);
+    one_tag_label.setAttribute('class',"tag");
+    one_tag_label.setAttribute('onclick',"checkedButAll()");
+    one_tag_label.innerHTML = tag['nomTag'];
+
+    one_tag.appendChild(one_tag_input);
+    one_tag.appendChild(one_tag_label);
+
+    // let one_tag = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"checkbox"+tag['idTag']+" \" name=\"navTagsCheckbox\" class=\"tag_checkbox\" value=\""+tag['nomTag']+"\">
+    // <label for = \"checkbox"+tag['idTag']+"\" class=\"tag\" onclick=\"checkedButAll()\">"+tag['nomTag']+"</label></div>"
 
     if (count<middle){
       tagsLeft.appendChild(one_tag);
@@ -298,17 +333,20 @@ function displayTagsNav(dataTags){
 //////////////////////////////////////////////////////////////////
 ///////////// FONCTION AFFICHE TYPES AUTEUR NAV ///////////// - FAIT
 function displayTypesAuteurNav(dataTypes){
-  var data = JSON.parse(dataTypes);
+  // var data = JSON.parse(dataTypes);
   var count=0; // Je met un compteur pour savoir à quel moment je passe dans le second block
   var lenght = Object.keys(dataTypes).length ; // Je récupère la taille du json
   var middle = lenght/2;
   let authorBlock = document.getElementById("author");
+  let authorLeft = document.createElement("section");
+  authorLeft.setAttribute('class', 'left_right');
+  let authorRight = document.createElement("section");
+  authorRight.setAttribute('class', 'left_right');
+  let all_author = document.createElement("div");
+  all_author.setAttribute('class','input_display');
+  let all_author_input = "<input type=\"checkbox\" id=\"authorCheckbox0\" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\"All\" checked onclick=\"handleAllAuthor()> <label for = \"authorCheckbox0\" class=\"tag\" \">All</label>"
 
-  let authorLeft = "section class=\"left_tight\"></section>";
-  let authorRight = "section class=\"left_tight\"></section>";
-  let all_author = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"authorCheckbox0\" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\"All\" checked onclick=\"handleAllAuthor()> <label for = \"authorCheckbox0\" class=\"tag\" \">All</label></div>"
-
-  data.forEarch(author => {
+  dataTypes.forEach(author => {
     let one_author = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"authorCheckbox"+author['idTypeAuteur']+" \" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\""+author['nomTypeAuteur']+"\" checked onclick=\"checkedButAllAuthor()\"> <label for = \"authorCheckbox"+author['idTypeAuteur']+"\" class=\"tag\">"+author['nomTypeAuteur']+"</label></div>"
 
     if (count<middle){
@@ -328,11 +366,11 @@ function displayTypesAuteurNav(dataTypes){
 //////////////////////////////////////////////////////////////////
 ///////////// FONCTION AFFICHE TYPES AUTEUR POP UP ///////////// - FAIT
 function displayTypesAuteurPop(dataTypes){
-  var data = JSON.parse(dataTypes);
+  // var data = JSON.parse(dataTypes);
 
   let authorFormBlock = document.getElementById("type_auteur_form");
 
-  data.forEarch(author => {
+  dataTypes.forEach(author => {
     let one_author = "<option value=\""+author['idTypeAuteur']+" \">"+author['nomTypeAuteur']+"</option>"
 
     authorFormBlock.appendChild(one_author);
@@ -343,11 +381,11 @@ function displayTypesAuteurPop(dataTypes){
 //////////////////////////////////////////////////////////////////
 /////////////////// FONCTION AFFICHE TAGS POP UP /////////////// - FAIT
 function displayTagsPop(dataTags){
-  var data = JSON.parse(dataTags);
+  // var data = JSON.parse(dataTags);
 
   let tagsFormBlock = document.getElementById("tag_form");
 
-  data.forEarch(tag => {
+  dataTags.forEach(tag => {
     let one_tag = "<input type=\"checkbox\" id=\"popup_checkbox"+tag['idTag']+"\" class=\"tag_checkbox\" name=\"tag_form\" value=\""+tag['idTag']+"\"><label for=\"popup_checkbox"+tag['idTag']+"\" class=\"tag\">"+tag['nomTag']+"</label>"
 
     tagsFormBlock.appendChild(one_tag);
@@ -358,11 +396,11 @@ function displayTagsPop(dataTags){
 //////////////////////////////////////////////////////////////////
 /////////////////// FONCTION AFFICHE TYPES SIGNAL ///////////////
 function displayTypesSignal(dataTypes){
-  var data = JSON.parse(dataTypes);
+  // var data = JSON.parse(dataTypes);
 
-  let typesFormBlock = document.getElementByName("type_signalement");
+  let typesFormBlock = document.getElementsByName("type_signalement");
 
-  data.forEarch(type => {
+  dataTypes.forEach(type => {
     let one_type = "<option value=\""+type['nomTypeSignalement']+"\">"+type['nomTypeSignalement']+"</option>"
     typesFormBlock.appendChild(one_type);
   });
@@ -391,7 +429,7 @@ function checkedButAll(){
 }
 
 function handleAllAuthor() {
-  all = document.getElementsByName('navAuthorCheckbox')[0];
+  all = document.getElementsByName('allAuthorCheckbox');
   if(all.checked){
     var items = document.getElementsByName('navAuthorCheckbox');
     for (var i = 1; i < items.length; i++) {
@@ -402,7 +440,7 @@ function handleAllAuthor() {
 }
 
 function checkedButAllAuthor(){
-  all = document.getElementsByName('navAuthorCheckbox')[0];
+  all = document.getElementsByName('allAuthorCheckbox');
   if(all.checked){
     all.checked = false;
   }
@@ -512,7 +550,7 @@ function likeCitation(){ // A modifier ?
 
 document.getElementById('valid_search').onclick = event => {
 	event.preventDefault();
-        keywordForm = document.getElementById("input[name='inputKeyword']").value;
+        keywordForm = document.getElementById("inputKeyword").value;
         tagsForm = document.querySelectorAll("input[name='navTagsCheckbox']");
          let tagsChecked = new Array();
           tagsForm.forEach(function(checkBtn) {

@@ -28,8 +28,8 @@
 
 			<section id="search" class="sousbloc_left">
 				<h2>Rechercher</h2>
-				<form id="searchForm" action="" method="get" class="">
-					<input id="" type="text" class="text_input" name="inputKeyword" value="" placeholder="-- Entrez un mot-clé" />
+				<form id="searchForm" action="" method="post" class="">
+					<input id="inputKeyword" type="text" class="text_input" name="inputKeyword" value="" placeholder="-- Entrez un mot-clé" />
 					<input type="submit" value=" " class=""/>
 				</form> <!--A EFFACER PUR EN FAIRE UN SEUL FORM -->
 			</section>
@@ -82,40 +82,7 @@
 							<div class="input_display">
 								<input type="checkbox" id="checkbox0" name="allTagsCheckbox" class="tag_checkbox" value="" checked> <label for = "checkbox0" class="tag" onclick="handleAll()">all</label>
 							</div>
-							<!-- <div class="input_display">
-								<input type="checkbox" id="checkbox2" name="navTagsCheckbox" class="tag_checkbox" value="">
-								<label for="checkbox2" class="tag" onclick="checkedButAll()">race</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="checkbox3" name="navTagsCheckbox" class="tag_checkbox" value="">
-								<label for = "checkbox3" class="tag" onclick="checkedButAll()">crous</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="checkbox4" name="navTagsCheckbox" class="tag_checkbox" value="">
-								<label for = "checkbox4" class="tag" onclick="checkedButAll()">titre</label>
-							</div>
-						</section>
-						<section class="left_right">
-							<div class="input_display">
-								<input type="checkbox" id="checkbox5" name="navTagsCheckbox" class="tag_checkbox" value="">
-								<label for = "checkbox5" class="tag" onclick="checkedButAll()">shlag</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="checkbox6" name="navTagsCheckbox" class="tag_checkbox" value="">
-								<label for = "checkbox6" class="tag" onclick="checkedButAll()">love</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="checkbox7" name="navTagsCheckbox" class="tag_checkbox" value="">
-								<label for = "checkbox7" class="tag" onclick="checkedButAll()">sel</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="checkbox8" name="navTagsCheckbox" class="tag_checkbox" value="">
-								<label for = "checkbox8" class="tag" onclick="checkedButAll()">arts</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="checkbox9" name="navTagsCheckbox" class="tag_checkbox" value="">
-								<label for = "checkbox9" class="tag" onclick="checkedButAll()">sciences</label>
-							</div> -->
+
 						</section>
 					</div>
 					<button id="valid_search" class="button" type="button">Valider</button>
@@ -182,13 +149,13 @@
 		<label for="type_auteur">Type d'auteur</label>
 		<select id="type_auteur_form" name="type_auteur" class="selectForm">
 			<option selected disabled>-- Selectionnez le type d'auteur</option>
-			<option value="prof">Prof</option>
+			<!-- <option value="prof">Prof</option>
 			<option value="imac2021">Imac 2021</option>
 			<option value="imac2020">Imac 2020</option>
 			<option value="imac2019">Imac 2019</option>
 			<option value="imac2018">Imac 2018</option>
 			<option value="imac2017">Imac 2017</option>
-			<option value="imac100">Imac 100 av. Biri</option>
+			<option value="imac100">Imac 100 av. Biri</option> -->
 		</select>
 		<label for="citation">Citation</label>
 		<textarea name="citation" id="citation_form" placeholder="Calmez-vous !" class="text_input"></textarea>
