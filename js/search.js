@@ -200,30 +200,30 @@ function displayCitation(dataCitation){
     let tags_block = document.createElement("ul");
     tags_block.setAttribute('class','list-tags');
 
-      citation['tags'].forEach(tag=>{
-      let tagnom=tag.nomTag;
-      let one_tag = document.createElement("li");
-      one_tag.innerHTML(tagnom);
-      tags_block.appendChild(one_tag);
-    });
+    //   citation['tags'].forEach(tag=>{
+    //   let tagnom=tag.nomTag;
+    //   let one_tag = document.createElement("li");
+    //   one_tag.innerHTML = tagnom;
+    //   tags_block.appendChild(one_tag);
+    // });
 
     // On remplit la date //
     let date = citation.dateCitation;
     let date_block = document.createElement("p");
     date_block.setAttribute('class','quote_date');
-    date_block.innerHTML(date);
+    date_block.innerHTML = date;
 
     // On remplit la citation //
     let contenu = citation.contenuCitation;
     let quote_block = document.createElement("p");
     quote_block.setAttribute('class','quote');
-    quote_block.innerHTML(contenu);
+    quote_block.innerHTML = contenu;
 
     // On remplit l'auteur + Le type //
     let auteur = citation['auteurCitation']+" - "+citation['typeAuteur']['nomTypeAuteur'];
     let author_block = document.createElement("p");
     author_block.setAttribute('class','quote_author');
-    author_block.innerHTML(auteur);
+    author_block.innerHTML = auteur;
 
     // On met tout dans le div  info_block
     info_block.appendChild(tags_block);
@@ -238,19 +238,19 @@ function displayCitation(dataCitation){
     liker_block.setAttribute('class','like-button');
     liker_block.setAttribute('idCitation',citation['idCitation']);
     liker_block.setAttribute('onclick','likeCitation()');
-    liker_block.innerHTML("J\'aime");
+    liker_block.innerHTML = "J\'aime" ;
 
     // On remplit le nombre de like //
     let nblikes = citation.likesCitation;
     let likes_block = document.createElement("p");
     likes_block.setAttribute('class','number_likes');
-    likes_block.innerHTML(nbLikes);
+    likes_block.innerHTML = nbLikes;
 
     // On remplit le bouton signalement //
     let signal_block = document.createElement("a");
     signal_block.setAttribute('onclick','signalPopUp()');
     signal_block.setAttribute('idCitation',citation['idCitation']);
-    signal_block.innerHTML("Signaler un problème");
+    signal_block.innerHTML = "Signaler un problème";
 
     // On met le tout dans le div command_block //
     commands_block.appendChild(liker_block);
@@ -313,10 +313,6 @@ function displayTagsNav(dataTags){
 
     one_tag.appendChild(one_tag_input);
     one_tag.appendChild(one_tag_label);
-
-    // let one_tag = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"checkbox"+tag['idTag']+" \" name=\"navTagsCheckbox\" class=\"tag_checkbox\" value=\""+tag['nomTag']+"\">
-    // <label for = \"checkbox"+tag['idTag']+"\" class=\"tag\" onclick=\"checkedButAll()\">"+tag['nomTag']+"</label></div>"
-
     if (count<middle){
       tagsLeft.appendChild(one_tag);
     } else {
@@ -344,10 +340,46 @@ function displayTypesAuteurNav(dataTypes){
   authorRight.setAttribute('class', 'left_right');
   let all_author = document.createElement("div");
   all_author.setAttribute('class','input_display');
-  let all_author_input = "<input type=\"checkbox\" id=\"authorCheckbox0\" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\"All\" checked onclick=\"handleAllAuthor()> <label for = \"authorCheckbox0\" class=\"tag\" \">All</label>"
+
+  let all_author_input = document.createElement("input");
+  all_author_input.setAttribute('type',"checkbox");
+  all_author_input.setAttribute('id',"authorChecked0");
+  all_author_input.setAttribute('name',"navAuthorCheckbox");
+  all_author_input.setAttribute('class',"tag_checkbox");
+  all_author_input.setAttribute('value',"All");
+  all_author_input.setAttribute('checked',"");
+
+  let all_author_label=document.createElement("label");
+  all_author_label.setAttribute('for',"authorCheckbox0");
+  all_author_label.setAttribute('class',"tag");
+  all_author_label.setAttribute('onclick',"handleAllAuthor()");
+  all_author_label.innerHTML="All";
+
+  all_author.appendChild(all_author_input);
+  all_author.appendChild(all_author_label);
+  authorLeft.appendChild(all_author);
 
   dataTypes.forEach(author => {
-    let one_author = "<div class=\"input_display\"> <input type=\"checkbox\" id=\"authorCheckbox"+author['idTypeAuteur']+" \" name=\"navAuthorCheckbox\" class=\"tag_checkbox\" value=\""+author['nomTypeAuteur']+"\" checked onclick=\"checkedButAllAuthor()\"> <label for = \"authorCheckbox"+author['idTypeAuteur']+"\" class=\"tag\">"+author['nomTypeAuteur']+"</label></div>"
+
+    let one_author = document.createElement("div");
+    one_author.setAttribute('class','input_display');
+
+    let one_author_input= document.createElement("input");
+
+    one_author_input.setAttribute('type',"checkbox");
+    one_author_input.setAttribute('id',"authorCheckbox"+author['idTypeAuteur']);
+    one_author_input.setAttribute('name',"navAuthorCheckbox");
+    one_author_input.setAttribute('class',"tag_checkbox");
+    one_author_input.setAttribute('value',author['nomTypeAuteur']);
+    one_author_input.setAttribute('onclick',"checkedButAllAuthor()");
+
+    one_author_label=document.createElement("label");
+    one_author_label.setAttribute('for',"authorCheckbox"+author['idTypeAuteur']);
+    one_author_label.setAttribute('class',"tag");
+    one_author_label.innerHTML= author['nomTypeAuteur'];
+
+    one_author.appendChild(one_author_input);
+    one_author.appendChild(one_author_label);
 
     if (count<middle){
       authorLeft.appendChild(one_author);
@@ -358,20 +390,21 @@ function displayTypesAuteurNav(dataTypes){
   });
 
   // On met le tout dans le block principal
-  tagsBlock.appendChild(tagsLeft);
-  tagsBlock.appendChild(tagsRight);
+  authorBlock.appendChild(authorLeft);
+  authorBlock.appendChild(authorRight);
 }
 
 
 //////////////////////////////////////////////////////////////////
 ///////////// FONCTION AFFICHE TYPES AUTEUR POP UP ///////////// - FAIT
 function displayTypesAuteurPop(dataTypes){
-  // var data = JSON.parse(dataTypes);
 
   let authorFormBlock = document.getElementById("type_auteur_form");
 
   dataTypes.forEach(author => {
-    let one_author = "<option value=\""+author['idTypeAuteur']+" \">"+author['nomTypeAuteur']+"</option>"
+    let one_author = document.createElement("option");
+    one_author.setAttribute('value',author['idTypeAuteur']);
+    one_author.innerHTML = author['nomTypeAuteur'];
 
     authorFormBlock.appendChild(one_author);
   });
@@ -385,10 +418,23 @@ function displayTagsPop(dataTags){
 
   let tagsFormBlock = document.getElementById("tag_form");
 
-  dataTags.forEach(tag => {
-    let one_tag = "<input type=\"checkbox\" id=\"popup_checkbox"+tag['idTag']+"\" class=\"tag_checkbox\" name=\"tag_form\" value=\""+tag['idTag']+"\"><label for=\"popup_checkbox"+tag['idTag']+"\" class=\"tag\">"+tag['nomTag']+"</label>"
 
-    tagsFormBlock.appendChild(one_tag);
+  dataTags.forEach(tag => {
+
+    let one_tag_input=document.createElement("input");
+    one_tag_input.setAttribute('type','checkbox');
+    one_tag_input.setAttribute('id',"popup_checkbox"+tag['idTag']);
+    one_tag_input.setAttribute('class',"tag_checkbox");
+    one_tag_input.setAttribute('name',"tag_form");
+    one_tag_input.setAttribute('value',tag['idTag']);
+
+    let one_tag_label = document.createElement("label");
+    one_tag_label.setAttribute('for',"popup_checkbox"+tag['idTag']);
+    one_tag_label.setAttribute('class',"tag");
+    one_tag_label.innerHTML = tag['nomTag'];
+
+    tagsFormBlock.appendChild(one_tag_input);
+    tagsFormBlock.appendChild(one_tag_label);
   });
 }
 
@@ -398,10 +444,13 @@ function displayTagsPop(dataTags){
 function displayTypesSignal(dataTypes){
   // var data = JSON.parse(dataTypes);
 
-  let typesFormBlock = document.getElementsByName("type_signalement");
+  var typesFormBlock = document.getElementById("type_signalement");
 
   dataTypes.forEach(type => {
-    let one_type = "<option value=\""+type['nomTypeSignalement']+"\">"+type['nomTypeSignalement']+"</option>"
+    let one_type=document.createElement("option");
+    one_type.setAttribute('value',type['nomTypeSignalement']);
+    one_type.innerHTML=type['nomTypeSignalement'];
+
     typesFormBlock.appendChild(one_type);
   });
 }
@@ -410,7 +459,6 @@ function displayTypesSignal(dataTypes){
 //////////////////// GESTION DES CHECKED /////////////////// - FAIT
 
 function handleAll() {
-  /*C'est le statut avant qu'on clique qui est pris en compte*/
   if(!document.getElementById("checkbox0").checked){
     var items = document.getElementsByName('navTagsCheckbox');
     for (var i = 1; i < items.length; i++) {
@@ -422,15 +470,14 @@ function handleAll() {
 }
 
 function checkedButAll(){
-  if(document.getElementById("checkbox0").checked){
-    var items = document.getElementsByName('navTagsCheckbox');
-    items[0].checked = false;
+  all = document.getElementById("checkbox0");
+  if(all.checked){
+  all.checked = false;
   }
 }
 
 function handleAllAuthor() {
-  all = document.getElementsByName('allAuthorCheckbox');
-  if(all.checked){
+  if(!document.getElementById('authorChecked0').checked){
     var items = document.getElementsByName('navAuthorCheckbox');
     for (var i = 1; i < items.length; i++) {
       if (items[i].type == 'checkbox')
@@ -440,7 +487,7 @@ function handleAllAuthor() {
 }
 
 function checkedButAllAuthor(){
-  all = document.getElementsByName('allAuthorCheckbox');
+  all = document.getElementById('authorChecked0');
   if(all.checked){
     all.checked = false;
   }

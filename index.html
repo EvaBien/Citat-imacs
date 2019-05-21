@@ -37,53 +37,13 @@
 			<section id="filter" class="sousbloc_left">
 				<h2>Filtrer</h2>
 				<form id="filterForm" action="" method="" class="">  <!--A EFFACER PUR EN FAIRE UN SEUL FORM -->
-					<h4>Type d'auteur</h4>
+					<h4>Types d'auteur</h4>
 					<div id="author">
-						<section class="left_right">
-							<div class="input_display">
-								<input type="checkbox" id="authorCheckbox0" class="tag_checkbox" name="allAuthorCheckbox" value="" checked onclick="handleAllAuthor()">
-								<label for= "authorCheckbox0" class="tag">All</label>
-							</div>
-							<!-- <div class="input_display">
-								<input type="checkbox" id="authorCheckbox2" class="tag_checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()">
-								<label for= "authorCheckbox2" class="tag">Prof</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="authorCheckbox3" class="tag_checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()">
-								<label for= "authorCheckbox3" class="tag">IMAC 2021</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="authorCheckbox4" class="tag_checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()">
-								<label for= "authorCheckbox4" class="tag">IMAC 2020</label>
-							</div>
-						</section>
-						<section class="left_right">
-							<div class="input_display">
-								<input type="checkbox" id="authorCheckbox5" class="tag_checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()">
-								<label for= "authorCheckbox5" class="tag">IMAC 2019</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="authorCheckbox6" class="tag_checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()">
-								<label for= "authorCheckbox6" class="tag">IMAC 2018</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="authorCheckbox7" class="tag_checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()">
-								<label for= "authorCheckbox7" class="tag">IMAC 2017</label>
-							</div>
-							<div class="input_display">
-								<input type="checkbox" id="authorCheckbox8" class="tag_checkbox" name="navAuthorCheckbox" value="" onclick="checkedButAllAuthor()">
-								<label for= "authorCheckbox8" class="tag">IMAC 100 av. BIRI</label>
-							</div> -->
-						</section>
+
 					</div>
 					<h4>Tags</h4>
 					<div id="Tags">
-						<section class="left_right">
-							<div class="input_display">
-								<input type="checkbox" id="checkbox0" name="allTagsCheckbox" class="tag_checkbox" value="" checked> <label for = "checkbox0" class="tag" onclick="handleAll()">all</label>
-							</div>
 
-						</section>
 					</div>
 					<button id="valid_search" class="button" type="button">Valider</button>
 				</form>
@@ -161,29 +121,7 @@
 		<textarea name="citation" id="citation_form" placeholder="Calmez-vous !" class="text_input"></textarea>
 		<label>Tags</label>
 		<div id="tag_form" name="tag_form">
-			<input type="checkbox" id="popup_checkbox2" class="tag_checkbox" value="">
-			<label for="popup_checkbox2" class="tag">race</label>
-
-			<input type="checkbox" id="popup_checkbox3" class="tag_checkbox" value="">
-			<label for = "popup_checkbox3" class="tag">crous</label>
-
-			<input type="checkbox" id="popup_checkbox4" class="tag_checkbox" value="">
-			<label for = "popup_checkbox4" class="tag">titre</label>
-
-			<input type="checkbox" id="popup_checkbox5" class="tag_checkbox" value="">
-			<label for = "popup_checkbox5" class="tag">shlag</label>
-
-			<input type="checkbox" id="popup_checkbox6" class="tag_checkbox" value="">
-			<label for = "popup_checkbox6" class="tag">love</label>
-
-			<input type="checkbox" id="popup_checkbox7" class="tag_checkbox" value="">
-			<label for = "popup_checkbox7" class="tag">sel</label>
-
-			<input type="checkbox" id="popup_checkbox8" class="tag_checkbox" value="">
-			<label for = "popup_checkbox8" class="tag">arts</label>
-
-			<input type="checkbox" id="popup_checkbox9" class="tag_checkbox" value="">
-			<label for = "popup_checkbox9" class="tag">sciences</label>
+			
 		</div>
 
 		<button id="add_citation_form" class="button" onclick="AddCitation()">Ajouter</button>
@@ -203,7 +141,7 @@
 		<label for="mail">Adresse email</label>
 		<input type="text" name="mail" placeholder="Entrez votre email" class="text_input" />
 		<label for="type_signalement">Type de signalement</label>
-		<select name="type_signalement" class="selectForm">
+		<select name="type_signalement" id="type_signalement" class="selectForm">
 			<option selected disabled>-- Selectionnez le type de signalement</option>
 			<!--Types signalement-->
 		</select>
