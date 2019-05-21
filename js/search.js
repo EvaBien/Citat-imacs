@@ -154,7 +154,7 @@ function addCitation(){
 		body: formData})
     .then( response => response.json() )
 		.then( data => {
-      alert("Citation créée ! \n Redirection..."");
+      alert("Citation créée ! \n Redirection...");
       window.location.reload();
     })
     .catch( error => {
@@ -371,8 +371,9 @@ function handleAll() {
   if(!document.getElementById("checkbox0").checked){
     var items = document.getElementsByName('navTagsCheckbox');
     for (var i = 1; i < items.length; i++) {
-      if (items[i].type == 'checkbox')
+      if (items[i].type == 'checkbox'){
       items[i].checked = false;
+    }
     }
   }
 }
@@ -536,7 +537,7 @@ document.getElementById('valid_search').onclick = event => {
 
         if ((keywordForm.length > 0) && (tagsChecked.length > 0) && (typesAuteurChecked.length > 0)){
           url = './citations/Allfactors';
-        } else if ((keywordForm.length > 0) && !(tagsChecked.length > 0) && !(typesAuteurChecked.length > 0){
+        } else if ((keywordForm.length > 0) && !(tagsChecked.length > 0) && !(typesAuteurChecked.length > 0)){
           url = './citations/Keyword';
         } else if (!(keywordForm.length > 0) && (tagsChecked.length > 0) && !(typesAuteurChecked.length > 0)){
           url = './citations/Tags';

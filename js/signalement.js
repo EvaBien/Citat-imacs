@@ -15,7 +15,7 @@
 ///// API CREATE SIGNALEMENT //////
 function createSignal(){
 
-  alert("Votre signalement a bien été envoyé ! \n Redirection..."");
+  alert("Votre signalement a bien été envoyé ! \n Redirection...");
 }
 
 
@@ -31,7 +31,7 @@ function SignalById(){
 ///////// API UPDATE CITATION ////////
 function updateCitation(){
 
-alert("Citation éditée ! \n Redirection..."");
+alert("Citation éditée ! \n Redirection...");
 document.location.href="./";
 }
 
