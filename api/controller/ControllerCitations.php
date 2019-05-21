@@ -89,7 +89,7 @@ SQL
 ////SEARCH TAGS IN DB ////
   $stmt = MyPDO::getInstance()->prepare(<<<SQL
 		SELECT s2_tags.nomTag FROM `s2_tags`
-		INNER JOIN s2_tagcitations ON s2_tagcitation.idTag = s2_tags.idTag
+		INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
 		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
 		WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
