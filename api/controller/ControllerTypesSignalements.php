@@ -5,7 +5,7 @@ require_once '../model/ModelSignalements.php';
 require_once '../model/ModelTypesSignalement.php';
 
 ////////////////////// GET ALL TYPES SIGNALEMENT ///////////////////
-function apiGetAllTypesSignalement()($query){
+function apiGetAllTypesSignalement($query){
 
   // response status
   http_response_code(200);
