@@ -530,8 +530,8 @@ document.getElementById('valid_search').onclick = event => {
         formData.append("keyword",keywordForm );
         data['tags'] = tagsChecked;
         formData.append("tags", tagsChecked);
-        data['types'] = typesAuteurChecked;
-        formData.append("tags", typesAuteurChecked);
+        data['typesAuteur'] = typesAuteurChecked;
+        formData.append("typesAuteur", typesAuteurChecked);
 
         var url;
 

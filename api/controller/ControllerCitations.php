@@ -30,11 +30,23 @@ function apiCreateCitation($query){
       throwAnErrorCitation();
     }
     else {
-      $citation->id = MyPDO::getInstance()->lastInsertId();
+      $citation->setIdCitation(MyPDO::getInstance()->lastInsertId());
     }
-}
 
- // TAGS
+
+    foreach ($query['tagsCitation'] as $idTag) { // On va chercher les tags et le typeAuteur
+      $association = new tagCitation($idTag,$citation->getIdCitation());
+
+      $queryStmt = "INSERT INTO S2_TagCitation (idCitation, idTag) VALUES (?, ?,);";
+
+      $stmt = MyPDO::getInstance()->prepare($queryStmt);
+
+      $stmt->bindValue(1, $association->getIdCitation());
+      $stmt->bindValue(2, $association->getIdTag());
+
+    }
+
+  }
 
 ////////////////////////////////////////////////////////////////
 ///////////////////////////// READ ////////////////////////////
