@@ -33,7 +33,7 @@ class signalement {
     /**
     * @param int $typeSignalement Id du type de signalement
     * @param string $messageSignalement Message de la personne ayant signalé
-    * @param string $statutSignalement État du signalement
+    * @param int $statutSignalement État du signalement
     * @param int $idCitation Id de la citaion signalé
     */
     public function __construct($typeSignalement, $messageSignalement, $statutSignalement, $idCitation){

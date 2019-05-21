@@ -15,7 +15,7 @@ function apiCreateCitation($query){
     $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
 
     ////// ADD TO DB //////
-    $queryStmt = "INSERT INTO Citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);";
+    $queryStmt = "INSERT INTO S2_Citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
 

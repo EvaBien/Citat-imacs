@@ -66,6 +66,26 @@ function AllCitations(){
   .catch(error => { console.log(error) });
 }
 
+//////////////////// ALL TYPES SIGNALEMENT ///////////////////
+function  AllTypesSignal(){
+  let formData = new FormData();
+  let data = new Object();
+  data['url'] = './typesSignalement/All';
+  formData.append("url",  './typesSignalement/All');
+
+  data = JSON.stringify(data);
+  formData.append('getData',data);
+
+  fetch('./api/Route/routeur.php', {
+    method: "POST",
+    body: formData})
+  .then(function(response) { return response.json(); })
+  .then(function(data){
+    displayTypesSignal(data);
+  })
+  .catch(error => { console.log(error) });
+}
+
 
 /*******************************************************/
 /////////////////// GESTION EVENEMENTS /////////////////
@@ -74,10 +94,10 @@ function AllCitations(){
 //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
 document.addEventListener('DOMContentLoaded', function(){
-  console.log("youhou i am loaded");
   AllCitations();
   AllTags();
   AllTypesAuteur();
+  AllTypesSignal();
 });
 
 //////////////////////////////////////////////////////////////////
@@ -249,6 +269,20 @@ function displayTagsPop(dataTags){
     let one_tag = "<input type=\"checkbox\" id=\"popup_checkbox"+tag['idTag']+"\" class=\"tag_checkbox\" value=\""+tag['nomTag']+"\"><label for=\"popup_checkbox"+tag['idTag']+"\" class=\"tag\">"+tag['nomTag']+"</label>"
 
     tagsFormBlock.appendChild(one_tag);
+  });
+}
+
+
+//////////////////////////////////////////////////////////////////
+/////////////////// FONCTION AFFICHE TYPES SIGNAL ///////////////
+function displayTypesSignal(dataTypes){
+  var data = JSON.parse(dataTypes);
+
+  let typesFormBlock = document.getElementByName("type_signalement");
+
+  data.forEarch(type => {
+    let one_type = "<option value=\""+type['nomTypeSignalement']+"\">"+type['nomTypeSignalement']+"</option>"
+    typesFormBlock.appendChild(one_type);
   });
 }
 

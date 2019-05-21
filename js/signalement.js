@@ -8,19 +8,31 @@
 
 // On click sur les boutons appeler delete, edit signalement, edit citation...
 
+/****************************************************/
+////////////////////// APPELS API ////////////////////
+/****************************************************/
 
 
+//////// API GET TYPE SIGNALEMENT //////
+function SignalById(){
 
+}
 
 
 ///////// API UPDATE CITATION ////////
+function updateCitation(){
 
+}
 
 //////// API DELETE CITATION /////////
+function deleteCitation(idCitation){
 
+}
 
 /////// API UPDATE SIGNALEMENT STATUT /////
+function updateSignalStatus(signalId){
 
+}
 
 
 
@@ -29,9 +41,45 @@
 // document.location.href="./";
 
 
+
+
+
+
+
+
+
+
 /*******************************************************/
 /////////////////// GESTION EVENEMENTS /////////////////
 /******************************************************/
+
+//////////////////////////////////////////////////////////////////
+////////////////////////// AU CHARGEMENT ////////////////////////
+
+document.addEventListener('DOMContentLoaded', function(){
+  SignalById();
+});
+
+
+
+
+//////////////////////////////////////////////////////////////////
+//////////////////////// ON CLICK BUTTONS /////////S//////////////
+
+
+////////////////////// DELETE VALID BUTTON ///////////////////////
+
+
+/////////////////////// UPDATE VALID BUTTON //////////////////////
+
+
+////////////////////// NOTHING  VALID BUTTON /////////////////////
+
+
+
+//////////////////////////////////////////////////////////////////
+///////////////////////////// POP UP ////////////////////////////
+
 
 /////////////////// POP UP SIGNALEMENT FORM //////////////////
 function signalPopUp(){
