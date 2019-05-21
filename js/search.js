@@ -567,5 +567,5 @@ document.getElementById('valid_search').onclick = event => {
             .then(displayCitation(data))
             .catch( error => {
               window.alert(error);
-})
-//       }
+            })
+  }
