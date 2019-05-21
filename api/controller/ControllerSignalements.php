@@ -84,7 +84,18 @@ SQL
 
 function apiUpdateSignalement($query){
       // Sert uniquement à update le statut
+      $queryStmt = "UPDATE S2_Signalements SET statutSignalement = 1 WHERE idSignal = :id;";
 
+      $stmt = MyPDO::getInstance()->prepare($queryStmt);
+      $stmt->execute(
+        array(
+          ':id'=>$query["idSignal"]
+        )
+      );
+
+      if ($stmt->rowCount() == 0) {
+        return NULL;
+      }
     }
 
 
