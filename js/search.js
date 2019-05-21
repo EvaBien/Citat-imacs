@@ -11,13 +11,13 @@ function AllTags(){
 
   data = JSON.stringify(data);
   formData.append('getData',data);
-  console.log(formData);
 
   fetch('./api/Route/routeur.php', {
 		method: "POST",
 		body: formData})
   .then(function(response) { return response.json(); })
   .then(function(data){
+    console.log(data);
     displayTagsNav(data);
     displayTagsPop(data);
   })
@@ -42,6 +42,7 @@ function AllTypesAuteur(){
     body: formData}) // chooseRoute() est une fonction en php, qui est dans routeur.php
   .then(function(response) { return response.json(); })
   .then(function(data){
+    console.log(data);
     displayTypesAuteurNav(data);
     displayTypesAuteurPop(data);
   })
@@ -65,6 +66,7 @@ function AllCitations(){
     body: formData})
   .then(function(response) { return response.json(); })
   .then(function(data){
+    console.log(data);
     displayCitation(data);
   })
   .catch( error => {

@@ -100,8 +100,8 @@ SQL
 	}
 
   // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-  $citations['typeAuteur'] = $typeAuteur;
-  $citations['tags'] = $tags;
+  $citation['typeAuteur'] = $typeAuteur;
+  $citation['tags'] = $tags;
 }
 
   echo json_encode($citations);
@@ -156,8 +156,8 @@ while (($row = $stmt->fetch()) !== false) {
 
 
 // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citations['typeAuteur'] = $typeAuteur;
-$citations['tags'] = $tags;
+$citation['typeAuteur'] = $typeAuteur;
+$citation['tags'] = $tags;
 }
 
 
@@ -236,8 +236,8 @@ while (($row = $stmt->fetch()) !== false) {
 
 
 // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citations['typeAuteur'] = $typeAuteur;
-$citations['tags'] = $tags;
+$citation['typeAuteur'] = $typeAuteur;
+$citation['tags'] = $tags;
 }
 
 
@@ -301,8 +301,8 @@ while (($row = $stmt->fetch()) !== false) {
 
 
 // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citations['typeAuteur'] = $typeAuteur;
-$citations['tags'] = $tags;
+$citation['typeAuteur'] = $typeAuteur;
+$citation['tags'] = $tags;
 }
 
 
@@ -368,8 +368,8 @@ while (($row = $stmt->fetch()) !== false) {
 
 
 // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citations['typeAuteur'] = $typeAuteur;
-$citations['tags'] = $tags;
+$citation['typeAuteur'] = $typeAuteur;
+$citation['tags'] = $tags;
 }
 
 
@@ -442,8 +442,8 @@ while (($row = $stmt->fetch()) !== false) {
 
 
 // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citations['typeAuteur'] = $typeAuteur;
-$citations['tags'] = $tags;
+$citation['typeAuteur'] = $typeAuteur;
+$citation['tags'] = $tags;
 }
 
 
@@ -514,8 +514,8 @@ while (($row = $stmt->fetch()) !== false) {
 
 
 // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citations['typeAuteur'] = $typeAuteur;
-$citations['tags'] = $tags;
+$citation['typeAuteur'] = $typeAuteur;
+$citation['tags'] = $tags;
 }
 
 
@@ -585,8 +585,8 @@ while (($row = $stmt->fetch()) !== false) {
 
 
 // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citations['typeAuteur'] = $typeAuteur;
-$citations['tags'] = $tags;
+$citation['typeAuteur'] = $typeAuteur;
+$citation['tags'] = $tags;
 }
 
 
@@ -661,8 +661,8 @@ while (($row = $stmt->fetch()) !== false) {
 
 
 // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citations['typeAuteur'] = $typeAuteur;
-$citations['tags'] = $tags;
+$citation['typeAuteur'] = $typeAuteur;
+$citation['tags'] = $tags;
 }
 
 
