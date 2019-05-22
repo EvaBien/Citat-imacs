@@ -178,7 +178,6 @@ document.addEventListener('DOMContentLoaded', function(){
 //////////////// FONCTION AFFICHE CITATIONS //////////////// - FAIT
 
 function displayCitation(dataCitation){
-  console.log(dataCitation);
 
   dataCitation.forEach(citation => {
     let block = document.getElementById("block_citations");
@@ -344,7 +343,7 @@ function displayTypesAuteurNav(dataTypes){
   all_author.setAttribute('class','input_display');
   let all_author_input = document.createElement("input");
   all_author_input.setAttribute('type',"checkbox");
-  all_author_input.setAttribute('id',"authorChecked0");
+  all_author_input.setAttribute('id',"authorCheckbox0");
   all_author_input.setAttribute('name',"navAuthorCheckbox");
   all_author_input.setAttribute('class',"tag_checkbox","author");
   all_author_input.setAttribute('value',"All");
@@ -478,7 +477,7 @@ function checkedButAll(){
 }
 
 function handleAllAuthor() {
-  if(!document.getElementById('authorChecked0').checked){
+  if(!document.getElementById('authorCheckbox0').checked){
     var items = document.getElementsByName('navAuthorCheckbox');
     for (var i = 1; i < items.length; i++) {
       if (items[i].type == 'checkbox')
@@ -488,7 +487,7 @@ function handleAllAuthor() {
 }
 
 function checkedButAllAuthor(){
-  all = document.getElementById('authorChecked0');
+  all = document.getElementById('authorCheckbox0');
   if(all.checked){
     all.checked = false;
   }
@@ -526,13 +525,15 @@ function likeCitation(){ // A modifier ?
 
   let formDataGet = new FormData();
   let dataGet = new Object();
-  dataGet['url'] = './typesAuteur/All';
-  formDataGet.append("url", './typesAuteur/All');
+  dataGet['url'] = './citations/GetLikes';
+  formDataGet.append("url", './citations/GetLikes');
   dataGet['idCitation'] = divId;
   formDataGet.append("idCitation", divId);
 
   dataGet = JSON.stringify(dataGet);
   formDataGet.append('getData',dataGet);
+  console.log(divId);
+  console.log(formDataGet);
 
   /// On get la valeur actuelle des likes ///
   fetch('./api/Route/routeur.php',  {
@@ -540,7 +541,8 @@ function likeCitation(){ // A modifier ?
 		body: formDataGet})
   .then(res => res.json())
   .then(function(data){
-    currentLikes = data['likes'];
+    console.log(data);
+    currentLikes = data['likesCitation'];
   })
   .catch( error => {
     window.alert(error);
@@ -564,6 +566,8 @@ function likeCitation(){ // A modifier ?
   formDataUpd.append("likes", newValue);
   dataUpd['idCitation'] = divId;
   formDataUpd.append("idCitation", divId);
+  dataUpd['url'] = "./citations/UpdateLikes";
+  formDataUpd.append("url", "./citations/UpdateLikes");
 
   dataUpd = JSON.stringify(dataUpd);
   formDataUpd.append('getData',dataUpd);
@@ -582,7 +586,7 @@ function likeCitation(){ // A modifier ?
 		body: formDataGet})
   .then(res => res.json())
   .then(function(data){
-    currentLikes = data['likes'];
+    currentLikes = data['likesCitation'];
   })
   .catch( error => {
     window.alert(error);

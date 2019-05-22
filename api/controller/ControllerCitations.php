@@ -103,41 +103,6 @@ SQL
     array_push($citations, $row); // Ajoute chaque citation au tableau citations
   }
 
-//   foreach ($citations as $citation) { // On va chercher les tags et le typeAuteur
-//   $typeAuteur='';
-//   $tags = array();
-//
-//
-// ////SEARCH TYPEAUTEUR IN DB ////
-// 	$stmt = MyPDO::getInstance()->prepare(<<<SQL
-// 		SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
-// 		INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
-// 		WHERE s2_citations.idCitation = :idcitation;
-// SQL
-// 	);
-// 	$stmt->execute(['idcitation'=>$citation['idCitation']]);
-// 	while (($row = $stmt->fetch()) !== false) {
-// 		$typeAuteur=$row['nomTypeAuteur'];
-// 	}
-//
-// ////SEARCH TAGS IN DB ////
-//   $stmt = MyPDO::getInstance()->prepare(<<<SQL
-// 		SELECT s2_tags.nomTag FROM `s2_tags`
-// 		INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
-// 		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
-// 		WHERE s2_tagcitation.idCitation = :idcitation;
-// SQL
-// 	);
-// 	$stmt->execute(['idcitation'=>$citation['idCitation']]);
-// 	while (($row = $stmt->fetch()) !== false) {
-// 		array_push($tags, $row);
-// 	}
-//
-//   // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-//   $citation['typeAuteur'] = $typeAuteur;
-//   $citation['tags'] = $tags;
-//
-// }
   echo json_encode($citations);
 
   exit();
@@ -804,27 +769,21 @@ function getCitationLikes($query)
   {
 
 
-    $queryStmt = "SELECT likesCitation FROM s2_citations WHERE idCitation = :idCitation;";
+    $queryStmt = "SELECT likesCitation FROM s2_citations WHERE idCitation = :idcitation;";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
-    $stmt->execute(['idCitation'=>$query['idCitation']]);
+    $stmt->execute(['idcitation'=>$query['idCitation']]);
 
     $likes = $stmt->fetch();
+    print_r($likes);
     echo $likes;
     exit();
     }
 
+
 // Update likes citations
     function updateCitationLikes($query)
       {
-
-        // check HTTP method //
-      $method = strtolower($query['method']); // Je verifie si c'est bien un get
-      if ($method !== 'put') {
-          http_response_code(405);
-          echo json_encode(array('message' => 'This method is not allowed.'));
-          exit(); // SInon je sors
-      }
 
         $queryStmt = "UPDATE s2_citations SET likesCitation= :newlikes WHERE idCitation = :id;";
 
