@@ -179,6 +179,8 @@ document.addEventListener('DOMContentLoaded', function(){
 
 function displayCitation(dataCitation){
 
+  console.log(dataCitation);
+
   dataCitation.forEach(citation => {
     let block = document.getElementById("block_citations");
     let section_block = document.createElement("section");

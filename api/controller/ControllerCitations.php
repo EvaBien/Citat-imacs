@@ -515,22 +515,27 @@ exit();
 
 ////////////////// GET BY  TAGS & TYPEAUTEUR ///////////////
 
- function apiGetCitationByTypeAuteurAndTags($query){
+ function apiGetCitationByTypeAuteurAndTags($req){
 
-$tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
-$typesList = implode(',', array_fill(0, count($query['typesauteur']), '?'));
+$query=json_decode($req, true);
+$tagsList = implode(',', $query['tags']);
+$typesList = implode(',',($query['typesAuteur']));
+$citations = array();
 
 $queryStmt = "SELECT *
   FROM s2_citations
   JOIN s2_tagcitation ON s2_citations.idCitation=s2_tagcitation.idCitation
   JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
-  WHERE s2_tags.nomTags IN ($tagslist) AND s2_citations.idTypeAuteur IN ($typesList);";
-
+  WHERE s2_tags.nomTag IN ( :tagslist ) AND s2_citations.idTypeAuteur IN ( :typeslist );";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute();
+$stmt->execute(array(
+  'tagslist' =>$tagsList,
+  'typeslist'=>$typesList
+  )
+);
 
 
 while (($row = $stmt->fetch()) !== false) {
@@ -570,8 +575,8 @@ SQL
 
       array_push($citations, $row); // Ajoute chaque citation au tableau citations
 }
-
-echo json_encode($citation);
+print_r($citations);
+echo json_encode($citations);
 exit();
 }
 ////////////////////////////////////////////////////////////////
