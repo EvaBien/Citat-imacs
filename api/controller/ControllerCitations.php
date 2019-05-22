@@ -120,55 +120,42 @@ $stmt = MyPDO::getInstance()->prepare($queryStmt);
 $stmt->execute(['idcitation' => $query['idCitation']]);
 
 while (($row = $stmt->fetch()) !== false) {
+
+      $typeAuteur='';
+      $tags = array();
+
+
+    ////SEARCH TYPEAUTEUR IN DB ////
+    	$stmt2 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+    		INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+    		WHERE s2_citations.idCitation = :idcitation;
+SQL
+    	);
+    	$stmt2->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row2 = $stmt2->fetch()) !== false) {
+    		$typeAuteur=$row2['nomTypeAuteur'];
+    	}
+
+    ////SEARCH TAGS IN DB ////
+      $stmt3 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_tags.nomTag FROM `s2_tags`
+    		INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
+    		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+    		WHERE s2_tagcitation.idCitation = :idcitation;
+SQL
+    	);
+    	$stmt3->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row3 = $stmt3->fetch()) !== false) {
+    		array_push($tags, $row3);
+    	}
+
+      // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
+      $row['typeAuteur'] = $typeAuteur;
+      $row['tags'] = $tags;
 	array_push($citations, $row);
 }
 
-foreach ($citations as $citation) { // On va chercher les tags et le typeAuteur
-$typeAuteur='';
-$tags = array();
-
-
-////SEARCH TYPEAUTEUR IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
-  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
-  WHERE s2_citations.idCitation = :idcitation;
-SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  $typeAuteur=$row['nomTypeAuteur'];
-}
-
-////SEARCH TAGS IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
-  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
-  WHERE s2_tagcitation.idCitation = :idcitation;
-SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  array_push($tags, $row['nomTag']);
-}
-
-
-// RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-
-array_push($citation,$typeAuteur);
-array_push($citation,$tags);
-}
-
-
-// VERIFICATION QUE RESULTAT NON VIDE //
-if (empty($citation)) {
-  http_response_code(404);
-  $citation = "Cannot found citation with this factors";
-}
-else {
-  http_response_code(200);
-}
 
 echo json_encode($citation);
 exit();
@@ -178,13 +165,6 @@ exit();
 
 ////////////////////// GET CITATION BY TAGS ///////////////////
  function apiGetCitationByTags($query){
-  // check HTTP method //
-$method = strtolower($query['method']);
-if ($method!=="post") {
-    http_response_code(405);
-    echo json_encode(array('message' => 'This method is not allowed.'));
-    exit();
-}
 
 
 $tagsList = implode(',', array_fill(0, count($query['tags']), '?'));
@@ -201,53 +181,41 @@ $stmt = MyPDO::getInstance()->prepare($queryStmt);
 $stmt->execute();
 
 while (($row = $stmt->fetch()) !== false) {
-	array_push($citations, $row);
-}
 
-foreach ($citations as $citation) { // On va chercher les tags et le typeAuteur
-$typeAuteur='';
-$tags = array();
+      $typeAuteur='';
+      $tags = array();
 
 
-////SEARCH TYPEAUTEUR IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
-  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
-  WHERE s2_citations.idCitation = :idcitation;
+    ////SEARCH TYPEAUTEUR IN DB ////
+    	$stmt2 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+    		INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+    		WHERE s2_citations.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  $typeAuteur=$row['nomTypeAuteur'];
-}
+    	);
+    	$stmt2->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row2 = $stmt2->fetch()) !== false) {
+    		$typeAuteur=$row2['nomTypeAuteur'];
+    	}
 
-////SEARCH TAGS IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
-  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
-  WHERE s2_tagcitation.idCitation = :idcitation;
+    ////SEARCH TAGS IN DB ////
+      $stmt3 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_tags.nomTag FROM `s2_tags`
+    		INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
+    		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+    		WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  array_push($tags, $row['nomTag']);
-}
+    	);
+    	$stmt3->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row3 = $stmt3->fetch()) !== false) {
+    		array_push($tags, $row3);
+    	}
 
+      // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
+      $row['typeAuteur'] = $typeAuteur;
+      $row['tags'] = $tags;
 
-// RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citation['typeAuteur'] = $typeAuteur;
-$citation['tags'] = $tags;
-}
-
-
-// VERIFICATION QUE RESULTAT NON VIDE //
-if (empty($citation)) {
-  http_response_code(404);
-$citation = "Cannot found citation with this factors";
-}
-else {
-  http_response_code(200);
+      array_push($citations, $row); // Ajoute chaque citation au tableau citations
 }
 
 echo json_encode($citation);
@@ -266,53 +234,41 @@ $stmt = MyPDO::getInstance()->prepare($queryStmt);
 $stmt->execute(['keyword' => $query['keyWord']]);
 
 while (($row = $stmt->fetch()) !== false) {
-	array_push($citations, $row);
-}
 
-foreach ($citations as $citation) { // On va chercher les tags et le typeAuteur
-$typeAuteur='';
-$tags = array();
+      $typeAuteur='';
+      $tags = array();
 
 
-////SEARCH TYPEAUTEUR IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
-  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
-  WHERE s2_citations.idCitation = :idcitation;
+    ////SEARCH TYPEAUTEUR IN DB ////
+    	$stmt2 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+    		INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+    		WHERE s2_citations.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  $typeAuteur=$row['nomTypeAuteur'];
-}
+    	);
+    	$stmt2->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row2 = $stmt2->fetch()) !== false) {
+    		$typeAuteur=$row2['nomTypeAuteur'];
+    	}
 
-////SEARCH TAGS IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
-  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
-  WHERE s2_tagcitation.idCitation = :idcitation;
+    ////SEARCH TAGS IN DB ////
+      $stmt3 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_tags.nomTag FROM `s2_tags`
+    		INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
+    		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+    		WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  array_push($tags, $row['nomTag']);
-}
+    	);
+    	$stmt3->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row3 = $stmt3->fetch()) !== false) {
+    		array_push($tags, $row3);
+    	}
 
+      // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
+      $row['typeAuteur'] = $typeAuteur;
+      $row['tags'] = $tags;
 
-// RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citation['typeAuteur'] = $typeAuteur;
-$citation['tags'] = $tags;
-}
-
-
-// VERIFICATION QUE RESULTAT NON VIDE //
-if (empty($citation)) {
-  http_response_code(404);
-$citation = "Cannot found citation with this factors";
-}
-else {
-  http_response_code(200);
+      array_push($citations, $row); // Ajoute chaque citation au tableau citations
 }
 
 echo json_encode($citation);
@@ -333,53 +289,41 @@ $stmt = MyPDO::getInstance()->prepare($queryStmt);
 $stmt->execute();
 
 while (($row = $stmt->fetch()) !== false) {
-	array_push($citations, $row);
-}
 
-foreach ($citations as $citation) { // On va chercher les tags et le typeAuteur
-$typeAuteur='';
-$tags = array();
+      $typeAuteur='';
+      $tags = array();
 
 
-////SEARCH TYPEAUTEUR IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
-  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
-  WHERE s2_citations.idCitation = :idcitation;
+    ////SEARCH TYPEAUTEUR IN DB ////
+    	$stmt2 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+    		INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+    		WHERE s2_citations.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  $typeAuteur=$row['nomTypeAuteur'];
-}
+    	);
+    	$stmt2->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row2 = $stmt2->fetch()) !== false) {
+    		$typeAuteur=$row2['nomTypeAuteur'];
+    	}
 
-////SEARCH TAGS IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
-  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
-  WHERE s2_tagcitation.idCitation = :idcitation;
+    ////SEARCH TAGS IN DB ////
+      $stmt3 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_tags.nomTag FROM `s2_tags`
+    		INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
+    		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+    		WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  array_push($tags, $row['nomTag']);
-}
+    	);
+    	$stmt3->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row3 = $stmt3->fetch()) !== false) {
+    		array_push($tags, $row3);
+    	}
 
+      // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
+      $row['typeAuteur'] = $typeAuteur;
+      $row['tags'] = $tags;
 
-// RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citation['typeAuteur'] = $typeAuteur;
-$citation['tags'] = $tags;
-}
-
-
-// VERIFICATION QUE RESULTAT NON VIDE //
-if (empty($citation)) {
-  http_response_code(404);
-$citation = "Cannot found citation with this factors";
-}
-else {
-  http_response_code(200);
+      array_push($citations, $row); // Ajoute chaque citation au tableau citations
 }
 
 echo json_encode($citation);
@@ -407,53 +351,41 @@ $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
 $stmt->execute(['keyword'=>$query["keyWord"]]);
 while (($row = $stmt->fetch()) !== false) {
-  array_push($citations, $row);
-}
 
-foreach ($citations as $citation) { // On va chercher les tags et le typeAuteur
-$typeAuteur='';
-$tags = array();
+      $typeAuteur='';
+      $tags = array();
 
 
-////SEARCH TYPEAUTEUR IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
-  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
-  WHERE s2_citations.idCitation = :idcitation;
+    ////SEARCH TYPEAUTEUR IN DB ////
+    	$stmt2 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+    		INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+    		WHERE s2_citations.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  $typeAuteur=$row['nomTypeAuteur'];
-}
+    	);
+    	$stmt2->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row2 = $stmt2->fetch()) !== false) {
+    		$typeAuteur=$row2['nomTypeAuteur'];
+    	}
 
-////SEARCH TAGS IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
-  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
-  WHERE s2_tagcitation.idCitation = :idcitation;
+    ////SEARCH TAGS IN DB ////
+      $stmt3 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_tags.nomTag FROM `s2_tags`
+    		INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
+    		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+    		WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  array_push($tags, $row['nomTag']);
-}
+    	);
+    	$stmt3->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row3 = $stmt3->fetch()) !== false) {
+    		array_push($tags, $row3);
+    	}
 
+      // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
+      $row['typeAuteur'] = $typeAuteur;
+      $row['tags'] = $tags;
 
-// RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citation['typeAuteur'] = $typeAuteur;
-$citation['tags'] = $tags;
-}
-
-
-// VERIFICATION QUE RESULTAT NON VIDE //
-if (empty($citation)) {
-  http_response_code(404);
-$citation = "Cannot found citation with this factors";
-}
-else {
-  http_response_code(200);
+      array_push($citations, $row); // Ajoute chaque citation au tableau citations
 }
 
 echo json_encode($citation);
@@ -479,53 +411,41 @@ $stmt = MyPDO::getInstance()->prepare($queryStmt);
 $stmt->execute(['keyword' => $query["keyword"]]);
 
 while (($row = $stmt->fetch()) !== false) {
-  array_push($citations, $row);
-}
 
-foreach ($citations as $citation) { // On va chercher les tags et le typeAuteur
-$typeAuteur='';
-$tags = array();
+      $typeAuteur='';
+      $tags = array();
 
 
-////SEARCH TYPEAUTEUR IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
-  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
-  WHERE s2_citations.idCitation = :idcitation;
+    ////SEARCH TYPEAUTEUR IN DB ////
+    	$stmt2 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+    		INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+    		WHERE s2_citations.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  $typeAuteur=$row['nomTypeAuteur'];
-}
+    	);
+    	$stmt2->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row2 = $stmt2->fetch()) !== false) {
+    		$typeAuteur=$row2['nomTypeAuteur'];
+    	}
 
-////SEARCH TAGS IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
-  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
-  WHERE s2_tagcitation.idCitation = :idcitation;
+    ////SEARCH TAGS IN DB ////
+      $stmt3 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_tags.nomTag FROM `s2_tags`
+    		INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
+    		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+    		WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  array_push($tags, $row['nomTag']);
-}
+    	);
+    	$stmt3->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row3 = $stmt3->fetch()) !== false) {
+    		array_push($tags, $row3);
+    	}
 
+      // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
+      $row['typeAuteur'] = $typeAuteur;
+      $row['tags'] = $tags;
 
-// RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citation['typeAuteur'] = $typeAuteur;
-$citation['tags'] = $tags;
-}
-
-
-// VERIFICATION QUE RESULTAT NON VIDE //
-if (empty($citation)) {
-  http_response_code(404);
-$citation = "Cannot found citation with this factors";
-}
-else {
-  http_response_code(200);
+      array_push($citations, $row); // Ajoute chaque citation au tableau citations
 }
 
 echo json_encode($citation);
@@ -550,53 +470,41 @@ $stmt->execute(['keyword' => $query["keyword"]]);
 
 
 while (($row = $stmt->fetch()) !== false) {
-  array_push($citations, $row);
-}
 
-foreach ($citations as $citation) { // On va chercher les tags et le typeAuteur
-$typeAuteur='';
-$tags = array();
+      $typeAuteur='';
+      $tags = array();
 
 
-////SEARCH TYPEAUTEUR IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
-  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
-  WHERE s2_citations.idCitation = :idcitation;
+    ////SEARCH TYPEAUTEUR IN DB ////
+    	$stmt2 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+    		INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+    		WHERE s2_citations.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  $typeAuteur=$row['nomTypeAuteur'];
-}
+    	);
+    	$stmt2->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row2 = $stmt2->fetch()) !== false) {
+    		$typeAuteur=$row2['nomTypeAuteur'];
+    	}
 
-////SEARCH TAGS IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
-  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
-  WHERE s2_tagcitation.idCitation = :idcitation;
+    ////SEARCH TAGS IN DB ////
+      $stmt3 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_tags.nomTag FROM `s2_tags`
+    		INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
+    		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+    		WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  array_push($tags, $row['nomTag']);
-}
+    	);
+    	$stmt3->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row3 = $stmt3->fetch()) !== false) {
+    		array_push($tags, $row3);
+    	}
 
+      // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
+      $row['typeAuteur'] = $typeAuteur;
+      $row['tags'] = $tags;
 
-// RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citation['typeAuteur'] = $typeAuteur;
-$citation['tags'] = $tags;
-}
-
-
-// VERIFICATION QUE RESULTAT NON VIDE //
-if (empty($citation)) {
-  http_response_code(404);
-$citation = "Cannot found citation with this factors";
-}
-else {
-  http_response_code(200);
+      array_push($citations, $row); // Ajoute chaque citation au tableau citations
 }
 
 echo json_encode($citation);
@@ -626,53 +534,41 @@ $stmt->execute();
 
 
 while (($row = $stmt->fetch()) !== false) {
-  array_push($citations, $row);
-}
 
-foreach ($citations as $citation) { // On va chercher les tags et le typeAuteur
-$typeAuteur='';
-$tags = array();
+      $typeAuteur='';
+      $tags = array();
 
 
-////SEARCH TYPEAUTEUR IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
-  INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
-  WHERE s2_citations.idCitation = :idcitation;
+    ////SEARCH TYPEAUTEUR IN DB ////
+    	$stmt2 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+    		INNER JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+    		WHERE s2_citations.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  $typeAuteur=$row['nomTypeAuteur'];
-}
+    	);
+    	$stmt2->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row2 = $stmt2->fetch()) !== false) {
+    		$typeAuteur=$row2['nomTypeAuteur'];
+    	}
 
-////SEARCH TAGS IN DB ////
-$stmt = MyPDO::getInstance()->prepare(<<<SQL
-  SELECT s2_tags.nomTag FROM `s2_tags`
-  INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
-  INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
-  WHERE s2_tagcitation.idCitation = :idcitation;
+    ////SEARCH TAGS IN DB ////
+      $stmt3 = MyPDO::getInstance()->prepare(<<<SQL
+    		SELECT s2_tags.nomTag FROM `s2_tags`
+    		INNER JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
+    		INNER JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+    		WHERE s2_tagcitation.idCitation = :idcitation;
 SQL
-);
-$stmt->execute(['idcitation'=>$citation['idCitation']]);
-while (($row = $stmt->fetch()) !== false) {
-  array_push($tags, $row['nomTag']);
-}
+    	);
+    	$stmt3->execute(['idcitation'=>$row['idCitation']]);
+    	while (($row3 = $stmt3->fetch()) !== false) {
+    		array_push($tags, $row3);
+    	}
 
+      // RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
+      $row['typeAuteur'] = $typeAuteur;
+      $row['tags'] = $tags;
 
-// RANGER DANS LES CLES DE CITATION + ENCODER EN JSON//
-$citation['typeAuteur'] = $typeAuteur;
-$citation['tags'] = $tags;
-}
-
-
-// VERIFICATION QUE RESULTAT NON VIDE //
-if (empty($citation)) {
-  http_response_code(404);
-$citation = "Cannot found citation with this factors";
-}
-else {
-  http_response_code(200);
+      array_push($citations, $row); // Ajoute chaque citation au tableau citations
 }
 
 echo json_encode($citation);
@@ -717,29 +613,29 @@ function apiUpdateCitation($query)
 function apiDeleteCitation($query){
 
   if (verifMdp($query['password']) == true){
-  {
+    {
 
-    if (verifMdp($query['password']) == true){
+      if (verifMdp($query['password']) == true){
 
-    $queryStmt1 = "DELETE FROM s2_tagcitation WHERE idCitation = :idcitation;";
+        $queryStmt1 = "DELETE FROM s2_tagcitation WHERE idCitation = :idcitation;";
 
-    $stmt1 = MyPDO::getInstance()->prepare($queryStmt1);
-    $stmt1->execute(['idcitation' => $query['idCitation']]);
+        $stmt1 = MyPDO::getInstance()->prepare($queryStmt1);
+        $stmt1->execute(['idcitation' => $query['idCitation']]);
 
-    $queryStmt2 = "DELETE FROM s2_citations WHERE idCitation = :idcitation;";
+        $queryStmt2 = "DELETE FROM s2_citations WHERE idCitation = :idcitation;";
 
-    $stmt2 = MyPDO::getInstance()->prepare($queryStmt2);
-    $stmt2->execute(['idcitation' => $query['idCitation']]);
+        $stmt2 = MyPDO::getInstance()->prepare($queryStmt2);
+        $stmt2->execute(['idcitation' => $query['idCitation']]);
 
-    if ($stmt2->rowCount() == 0) {
-      return NULL;
+        if ($stmt2->rowCount() == 0) {
+          return NULL;
+        }
+      } else {
+        echo "Error Delete Citation - Password incorrect";
+      }
     }
-  } else {
-    echo "Error Delete Citation - Password incorrect";
   }
 }
-  }
-  }
 
     ////////////////////////////////////////////////////////////////
     ///////////////////////////// OTHER //////////////////////////
@@ -768,15 +664,15 @@ function verifMdp($string){
 function getCitationLikes($query)
   {
 
+    $req=json_decode($query, true);
 
     $queryStmt = "SELECT likesCitation FROM s2_citations WHERE idCitation = :idcitation;";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
-    $stmt->execute(['idcitation'=>$query['idCitation']]);
+    $stmt->execute(['idcitation'=>$req['idCitation']]);
+    $row = $stmt->fetch();
 
-    $likes = $stmt->fetch();
-    print_r($likes);
-    echo $likes;
+    echo json_encode($row);
     exit();
     }
 
@@ -785,13 +681,14 @@ function getCitationLikes($query)
     function updateCitationLikes($query)
       {
 
+        $req=json_decode($query, true);
         $queryStmt = "UPDATE s2_citations SET likesCitation= :newlikes WHERE idCitation = :id;";
 
         $stmt = MyPDO::getInstance()->prepare($queryStmt);
         $stmt->execute(
           array(
-            'newlikes' =>$query['likes'],
-            'id'=>$query['idCitation']
+            'newlikes' =>$req['likes'],
+            'id'=>$req['idCitation']
           )
         );
 

@@ -520,8 +520,8 @@ function cancelPopUp(){
 function likeCitation(){ // A modifier ?
   button=event.currentTarget;
   let divId=button.getAttribute("idcitation"); // On récupère l'id
-  let currentLikes;
-  let newValue;
+  var currentLikes;
+  var newValue;
 
   let formDataGet = new FormData();
   let dataGet = new Object();
@@ -532,8 +532,6 @@ function likeCitation(){ // A modifier ?
 
   dataGet = JSON.stringify(dataGet);
   formDataGet.append('getData',dataGet);
-  console.log(divId);
-  console.log(formDataGet);
 
   /// On get la valeur actuelle des likes ///
   fetch('./api/Route/routeur.php',  {
@@ -541,44 +539,48 @@ function likeCitation(){ // A modifier ?
 		body: formDataGet})
   .then(res => res.json())
   .then(function(data){
-    console.log(data);
-    currentLikes = data['likesCitation'];
+    currentLikes = Number(data['likesCitation']);
+
+    if(button.classList.contains('clicked')){
+        if (Number(currentLikes-1)>0){
+      newValue=Number(currentLikes-1);
+      } else { newValue=Number(0);
+              }
+      button.classList.remove("clicked");
+    }else{
+      newValue=Number(currentLikes+1);
+      button.classList.add("clicked");
+    }
+
+    /// On update les likes ///
+
+    var formDataUpd = new FormData();
+    var dataUpd = new Object();
+    dataUpd['likes'] = newValue;
+    formDataUpd.append("likes", newValue);
+    dataUpd['idCitation'] = divId;
+    formDataUpd.append("idCitation", divId);
+    dataUpd['url'] = "./citations/UpdateLikes";
+    formDataUpd.append("url", "./citations/UpdateLikes");
+
+    dataUpd = JSON.stringify(dataUpd);
+    formDataUpd.append('getData',dataUpd);
+    console.log(dataUpd);
+
+      fetch('./api/Route/routeur.php', {
+    		method: "PUT",
+    		body: formDataUpd})
+      .then(res => res.json())
+      .catch( error => {
+        window.alert("PUT ERROR \n"+error);
+      })
+
   })
   .catch( error => {
     window.alert(error);
   })
 
 
-
-  if(button.classList.contains('clicked')){
-    newValue=currentLikes-1;
-    button.classList.remove("clicked");
-  }else{
-    newValue=currentLikes-1;
-    button.classList.add("clicked");
-  }
-
-  /// On update les likes ///
-
-  let formDataUpd = new FormData();
-  let dataUpd = new Object();
-  dataUpd['likes'] = newValue;
-  formDataUpd.append("likes", newValue);
-  dataUpd['idCitation'] = divId;
-  formDataUpd.append("idCitation", divId);
-  dataUpd['url'] = "./citations/UpdateLikes";
-  formDataUpd.append("url", "./citations/UpdateLikes");
-
-  dataUpd = JSON.stringify(dataUpd);
-  formDataUpd.append('getData',dataUpd);
-
-  fetch('./api/Route/routeur.php', {
-		method: "PUT",
-		body: formDataUpd})
-  .then(res => res.json())
-  .catch( error => {
-    window.alert(error);
-  })
 
   /// On get la nouvelle valeur dans la BDD directement ///
   fetch('./api/Route/routeur.php',  {
@@ -586,7 +588,7 @@ function likeCitation(){ // A modifier ?
 		body: formDataGet})
   .then(res => res.json())
   .then(function(data){
-    currentLikes = data['likesCitation'];
+    currentLikes = Number(data['likesCitation']);
   })
   .catch( error => {
     window.alert(error);
