@@ -68,7 +68,7 @@ function AllCitations(){
   .catch( error => {
     window.alert(error);
   })
-} // Où sont les tags ?
+}
 
 //////////////////// ALL TYPES SIGNALEMENT ///////////////////
 function  AllTypesSignal(){
@@ -145,7 +145,6 @@ function addCitation(){
 
   data = JSON.stringify(data);
  formData.append('postData',data);
- console.log(data);
 
  fetch("./api/Route/routeur.php", {
 		method: "POST",
@@ -182,7 +181,6 @@ function displayCitation(dataCitation){
   console.log(dataCitation);
 
   dataCitation.forEach(citation => {
-    console.log("dataCitation i am here");
     let block = document.getElementById("block_citations");
     let section_block = document.createElement("section");
     section_block.setAttribute('class', 'one_citation');
@@ -190,9 +188,12 @@ function displayCitation(dataCitation){
 
     let info_block = document.createElement("div");
     info_block.setAttribute('class', 'infos-citation');
+    section_block.appendChild(info_block);
 
     let commands_block = document.createElement("div");
     commands_block.setAttribute('class', 'commands-citation');
+    section_block.appendChild(commands_block);
+
 
     //// Remplissage premier DIV : info_block ////
 
@@ -200,27 +201,27 @@ function displayCitation(dataCitation){
     let tags_block = document.createElement("ul");
     tags_block.setAttribute('class','list-tags');
 
-    //   citation['tags'].forEach(tag=>{
-    //   let tagnom=tag.nomTag;
-    //   let one_tag = document.createElement("li");
-    //   one_tag.innerHTML = tagnom;
-    //   tags_block.appendChild(one_tag);
-    // });
+      citation['tags'].forEach(tag=>{
+      let tagnom=tag['nomTag'];
+      let one_tag = document.createElement("li");
+      one_tag.innerHTML = tagnom;
+      tags_block.appendChild(one_tag);
+    });
 
     // On remplit la date //
-    let date = citation.dateCitation;
+    let date = citation['dateCitation'];
     let date_block = document.createElement("p");
     date_block.setAttribute('class','quote_date');
     date_block.innerHTML = date;
 
     // On remplit la citation //
-    let contenu = citation.contenuCitation;
+    let contenu = "\""+citation['contenuCitation']+"\"";
     let quote_block = document.createElement("p");
     quote_block.setAttribute('class','quote');
     quote_block.innerHTML = contenu;
 
     // On remplit l'auteur + Le type //
-    let auteur = citation['auteurCitation']+" - "+citation['typeAuteur']['nomTypeAuteur'];
+    let auteur = citation['auteurCitation']+" - "+citation['typeAuteur'];
     let author_block = document.createElement("p");
     author_block.setAttribute('class','quote_author');
     author_block.innerHTML = auteur;
@@ -236,15 +237,15 @@ function displayCitation(dataCitation){
     // On remplit bouton like //
     let liker_block = document.createElement("button");
     liker_block.setAttribute('class','like-button');
-    liker_block.setAttribute('idCitation',citation['idCitation']);
+    liker_block.setAttribute('idcitation',citation['idCitation']);
     liker_block.setAttribute('onclick','likeCitation()');
     liker_block.innerHTML = "J\'aime" ;
 
     // On remplit le nombre de like //
-    let nblikes = citation.likesCitation;
+    let nblikes = citation['likesCitation'];
     let likes_block = document.createElement("p");
     likes_block.setAttribute('class','number_likes');
-    likes_block.innerHTML = nbLikes;
+    likes_block.innerHTML = nblikes;
 
     // On remplit le bouton signalement //
     let signal_block = document.createElement("a");
@@ -338,14 +339,14 @@ function displayTypesAuteurNav(dataTypes){
   authorLeft.setAttribute('class', 'left_right');
   let authorRight = document.createElement("section");
   authorRight.setAttribute('class', 'left_right');
+
   let all_author = document.createElement("div");
   all_author.setAttribute('class','input_display');
-
   let all_author_input = document.createElement("input");
   all_author_input.setAttribute('type',"checkbox");
   all_author_input.setAttribute('id',"authorChecked0");
   all_author_input.setAttribute('name',"navAuthorCheckbox");
-  all_author_input.setAttribute('class',"tag_checkbox");
+  all_author_input.setAttribute('class',"tag_checkbox","author");
   all_author_input.setAttribute('value',"All");
   all_author_input.setAttribute('checked',"");
 
@@ -369,7 +370,7 @@ function displayTypesAuteurNav(dataTypes){
     one_author_input.setAttribute('type',"checkbox");
     one_author_input.setAttribute('id',"authorCheckbox"+author['idTypeAuteur']);
     one_author_input.setAttribute('name',"navAuthorCheckbox");
-    one_author_input.setAttribute('class',"tag_checkbox");
+    one_author_input.setAttribute('class',"tag_checkbox","author");
     one_author_input.setAttribute('value',author['nomTypeAuteur']);
     one_author_input.setAttribute('onclick',"checkedButAllAuthor()");
 
@@ -518,8 +519,8 @@ function cancelPopUp(){
 
 /////////// LIKES CITATIONS //////// - FAIT
 function likeCitation(){ // A modifier ?
-
-  let divId=button.getAttribut(idCitation); // On récupère l'id
+  button=event.currentTarget;
+  let divId=button.getAttribute("idcitation"); // On récupère l'id
   let currentLikes;
   let newValue;
 
@@ -546,7 +547,7 @@ function likeCitation(){ // A modifier ?
   })
 
 
-  button = event.target;
+
   if(button.classList.contains('clicked')){
     newValue=currentLikes-1;
     button.classList.remove("clicked");

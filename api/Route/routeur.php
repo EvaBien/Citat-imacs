@@ -26,15 +26,12 @@ if ($method == 'GET'){
 
 ///// TOUS LES URLS POSSIBLES /////
 switch ($url) {
-  case '' :
-  echo json_encode(apiGetAllCitations($request)); // GET ALL
-  break;
   /////CITATIONS//////
   case './citations/New' : // Create
   apiCreateCitation($request);
   break;
   case './citations/All' :
-  echo json_encode(apiGetAllCitations($request)); // GET ALL
+  apiGetAllCitations($request); // GET ALL
   break;
   case './citations/Id' :
   apiGetCitationById($request); // Get By Id

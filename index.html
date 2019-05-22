@@ -58,43 +58,7 @@
 		- dans le signaler un pb, le onclick
 	-->
 	<div id="block_citations">
-		<section class='one_citation' idCitation="56">
-			<div class='infos-citation'>
-				<ul class='list-tags'>
-					<li>race</li>
-					<li>arts</li>
-					<li>shlag</li>
-					<li>sciences</li>
-				</ul>
-
-				<p class='quote_date'>vendredi 29 mars 2019 à 15:11</p>
-				<p class='quote'>"La seule formation d'ingénieur publique alliant race et shlag"</p>
-				<p class='quote_author'>Pascale Ho - Prof</p>
-			</div>
-			<div class='commands-citation'>
-				<button class='like-button' onclick="likeCitation()">J'aime</button>
-				<p class='number_likes'>46</p>
-				<a onclick="signalPopUp()">signaler un problème</a>
-			</div>
-
-		</section>
-		<section class='one_citation'>
-			<div class='infos-citation'>
-				<ul>
-					<li>love</li>
-					<li>titre</li>
-				</ul>
-
-				<p class='quote_date'>lundi 28 janvier 2019 à 18:06</p>
-				<p class='quote'>"Je suis la plus forte des salopes"</p>
-				<p class='quote_author'>Délio - IMAC 2019</p>
-			</div>
-			<div class='commands-citation'>
-				<button class='like-button' onclick="likeCitation()">J'aime</button>
-				<p class='number_likes'>12</p>
-				<a onclick="signalPopUp()">signaler un problème</a>
-			</div>
-		</section>
+		
 	</div>
 </div>
 
@@ -109,19 +73,13 @@
 		<label for="type_auteur">Type d'auteur</label>
 		<select id="type_auteur_form" name="type_auteur" class="selectForm">
 			<option selected disabled>-- Selectionnez le type d'auteur</option>
-			<!-- <option value="prof">Prof</option>
-			<option value="imac2021">Imac 2021</option>
-			<option value="imac2020">Imac 2020</option>
-			<option value="imac2019">Imac 2019</option>
-			<option value="imac2018">Imac 2018</option>
-			<option value="imac2017">Imac 2017</option>
-			<option value="imac100">Imac 100 av. Biri</option> -->
+
 		</select>
 		<label for="citation">Citation</label>
 		<textarea name="citation" id="citation_form" placeholder="Calmez-vous !" class="text_input"></textarea>
 		<label>Tags</label>
 		<div id="tag_form" name="tag_form">
-			
+
 		</div>
 
 		<button id="add_citation_form" class="button" onclick="AddCitation()">Ajouter</button>
