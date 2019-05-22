@@ -695,6 +695,8 @@ function getCitationLikes($query)
         if ($stmt->rowCount() == 0) {
           return NULL;
         }
+        echo json_encode("citation likes updated \n");
+        exit();
       }
 
   ////////////////////////////////////////////////////////////////
