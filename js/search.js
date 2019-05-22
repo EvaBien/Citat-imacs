@@ -137,7 +137,7 @@ function addCitation(){
     data['idTypeAuteur'] = type_auteur;
     formData.append("idTypeAuteur", type_auteur);
   }
-
+lo
   if(tagsChecked){
     data['tagsCitation'] = tagsChecked;
     formData.append("tagsCitation",tagsChecked);
@@ -151,8 +151,8 @@ function addCitation(){
 		body: formData})
     .then( response => response.json() )
 		.then( data => {
-      alert("Citation créée ! \n Redirection...");
-      window.location.reload();
+      window.alert("Citation créée ! \n Redirection...");
+      // window.location.reload();
     })
     .catch( error => {
       window.alert(error);
