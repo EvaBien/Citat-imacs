@@ -608,7 +608,7 @@ document.getElementById('valid_search').onclick = event => {
         let formData = new FormData();
         let data = new Object();
 
-        data['keyWord'] = keywordForm;
+        data['keyword'] = keywordForm;
         formData.append("keyword",keywordForm );
         data['tags'] = tagsChecked;
         formData.append("tags", tagsChecked);
@@ -646,7 +646,10 @@ document.getElementById('valid_search').onclick = event => {
             method: "POST",
             body: formData})
           .then(res => res.json())
-            .then(displayCitation(data))
+            .then(function(data){
+              console.log(data);
+             displayCitation(data);
+           })
             .catch( error => {
               window.alert(error);
             })
