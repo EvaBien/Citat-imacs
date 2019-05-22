@@ -18,20 +18,13 @@ if ($method == 'GET'){
   $request = $_POST['getData'];
 } else if ($method == 'PUT'){
   parse_str(file_get_contents("php://input"), $_PUT);
-  // foreach ($_PUT as $key => $value)
-	// {
-	// 	unset($_PUT[$key]);
-  //
-	// 	$_PUT[str_replace('amp;', '', $key)] = $value;
-	}
   print_r($_PUT);
   $url = $_PUT['url'];
   $request = $_PUT['getData'];
 } else {
-  $url = $_DELETE['url'];
-  $request = $_DELETE['getData'];
+  $url = $_REQUEST['url'];
+  $request = $_REQUEST['getData'];
 }
-
 ///// TOUS LES URLS POSSIBLES /////
 switch ($url) {
   /////CITATIONS//////

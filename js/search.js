@@ -565,7 +565,6 @@ function likeCitation(){ // A modifier ?
 
     dataUpd = JSON.stringify(dataUpd);
     formDataUpd.append('getData',dataUpd);
-    console.log(dataUpd);
 
       fetch('./api/Route/routeur.php', {
     		method: "PUT",
