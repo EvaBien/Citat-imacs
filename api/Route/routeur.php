@@ -73,13 +73,13 @@ switch ($url) {
   apiGetAllTypesSignalement($request); // GetAllTypesSignalement
   break;
   //////////////// SIGNALEMENTS /////////
-  case './signalement/New' :
+  case './signalements/New' :
   apiCreateSignalement($id); // Create Signalement
   break;
-  case './signalement/Id' :
+  case './signalements/Id' :
   apiGetSignalementById($request); // Get By id
   break;
-  case './signalement/Update' :
+  case './signalements/Update' :
   apiUpdateSignalement($request); // Update signalement
   break;
   // case './signalement/Send' :

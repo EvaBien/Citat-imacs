@@ -14,8 +14,47 @@
 
 ///// API CREATE SIGNALEMENT //////
 function createSignal(){
+  event.preventDefault();
 
-  alert("Votre signalement a bien été envoyé ! \n Redirection...");
+  let formData = new FormData();
+  let data = new Object();
+
+  let url = "./signalements/New";
+  let mailSignal = document.getElementById("mailSignal").value;
+  let typeSignal = document.getElementById("type_signalement").value;
+  let messageSignal = document.getElementById("messageSignal").value;
+  let idCitationSignal = document.getElementById("idCitationSignal").value;
+
+  data['url']= url;
+  formData.append('url',url);
+
+  data['typeSignal'] = typeSignal;
+  formData.append('typeSignal',typeSignal);
+  
+  data['mailSignal'] = mailSignal;
+  formData.append('mailSignal',mailSignal);
+
+  data['messageSignal'] = messageSignal;
+  formData.append('messageSignal',messageSignal);
+
+  data['idCitationSignal'] = idCitationSignal;
+  formData.append('idCitationSignal',idCitationSignal);
+
+  data = JSON.stringify(data);
+  formData.append('getData',data);
+
+
+  fetch("./api/Route/routeur.php", {
+ 		method: "POST",
+ 		body: formData})
+     .then( response => response.json() )
+ 		.then( data => {
+      alert("Votre signalement a bien été envoyé ! \n Redirection...");
+       // location.reload();
+     })
+     .catch( error => {
+       window.alert(error);
+ 		});
 }
 
 
@@ -66,7 +105,14 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
 /////////////////// POP UP SIGNALEMENT FORM //////////////////
-function signalPopUp(){
+function signalPopUp(idCitation){
+  let blockSignal = document.getElementById("formSignal");
+  let inputIdCitation = document.createElement("input");
+  inputIdCitation.setAttribute('type','hidden');
+  inputIdCitation.setAttribute('value',idCitation);
+  inputIdCitation.setAttribute('id',idCitationSignal);
+  blockSignal.appendChild(inputIdCitation);
+  console.log(inputIdCitaiton);
   displayCover();
   document.getElementById("pop_signal").style.display = "block";
 }

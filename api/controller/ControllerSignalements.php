@@ -9,10 +9,11 @@ require_once '../model/ModelTypesSignalement.php';
 //////////////////////////////////////////////////////////////
 
 
-function apiCreateSignalement($query)
+function apiCreateSignalement($req)
 {
+  $query=json_decode($req,true);
   // Creation du nouvel objet//
-  $signalement = new signalement($query['typeSignalement'],$query['messageSignalement'],$query['statutSignalement'],$query['idCitation']);
+  $signalement = new signalement($query['typeSignal'],$query['messageSignal'],0,$query['idCitationSignal']);
 
   ////// ADD TO DB //////
   $queryStmt = "INSERT INTO s2_signalements (typeSignalement, messageSignalement, statutSignalement, idCitation) VALUES (?, ?, ?, ?);";
@@ -29,10 +30,12 @@ function apiCreateSignalement($query)
   if ($queryStatus === false) {
     throwAnErrorSignal();
   } else {
-    $signalement->id = MyPDO::getInstance()->lastInsertId();
-    sendMailSignalement($query, $signalement->id);
+    $signalement->setIdSignalement(MyPDO::getInstance()->lastInsertId());
+    sendMailSignalement($query, $signalement->getIdSignalement());
 
   }
+
+  echo json_encode("Signalement créé");
 }
 
 
@@ -53,37 +56,35 @@ function apiCreateSignalement($query)
     $stmt->execute(['idsignalement' => $id]);
 
     while (($row = $stmt->fetch()) !== false) {
-      array_push($signalements, $row);
-    }
 
-    foreach ($signalements as $signalement) { // On va chercher les tags et le typeAuteur
-    $signalement='';
-    $citation = '';
+      $citation = '';
 
-    $stmt = MyPDO::getInstance()->prepare(<<<SQL
-      SELECT s2_TypesAuteur.nomTypeAuteur FROM `s2_TypesAuteur`
-      INNER JOIN s2_Citations ON s2_Citations.idTypeAuteur = s2_TypesAuteur.idTypeAuteur
-      WHERE s2_Citations.idCitation = :idcitation;
+      $stmt2 = MyPDO::getInstance()->prepare(<<<SQL
+        SELECT s2_TypesAuteur.nomTypeAuteur FROM `s2_TypesAuteur`
+        INNER JOIN s2_Citations ON s2_Citations.idTypeAuteur = s2_TypesAuteur.idTypeAuteur
+        WHERE s2_Citations.idCitation = :idcitation;
 SQL
-    );
-    $stmt->execute(['idcitation'=>$citation['idCitation']]);
-    while (($row = $stmt->fetch()) !== false) {
-      $typeAuteur=$row['nomTypeAuteur'];
-    }
+      );
+      $stmt2->execute(['idcitation'=>$row['idCitation']]);
 
-    $signalements[$key]['citation'] = $citation;
+      while (($row2 = $stmt2->fetch()) !== false) {
+        $row['citation'] = $row2;
       }
-      echo json_encode($signalements);
-      exit();
+      array_push($signalement, $row);
+    }
   }
+  echo json_encode($signalements);
+  exit();
+}
 
 
   ////////////////////////////////////////////////////////////////
   ///////////////////////////// UPDATE //////////////////////////
   //////////////////////////////////////////////////////////////
 
-  function apiUpdateSignalement($query){
+  function apiUpdateSignalement($req){
     // Sert uniquement à update le statut
+    $query=json_decode($req, true);
     $queryStmt = "UPDATE s2_signalements SET statutSignalement = 1 WHERE idSignal = :id;";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -96,6 +97,7 @@ SQL
     if ($stmt->rowCount() == 0) {
       return NULL;
     }
+    echo json_encode("Statut du signalement mis à jour ! ");
   }
 
 
@@ -108,20 +110,19 @@ function sendMailSignalement($query, $idSignalement){
 
       $to      = "citatimacs@gmail.com";
       $subject = 'Une citation a été signalée - '.$query['typeSignal'];
-      $content = $query['message'];
       $content = "
               <html>
               <head>
               <title>".$to."</title>
               </head>
               <body>
-              <p>".$message."</p>
+              <p>".$query['messageSignal']."</p>
 
               <a href=\"./Route/route.php?url=./admin/signalement/Id&id=".$idSignalement."\">Cliquez ici pour corriger la citation</a>
               </body>
               </html>
               ";
-      $headers = 'From:'.$query['mail']. "\r\n" .
+      $headers = 'From:'.$query['mailSignal']. "\r\n" .
           'Content-type:text/html;charset=UTF-8' . "\r\n".
           'X-Mailer: PHP/' . phpversion();
 

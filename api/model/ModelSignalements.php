@@ -75,7 +75,7 @@ class signalement {
   * @return int
   */
   function getTypeSignalement(){
-    return $this->îdTypeSignalement;
+    return $this->idTypeSignalement;
   }
 
   /**

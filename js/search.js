@@ -244,8 +244,8 @@ function displayCitation(dataCitation){
 
     // On remplit le bouton signalement //
     let signal_block = document.createElement("a");
-    signal_block.setAttribute('onclick','signalPopUp()');
     signal_block.setAttribute('idCitation',citation['idCitation']);
+    signal_block.setAttribute('onclick','signalPopUp(citation['idCitation'])');
     signal_block.innerHTML = "Signaler un problème";
 
     // On met le tout dans le div command_block //
