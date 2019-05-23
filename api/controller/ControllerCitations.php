@@ -61,7 +61,9 @@ function apiCreateCitation($query){
 
   ////SEARCH CITATION IN DB ////
   $citations = array();
-  $queryStmt = "SELECT * FROM s2_citations ORDER BY dateCitation;";
+  $queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitation, s2_citations.dateCitation, s2_citations.auteurCitation, s2_citations.likesCitation, s2_citations.idTypeAuteur
+  FROM s2_citations
+  ORDER BY dateCitation;";
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
 
@@ -172,7 +174,7 @@ $query=json_decode($req, true);
 
 $tagsList = join(",",$query['tags']);
 
-$queryStmt = "SELECT *
+$queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitation, s2_citations.dateCitation, s2_citations.auteurCitation, s2_citations.likesCitation, s2_citations.idTypeAuteur
   FROM s2_citations
   JOIN s2_tagcitation ON s2_tagcitation.idCitation = s2_citations.idCitation
   JOIN s2_tags ON s2_tags.idTag = s2_tagcitation.idTag
@@ -289,8 +291,10 @@ exit();
 $query=json_decode($req, true);
 $typesList = join(",",$query['typesAuteur']);
 
-$queryStmt = "SELECT * FROM s2_citations
-  WHERE s2_citations.idTypeAuteur IN ($typesList)
+$queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitation, s2_citations.dateCitation, s2_citations.auteurCitation, s2_citations.likesCitation, s2_citations.idTypeAuteur
+  FROM s2_citations
+  JOIN s2_typesauteur ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_typesauteur.nomTypeAuteur IN ($typesList)
   ORDER BY s2_citations.dateCitation;";
 
 $citations = array();
@@ -350,17 +354,18 @@ $query=json_decode($req, true);
 $tagsList = join(",",$query['tags']);
 $typesList = join(",",$query['typesAuteur']);
 
-$queryStmt = "SELECT *
+$queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitation, s2_citations.dateCitation, s2_citations.auteurCitation, s2_citations.likesCitation, s2_citations.idTypeAuteur
   FROM s2_citations
   JOIN s2_tagcitation ON s2_citations.idCitation=s2_tagcitation.idCitation
   JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
-  WHERE s2_tags.nomTag IN ($tagsList) AND s2_citations.idTypeAuteur IN ($typesList) AND s2_citations.contenuCitation LIKE :keyword
+  JOIN s2_typesauteur ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_tags.nomTag IN ($tagsList) AND s2_typesauteur.nomTypeAuteur IN ($typesList) AND s2_citations.contenuCitation LIKE :keyword
   ORDER BY s2_citations.dateCitation;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(['keyword'=>$query["keyword"]]);
+$stmt->execute(['keyword'=>"%{$query['keyword']}%"]);
 while (($row = $stmt->fetch()) !== false) {
 
       $typeAuteur='';
@@ -410,7 +415,7 @@ $query=json_decode($req, true);
 
 $tagsList = join(",",$query['tags']);
 
-$queryStmt = "SELECT *
+$queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitation, s2_citations.dateCitation, s2_citations.auteurCitation, s2_citations.likesCitation, s2_citations.idTypeAuteur
   FROM s2_citations
   JOIN s2_tagcitation ON s2_citations.idCitation=s2_tagcitation.idCitation
   JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
@@ -470,12 +475,12 @@ exit();
 
 $query=json_decode($req, true);
 
-
 $typesList = join(",",$query['typesAuteur']);
 
-$queryStmt = "SELECT *
+$queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitation, s2_citations.dateCitation, s2_citations.auteurCitation, s2_citations.likesCitation, s2_citations.idTypeAuteur
   FROM s2_citations
-  WHERE s2_citations.idTypeAuteur IN ($typesList) AND s2_citations.contenuCitation LIKE :keyword
+  JOIN s2_typesauteur ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+  WHERE s2_typesauteur.nomTypeAuteur IN ($typesList) AND s2_citations.contenuCitation LIKE :keyword
   ORDER BY s2_citations.dateCitation;";
 
 
@@ -540,7 +545,7 @@ $typesList = join(",",$query['typesAuteur']);
 
 $citations = array();
 
-$queryStmt = "SELECT DISTINCT*
+$queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitation, s2_citations.dateCitation, s2_citations.auteurCitation, s2_citations.likesCitation, s2_citations.idTypeAuteur
 FROM s2_citations
 JOIN s2_tagcitation ON s2_citations.idCitation=s2_tagcitation.idCitation
 JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
