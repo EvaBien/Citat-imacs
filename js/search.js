@@ -136,8 +136,6 @@ function AddCitation(){
     data['tagsCitation'] = tagsChecked;
     formData.append("tagsCitation",tagsChecked);
   }
-  console.log("TAGS : " + tags);
-  console.log("\n TAGS CHECKED : " + tagsChecked);
 
   data = JSON.stringify(data);
  formData.append('getData',data);

@@ -41,13 +41,14 @@ $date = date("Y-m-d");
     foreach ($query['tagsCitation'] as $idTag) {
       $association = new tagCitation($idTag,$citation->getIdCitation());
 
-      $queryStmt = "INSERT INTO s2_tagcitation (idCitation, idTag) VALUES (?, ?);";
+      $queryStmt2 = "INSERT INTO s2_tagcitation (idCitation, idTag) VALUES (?, ?);";
 
-      $stmt = MyPDO::getInstance()->prepare($queryStmt);
+      $stmt2 = MyPDO::getInstance()->prepare($queryStmt2);
 
-      $stmt->bindValue(1, $association->getIdCitation());
-      $stmt->bindValue(2, $association->getIdTag());
+      $stmt2->bindValue(1, $association->getIdCitation());
+      $stmt2->bindValue(2, $association->getIdTag());
 
+      $queryStatus = $stmt2->execute();
     }
 
     echo json_encode("Creation de la citation réussie ! ");
