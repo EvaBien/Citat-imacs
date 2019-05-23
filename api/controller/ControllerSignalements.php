@@ -16,16 +16,15 @@ function apiCreateSignalement($req)
   // Creation du nouvel objet//
 
   $signalement = new signalement($query['typeSignal'],$query['messageSignal'],0,$query['idCitationSignal']);
-
   ////// ADD TO DB //////
-  $queryStmt = "INSERT INTO s2_signalements (idTypeSignalement, messageSignalement, statutSignalement, idCitation) VALUES (?, ?, ?, ?);";
+  $queryStmt = "INSERT INTO s2_signalements (idCitation, idTypeSignalement, messageSignalement, statutSignalement) VALUES (?, ?, ?, ?);";
 
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-  $stmt->bindValue(1, $signalement->getTypeSignalement());
-  $stmt->bindValue(2, $signalement->getMessageSignalement());
-  $stmt->bindValue(3, $signalement->getStatutSignalement());
-  $stmt->bindValue(4, $signalement->getIdCitation());
+  $stmt->bindValue(1, $signalement->getIdCitation());
+  $stmt->bindValue(2, $signalement->getTypeSignalement());
+  $stmt->bindValue(3, $signalement->getMessageSignalement());
+  $stmt->bindValue(4, $signalement->getStatutSignalement());
 
   $queryStatus = $stmt->execute();
 

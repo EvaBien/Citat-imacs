@@ -41,7 +41,7 @@ class signalement {
       $this->idTypeSignalement=$typeSignalement;
       $this->messageSignalement=$messageSignalement ; // A récupérer dans ce qu'écrit l'utilisateur ?
       $this->statutSignalement=$statutSignalement;
-      $this->Citation=$idCitation; // Lier à la table Citation
+      $this->idCitation=$idCitation; // Lier à la table Citation
     }
 
 
@@ -108,6 +108,10 @@ class signalement {
       $this->messageSignalement=$message;
       $this->statutSignalement=$statut;
       $this->idCitation=$citation;
+    }
+
+    function setIdSignalement($id){
+      $this->id=$id;
     }
 
     function setTypeSignalement($typeSignal){
