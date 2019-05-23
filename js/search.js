@@ -179,10 +179,10 @@ document.addEventListener('DOMContentLoaded', function(){
 
 function displayCitation(dataCitation){
 
-  console.log(dataCitation);
+  let block = document.getElementById("block_citations");
+  block.innerHTML="";
 
   dataCitation.forEach(citation => {
-    let block = document.getElementById("block_citations");
     let section_block = document.createElement("section");
     section_block.setAttribute('class', 'one_citation');
     section_block.setAttribute('idCitation', citation['idCitation']);
@@ -346,7 +346,7 @@ function displayTypesAuteurNav(dataTypes){
   let all_author_input = document.createElement("input");
   all_author_input.setAttribute('type',"checkbox");
   all_author_input.setAttribute('id',"authorCheckbox0");
-  all_author_input.setAttribute('name',"navAuthorCheckbox");
+  all_author_input.setAttribute('name',"allAuthorCheckbox");
   all_author_input.setAttribute('class',"tag_checkbox","author");
   all_author_input.setAttribute('value',"All");
   all_author_input.setAttribute('checked',"");
@@ -383,7 +383,7 @@ function displayTypesAuteurNav(dataTypes){
     one_author.appendChild(one_author_input);
     one_author.appendChild(one_author_label);
 
-    if (count<middle){
+    if (count<middle-1){
       authorLeft.appendChild(one_author);
     } else {
       authorRight.appendChild(one_author);
@@ -463,7 +463,7 @@ function displayTypesSignal(dataTypes){
 function handleAll() {
   if(!document.getElementById("checkbox0").checked){
     var items = document.getElementsByName('navTagsCheckbox');
-    for (var i = 1; i < items.length; i++) {
+    for (var i = 0; i < items.length; i++) {
       if (items[i].type == 'checkbox'){
       items[i].checked = false;
     }
@@ -481,7 +481,7 @@ function checkedButAll(){
 function handleAllAuthor() {
   if(!document.getElementById('authorCheckbox0').checked){
     var items = document.getElementsByName('navAuthorCheckbox');
-    for (var i = 1; i < items.length; i++) {
+    for (var i = 0; i < items.length; i++) {
       if (items[i].type == 'checkbox')
       items[i].checked = false;
     }
