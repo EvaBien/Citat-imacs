@@ -30,7 +30,7 @@ function createSignal(){
 
   data['typeSignal'] = typeSignal;
   formData.append('typeSignal',typeSignal);
-  
+
   data['mailSignal'] = mailSignal;
   formData.append('mailSignal',mailSignal);
 
@@ -43,14 +43,17 @@ function createSignal(){
   data = JSON.stringify(data);
   formData.append('getData',data);
 
+  console.log(data);
+  console.log("\n \n FORM DATA \n");
+  console.log(formData);
 
   fetch("./api/Route/routeur.php", {
  		method: "POST",
  		body: formData})
-     .then( response => response.json() )
- 		.then( data => {
+  .then( response => response.json() )
+ 	.then( data => {
+      console.log(data);
       alert("Votre signalement a bien été envoyé ! \n Redirection...");
-       // location.reload();
      })
      .catch( error => {
        window.alert(error);
