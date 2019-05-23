@@ -137,7 +137,7 @@ function addCitation(){
     data['idTypeAuteur'] = type_auteur;
     formData.append("idTypeAuteur", type_auteur);
   }
-lo
+
   if(tagsChecked){
     data['tagsCitation'] = tagsChecked;
     formData.append("tagsCitation",tagsChecked);

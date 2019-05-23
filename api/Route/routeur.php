@@ -13,15 +13,9 @@ $url='';
 if ($method == 'GET'){
   $url = $_GET['url'];
   $request = $_GET['getData'];
-} else if ($method == 'POST'){
-  $url = $_POST["url"];
-  $request = $_POST['getData'];
-} else if ($method == 'PUT'){
-  $url = $_PUT['url'];
-  $request = $_PUT['getData'];
 } else {
-  $url = $_REQUEST['url'];
-  $request = $_REQUEST['getData'];
+  $url = $_POST['url'];
+  $request = $_POST['getData'];
 }
 ///// TOUS LES URLS POSSIBLES /////
 switch ($url) {

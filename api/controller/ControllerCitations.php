@@ -522,7 +522,6 @@ $query=json_decode($req, true);
 $tagsList = join(",",$query['tags']);
 $typesList = join(",",$query['typesAuteur']);
 
-print_r($tagsList);
 $citations = array();
 
 $queryStmt = "SELECT *
@@ -530,19 +529,15 @@ FROM s2_citations
 JOIN s2_tagcitation ON s2_citations.idCitation=s2_tagcitation.idCitation
 JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
 JOIN s2_typesauteur ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
-WHERE s2_tags.nomTag IN (:tagslist) AND s2_typesauteur.nomTypeAuteur IN (:typeslist);";
+WHERE s2_tags.nomTag IN ($tagsList) AND s2_typesauteur.nomTypeAuteur IN ($typesList)
+ORDER BY s2_citations.idCitation;";
 
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-$stmt->execute(array(
-  'tagslist' =>$tagsList,
-  'typeslist'=>$typesList
-  )
-);
+$stmt->execute();
 
 while (($row = $stmt->fetch()) !== false) {
 
-      print_r($row);
       $typeAuteur='';
       $tags = array();
 
