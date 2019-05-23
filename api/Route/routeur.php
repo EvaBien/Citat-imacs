@@ -74,7 +74,7 @@ switch ($url) {
   break;
   //////////////// SIGNALEMENTS /////////
   case './signalements/New' :
-  apiCreateSignalement($id); // Create Signalement
+  apiCreateSignalement($request); // Create Signalement
   break;
   case './signalements/Id' :
   apiGetSignalementById($request); // Get By id

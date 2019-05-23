@@ -444,7 +444,7 @@ function displayTypesSignal(dataTypes){
 
   dataTypes.forEach(type => {
     let one_type=document.createElement("option");
-    one_type.setAttribute('value',type['nomTypeSignalement']);
+    one_type.setAttribute('value',type['idTypeSignalement']);
     one_type.innerHTML=type['nomTypeSignalement'];
 
     typesFormBlock.appendChild(one_type);

@@ -43,10 +43,6 @@ function createSignal(){
   data = JSON.stringify(data);
   formData.append('getData',data);
 
-  console.log(data);
-  console.log("\n \n FORM DATA \n");
-  console.log(formData);
-
   fetch("./api/Route/routeur.php", {
  		method: "POST",
  		body: formData})
@@ -113,9 +109,8 @@ function signalPopUp(idCitation){
   let inputIdCitation = document.createElement("input");
   inputIdCitation.setAttribute('type','hidden');
   inputIdCitation.setAttribute('value',idCitation);
-  inputIdCitation.setAttribute('id',idCitationSignal);
+  inputIdCitation.setAttribute('id',"idCitationSignal");
   blockSignal.appendChild(inputIdCitation);
-  console.log(inputIdCitaiton);
   displayCover();
   document.getElementById("pop_signal").style.display = "block";
 }
