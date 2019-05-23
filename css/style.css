@@ -157,12 +157,6 @@ nav h4{
     background-position: 100% center;
 }
 
-#searchForm input[type=submit]{
-    margin: 0;
-    visibility: hidden;
-    padding: 0;
-}
-
 #sortForm, #searchForm{
     font-family: 'Roboto', sans-serif;
 }

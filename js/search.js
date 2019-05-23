@@ -97,36 +97,30 @@ function  AllTypesSignal(){
 
 /////////////////////// ADD CITATION //////////////////////
 
-function addCitation(){
+function AddCitation(){
   event.preventDefault();
 
   let formData = new FormData();
   let data = new Object();
 
-  let url = "./citation/New";
-  let date = new Date();
+  let url = "./citations/New";
   let nom_auteur = document.getElementById("auteur_form").value;
   let type_auteur = document.getElementById("type_auteur_form").value;
   let citation = document.getElementById("citation_form").value;
-  let tags = document.getSelectorAll("input[name='tag_form']");
+  let tags = document.querySelectorAll("input[name='tag_form']");
   let tagsChecked = new Array();
-  tags.forEach(function(checkBtn){
+  tags.forEach(checkBtn => {
     if(checkBtn.checked){
       tagsChecked.push(checkBtn.value);
     }
   });
-
-
-    data['url']= url;
-    formData.append('url',url);
+  data['url']= url;
+  formData.append('url',url);
 
   if(citation){
     data['contenuCitation'] = citation;
     formData.append("contenuCitation", citation);
   }
-
-  data['dateCitation'] = date;
-  formData.append("dateCitation",date);
 
   if(nom_auteur){
     data['auteurCitation'] = nom_auteur;
@@ -142,9 +136,11 @@ function addCitation(){
     data['tagsCitation'] = tagsChecked;
     formData.append("tagsCitation",tagsChecked);
   }
+  console.log("TAGS : " + tags);
+  console.log("\n TAGS CHECKED : " + tagsChecked);
 
   data = JSON.stringify(data);
- formData.append('postData',data);
+ formData.append('getData',data);
 
  fetch("./api/Route/routeur.php", {
 		method: "POST",
@@ -152,7 +148,7 @@ function addCitation(){
     .then( response => response.json() )
 		.then( data => {
       window.alert("Citation créée ! \n Redirection...");
-      // window.location.reload();
+      location.reload();
     })
     .catch( error => {
       window.alert(error);
@@ -315,7 +311,7 @@ function displayTagsNav(dataTags){
 
     one_tag.appendChild(one_tag_input);
     one_tag.appendChild(one_tag_label);
-    if (count<middle){
+    if (count<middle-1){
       tagsLeft.appendChild(one_tag);
     } else {
       tagsRight.appendChild(one_tag);
@@ -542,7 +538,6 @@ function likeCitation(){ // A modifier ?
   .then(res => res.json())
   .then(function(data){
     currentLikes = Number(data['likesCitation']);
-    console.log("current likes : "+currentLikes);
 
     if(button.classList.contains('clicked')){
             if (Number(currentLikes-1)>0){
@@ -575,7 +570,7 @@ function likeCitation(){ // A modifier ?
     		body: formDataUpd})
       .then(res => res.json())
       .catch( error => {
-        window.alert("PUT ERROR \n"+error);
+        window.alert(error);
       })
   })
   .catch( error => {
@@ -647,7 +642,6 @@ document.getElementById('valid_search').onclick = event => {
             body: formData})
           .then(res => res.json())
             .then(function(data){
-              console.log(data);
              displayCitation(data);
            })
             .catch( error => {

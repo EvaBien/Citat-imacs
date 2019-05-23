@@ -9,20 +9,24 @@ require_once '../model/ModelTypesAuteur.php';
 //////////////////////////////////////////////////////////////
 
 
-function apiCreateCitation($query){
+function apiCreateCitation($req){
+
+$date = date("Y-m-d");
+
+  $query=json_decode($req, true);
 
     // Creation du nouvel objet//
-    $citation = new Citation($query['contenuCitation'],$query['dateCitation'],$query['auteurCitation'],$query['idTypeAuteur']);
+    $citation = new Citation($query['contenuCitation'],$date,$query['auteurCitation'],$query['idTypeAuteur']);
 
     ////// ADD TO DB //////
     $queryStmt = "INSERT INTO s2_citations (contenuCitation, dateCitation, auteurCitation, idTypeAuteur) VALUES (?, ?, ?, ?);";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-    $stmt->bindValue(1, $citation->getContenu());
-    $stmt->bindValue(2, $citation->getDate());
-    $stmt->bindValue(3, $citation->getAuteur());
-    $stmt->bindValue(4, $citation->getTypeAuteur());
+    $stmt->bindValue(1, $citation->getContenuCitation());
+    $stmt->bindValue(2, $date);
+    $stmt->bindValue(3, $citation->getAuteurCitation());
+    $stmt->bindValue(4, $citation->getTypeAuteurCitation());
 
     $queryStatus = $stmt->execute();
 
@@ -34,10 +38,10 @@ function apiCreateCitation($query){
     }
 
 
-    foreach ($query['tagsCitation'] as $idTag) { // On va chercher les tags et le typeAuteur
+    foreach ($query['tagsCitation'] as $idTag) {
       $association = new tagCitation($idTag,$citation->getIdCitation());
 
-      $queryStmt = "INSERT INTO s2_tagcitation (idCitation, idTag) VALUES (?, ?,);";
+      $queryStmt = "INSERT INTO s2_tagcitation (idCitation, idTag) VALUES (?, ?);";
 
       $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
@@ -45,6 +49,8 @@ function apiCreateCitation($query){
       $stmt->bindValue(2, $association->getIdTag());
 
     }
+
+    echo json_encode("Creation de la citation réussie ! ");
 
   }
 
@@ -636,7 +642,6 @@ function apiUpdateCitation($query)
 function apiDeleteCitation($query){
 
   if (verifMdp($query['password']) == true){
-    {
 
       if (verifMdp($query['password']) == true){
 
@@ -650,15 +655,11 @@ function apiDeleteCitation($query){
         $stmt2 = MyPDO::getInstance()->prepare($queryStmt2);
         $stmt2->execute(['idcitation' => $query['idCitation']]);
 
-        if ($stmt2->rowCount() == 0) {
-          return NULL;
-        }
       } else {
-        echo "Error Delete Citation - Password incorrect";
+        echo json_encode("Error Delete Citation - Password incorrect");
       }
     }
   }
-}
 
     ////////////////////////////////////////////////////////////////
     ///////////////////////////// OTHER //////////////////////////

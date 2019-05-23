@@ -20,23 +20,22 @@
 
 	<div id="container">
 
-		<!-- ***************************************************************
-		******************************* NAVBAR *****************************
-		**************************************************************** -->
+<!-- ***************************************************************
+******************************* NAVBAR *****************************
+**************************************************************** -->
 		<nav>
 			<button id="add_citation" class="button" onclick="addCitationPopUp()">Ajouter une citation</button>
 
 			<section id="search" class="sousbloc_left">
 				<h2>Rechercher</h2>
-				<form id="searchForm" action="" method="post" class="">
+				<div id="searchForm" action="" class="">
 					<input id="inputKeyword" type="text" class="text_input" name="inputKeyword" value="" placeholder="-- Entrez un mot-clé" />
-					<input type="submit" value=" " class=""/>
-				</form> <!--A EFFACER PUR EN FAIRE UN SEUL FORM -->
+				</div>
 			</section>
 
 			<section id="filter" class="sousbloc_left">
 				<h2>Filtrer</h2>
-				<form id="filterForm" action="" method="" class="">  <!--A EFFACER PUR EN FAIRE UN SEUL FORM -->
+				<form id="filterForm" action="" method="" class="">
 					<h4>Types d'auteur</h4>
 					<div id="author">
 
@@ -50,15 +49,12 @@
 			</section>
 		</nav>
 
-		<!-- ***************************************************************
-		*************************** BLOCK CITATION *************************
-		****************************************************************
-		NE PAS OUBLIER :
-		- dans le button J'aime, le onclick
-		- dans le signaler un pb, le onclick
-	-->
+<!-- ***************************************************************
+*************************** BLOCK CITATION *************************
+**************************************************************** -->
+
 	<div id="block_citations">
-		
+
 	</div>
 </div>
 
@@ -67,7 +63,7 @@
 **************************************************************** -->
 <div id="pop_new_citation">
 	<p class="warning_popup">Afin de respecter la vie privée de chacun, veillez à avoir l'autorisation d'un auteur avant de le notifier</p>
-	<form method="post" action="">
+	<form action="">
 		<label for="auteur">Auteur</label>
 		<input type="text" id="auteur_form" name="auteur" placeholder="Anonyme" class="text_input" />
 		<label for="type_auteur">Type d'auteur</label>

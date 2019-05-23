@@ -2,7 +2,6 @@
 require_once 'MyPDO.citatimac.include.php';
 date_default_timezone_set('UTC');
 
-
 class Citation {
     /**
     * @var int id de la citation
@@ -77,35 +76,35 @@ class Citation {
   * @return string
   */
   function getContenuCitation(){
-    return $this->contenu=$contenu;
+    return $this->contenu;
   }
 
   /**
   * @return date
   */
   function getDateCitation(){
-    return $this->date=$date;
+    return $this->date;
   }
 
   /**
   * @return string
   */
   function getAuteurCitation(){
-    return $this->auteur=$auteur;
+    return $this->auteur;
   }
 
   /**
   * @return int
   */
   function getLikesCitation(){
-    return $this->likes=$likes;
+    return $this->likes;
   }
 
   /**
   * @return int
   */
   function getTypeAuteurCitation(){
-    return $this->typeAuteur=$typeAuteur;
+    return $this->typeAuteur;
   }
 
 
