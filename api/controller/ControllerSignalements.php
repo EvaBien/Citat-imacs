@@ -106,7 +106,6 @@ SQL
     //////////////////////////////////////////////////////////////
 
 function sendMailSignalement($query, $idSignalement){
-      // A appeler quand on a créé le signalement -- Tu peux le faire si tu cherche sur internet
 
       $to      = "citatimacs@gmail.com";
       $subject = 'Une citation a été signalée - '.$query['typeSignal'];
