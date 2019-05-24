@@ -162,15 +162,15 @@ function AddCitation(){
 //////////////////// AU CHARGEMENT /////////////////// - FAIT
 
 document.addEventListener('DOMContentLoaded', function(){
-  var url = document.location.href;
-  if (url=="./index.html"){
-  window.location.replace("./");
-} else {
+//   var url = document.location.href;
+//   if (url=="./index.html"){
+//   window.location.href="./";
+// } else {
   AllCitations();
   AllTags();
   AllTypesAuteur();
   AllTypesSignal();
-}
+// }
 });
 
 //////////////////////////////////////////////////////////////////
