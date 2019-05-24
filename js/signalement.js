@@ -246,12 +246,16 @@ function AllTypesAuteurSignal(){
 document.addEventListener('DOMContentLoaded', function(){
   var url = location.pathname;
   urlData = window.location.search;
-  console.log(urlData);
-  if ((url.search("/admin")!=-1) && (urlData.search("?id=")==-1)){
+  console.log(urlData.length)
+  if ((url.search("/admin")!=-1) && (urlData.length>4)){
   idSignal = urlData.substr(urlData.length-1);
 
   getSignalById(idSignal);
   AllTypesAuteurSignal();
+} else if ((url.search("/admin")!=-1) && (urlData.length<5)){
+  location.href="./";
+} else if (url.search("/index.html")!=-1){
+    location.href="./";
 }
 });
 
