@@ -56,9 +56,7 @@ function apiCreateSignalement($req)
     // $stmt->execute(['idsignalement' => $query['idSignalement']]);
     $stmt->execute(['idsignalement' => $id]);
 
-    while (($row = $stmt->fetch()) !== false) {
-
-      $citation = '';
+    while (($signal = $stmt->fetch()) !== false) {
 
       $stmt2 = MyPDO::getInstance()->prepare(<<<SQL
         SELECT s2_TypesAuteur.nomTypeAuteur FROM `s2_TypesAuteur`
@@ -66,12 +64,46 @@ function apiCreateSignalement($req)
         WHERE s2_Citations.idCitation = :idcitation;
 SQL
       );
-      $stmt2->execute(['idcitation'=>$row['idCitation']]);
+      $stmt2->execute(['idcitation'=>$signal['idCitation']]);
 
-      while (($row2 = $stmt2->fetch()) !== false) {
-        $row['citation'] = $row2;
+      while (($citation = $stmt2->fetch()) !== false) {
+
+        $typeAuteur='';
+        $tags = array();
+
+
+      ////SEARCH TYPEAUTEUR IN DB ////
+        $stmt3 = MyPDO::getInstance()->prepare(<<<SQL
+          SELECT s2_typesauteur.nomTypeAuteur FROM `s2_typesauteur`
+          JOIN s2_citations ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
+          WHERE s2_citations.idCitation = :idcitation;
+SQL
+        );
+        $stmt3->execute(['idcitation'=>$citation['idCitation']]);
+        while (($TypeA = $stmt3->fetch()) !== false) {
+          $typeAuteur=$TypeA['nomTypeAuteur'];
+        }
+
+      ////SEARCH TAGS IN DB ////
+        $stmt4 = MyPDO::getInstance()->prepare(<<<SQL
+          SELECT s2_tags.nomTag FROM `s2_tags`
+          JOIN s2_tagcitation ON s2_tagcitation.idTag = s2_tags.idTag
+          JOIN s2_citations ON s2_citations.idCitation = s2_tagcitation.idCitation
+          WHERE s2_tagcitation.idCitation = :idcitation;
+SQL
+        );
+        $stmt4->execute(['idcitation'=>$citation['idCitation']]);
+        while (($Tag = $stmt4->fetch()) !== false) {
+          array_push($tags, $Tag);
+        }
+
+
+        $citation['typeAuteur'] = $typeAuteur;
+        $citation['tags'] = $tags;
+
+        $signal['citation'] = $citation;
       }
-      array_push($signalement, $row);
+      array_push($signalement, $signal);
     }
   echo json_encode($signalements);
   exit();
