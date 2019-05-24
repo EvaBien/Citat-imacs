@@ -138,12 +138,14 @@ document.addEventListener('DOMContentLoaded', function(){
 ////////////////////////// DISPLAY SIGNAL ////////////////////////
 
 function displaySignal(dataSignal){
+// var dataSignal = JSON.parse(dataSignal);
+console.log(dataSignal);
 
  let signalTextBlock = document.getElementById("messageSignalAdmin");
- signalTextBlock.appendChild("\""+dataSignal['messageSignalement']+"\"");
+ signalTextBlock.innerHTML = "\""+dataSignal[0]['messageSignalement']+"\"";
 
  let signalCitationBlock = document.getElementById("citationSignal");
- signalCitationBlock.setAttribute('idCitation', dataSignal['citation']['idCitation']);
+ signalCitationBlock.setAttribute('idCitation', dataSignal[0]['citation']['idCitation']);
 
  let info_block = document.createElement("div");
  info_block.setAttribute('class', 'infos-citation');
@@ -155,7 +157,7 @@ function displaySignal(dataSignal){
  let tags_block = document.createElement("ul");
  tags_block.setAttribute('class','list-tags');
 
-   dataSignal['citation']['tags'].forEach(tag=>{
+   dataSignal[0]['citation']['tags'].forEach(tag=>{
    let tagnom=tag['nomTag'];
    let one_tag = document.createElement("li");
    one_tag.innerHTML = tagnom;
@@ -163,19 +165,19 @@ function displaySignal(dataSignal){
  });
 
  // On remplit la date //
- let date = dataSignal['citation']['dateCitation'];
+ let date = dataSignal[0]['citation']['dateCitation'];
  let date_block = document.createElement("p");
  date_block.setAttribute('class','quote_date');
  date_block.innerHTML = date;
 
  // On remplit la citation //
- let contenu = "\""+dataSignal['citation']['contenuCitation']+"\"";
+ let contenu = "\""+dataSignal[0]['citation']['contenuCitation']+"\"";
  let quote_block = document.createElement("p");
  quote_block.setAttribute('class','quote');
  quote_block.innerHTML = contenu;
 
  // On remplit l'auteur + Le type //
- let auteur = dataSignal['citation']['auteurCitation']+" - "+dataSignal['citation']['typeAuteur'];
+ let auteur = dataSignal[0]['citation']['auteurCitation']+" - "+dataSignal[0]['citation']['typeAuteur'];
  let author_block = document.createElement("p");
  author_block.setAttribute('class','quote_author');
  author_block.innerHTML = auteur;
@@ -190,17 +192,17 @@ function displaySignal(dataSignal){
 
 function inputForm(dataSignal){
   let idBlock = document.getElementById("citationEditId");
-  idBlock.setAttribute('value',dataSignal['citation']['idCitation']);
+  idBlock.setAttribute('value',dataSignal[0]['citation']['idCitation']);
 
   let auteurBlock = document.getElementById("citationEditAuteur");
-  auteurBlock.setAttribute('value',dataSignal['citation']['auteurCitation']);
+  auteurBlock.setAttribute('value',dataSignal[0]['citation']['auteurCitation']);
 
   let textBlock = document.getElementById("citationEditText");
-  textBlock.setAttribute('value',dataSignal['citation']['contenuCitation']);
+  textBlock.setAttribute('value',dataSignal[0]['citation']['contenuCitation']);
 
   let typesValue = document.querySelectorAll("option[name='type_auteur_signal']");
   typesValue.forEach(function(option){
-    if(option.value == dataSignal['citation']['typeAuteur']){
+    if(option.value == dataSignal[0]['citation']['typeAuteur']){
         option.setAttribute('selected',"selected");
     }
   });
@@ -243,20 +245,24 @@ function signalPopUp(idCitation){
 //////////////////// MODIF CITATION  ///////////////////
       //////////////// POP UP APPEAR ///////////
 function displayEditCitation(){
-	displayCover();
+	displayCoverSignal();
  	document.getElementById("pop-edit").style.display = "block";
 }
 
 //////////////////// DELETE CITATION  ///////////////////
       //////////////// POP UP APPEAR ///////////
 function displayDelCitation(){
-	displayCover();
+	displayCoverSignal();
  	document.getElementById("pop-delete").style.display = "block";
 }
 
 //////////////// POP UP VANISH ///////////////
 function cancelPopUpAdmin(){
-	document.getElementById("cover").style.display = "none";
+	document.getElementById("coverSignal").style.display = "none";
  	document.getElementById("pop-delete").style.display = "none";
   	document.getElementById("pop-edit").style.display = "none";
+}
+
+function displayCoverSignal(){
+  document.getElementById("coverSignal").style.display = "block";
 }
