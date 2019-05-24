@@ -138,7 +138,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
 function displaySignal(dataSignal){
 // var dataSignal = JSON.parse(dataSignal);
-console.log(dataSignal);
 
  let signalTextBlock = document.getElementById("messageSignalAdmin");
  signalTextBlock.innerHTML = "\""+dataSignal[0]['messageSignalement']+"\"";
@@ -200,14 +199,12 @@ function inputForm(dataSignal){
   textBlock.setAttribute('value',dataSignal[0]['citation']['contenuCitation']);
 
   let typesValue = document.querySelectorAll("option[name='type_auteur_signal']");
-  typesValue.forEach(function(option){
-    console.log(dataSignal);
-    console.log(dataSignal['citation']['idTypeAuteur']);
-    console.log(option);
-    console.log(dataSignal[0]['citation']);
-    if(option.value == dataSignal[0]['citation']['idTypeAuteur']){
-        option.setAttribute('selected',"");
+  let idTypeA = dataSignal[0]['citation']['idTypeAuteur'];
 
+  typesValue.forEach(function(option){
+
+    if(option.value == idTypeA){
+        option.setAttribute('selected',"");
     }
   });
 
