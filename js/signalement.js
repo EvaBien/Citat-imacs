@@ -203,8 +203,10 @@ function inputForm(dataSignal){
 
   typesValue.forEach(function(option){
 
+
     if(option.value == idTypeA){
         option.setAttribute('selected',"");
+
     }
   });
 

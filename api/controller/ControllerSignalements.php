@@ -112,15 +112,15 @@ SQL
   ///////////////////////////// UPDATE //////////////////////////
   //////////////////////////////////////////////////////////////
 
-  function apiUpdateSignalement($req){
+  function apiUpdateSignalement($idSignal){
     // Sert uniquement à update le statut
-    $query=json_decode($req, true);
+
     $queryStmt = "UPDATE s2_signalements SET statutSignalement = 1 WHERE idSignal = :id;";
 
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
     $stmt->execute(
       array(
-        ':id'=>$query["idSignal"]
+        ':id'=>$idSignal
       )
     );
 

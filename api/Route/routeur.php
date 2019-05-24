@@ -82,9 +82,9 @@ switch ($url) {
   case './signalements/Update' :
   apiUpdateSignalement($request); // Update signalement
   break;
-  // case './signalement/Send' :
-  // sendMailSignalement($request); // Send Mail
-  // break;
+  case './signalements/Nothing' :
+  NothingSignalement($request); // Update signalement
+  break;
   default:
   echo "\n ERROR ROUTEUR - Try another route ! \n";
   break;

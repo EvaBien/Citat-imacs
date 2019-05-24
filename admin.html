@@ -20,7 +20,7 @@
 
 	<div id="content-adminpage">
 		<section id="speech-signal">
-			<h2>Cette citation a été signalée</h2>
+			<h2>Cette citation a été signalée avec le message suivant : </h2>
 			<div id="messageSignalAdmin">
 			</div>
 			<div id="block_citations">
@@ -30,9 +30,9 @@
 		</div>
 		</section>
 		<section id="choice-signal">
-			<button id="choice-edit" onclick="displayEditCitation()">Editer la citation</button>
-			<button id="choice-delete" onclick="displayDelCitation()">Supprimer la citation</button>
-			<button class="button" id="choice-delete">Ne rien faire</button>
+			<button id="choice-edit" class="buttonSignal" onclick="displayEditCitation()">Editer la citation</button>
+			<button id="choice-delete" class="buttonSignal" onclick="displayDelCitation()">Supprimer la citation</button>
+			<button class="buttonSignal" id="choice-delete" onclick="updateSignalStatus()">Ne rien faire</button>
 		</section>
 	</div>
 

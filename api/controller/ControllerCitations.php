@@ -628,6 +628,8 @@ function apiUpdateCitation($query)
     if ($stmt->rowCount() == 0) {
       return NULL;
     }
+      apiUpdateSignalement($query['idSignal']);
+      echo "Password Correct - Citation updated";
      } else {
       echo "Error Update Citation - Password incorrect";
   }
@@ -641,8 +643,6 @@ function apiUpdateCitation($query)
 
 function apiDeleteCitation($query){
 
-  if (verifMdp($query['password']) == true){
-
       if (verifMdp($query['password']) == true){
 
         $queryStmt1 = "DELETE FROM s2_tagcitation WHERE idCitation = :idcitation;";
@@ -655,15 +655,29 @@ function apiDeleteCitation($query){
         $stmt2 = MyPDO::getInstance()->prepare($queryStmt2);
         $stmt2->execute(['idcitation' => $query['idCitation']]);
 
+        apiUpdateSignalement($query['idSignal']);
+        echo json_encode("Password Correct - Citation Deleted");
       } else {
         echo json_encode("Error Delete Citation - Password incorrect");
       }
     }
-  }
+
 
     ////////////////////////////////////////////////////////////////
     ///////////////////////////// OTHER //////////////////////////
     //////////////////////////////////////////////////////////////
+
+    function NothingSignalement($req){
+      // Sert uniquement à update le statut
+      $query=json_decode($req, true);
+
+    if (verifMdp($query['password']) == true){
+        apiUpdateSignalement($query['idSignal']);
+      echo json_encode("Password Correct - Citation non modifiée ! ");
+    } else {
+      echo json_encode("Indorrect Password ! ");
+    }
+  }
 
 
     //Verif mot de passe
