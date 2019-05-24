@@ -76,23 +76,140 @@ function getSignalById(idSignal){
 
 ///////// API UPDATE CITATION ////////
 function updateCitation(){
+  event.preventDefault();
+  urlData = window.location.search;
+  idSignal = urlData.substr(urlData.length-1);
 
-alert("Citation éditée ! \n Redirection...");
-// document.location.href="./";
+  let formData = new FormData();
+  let data = new Object();
+  var url = "./citations/Update";
+
+  let idCitation = document.getElementById("citationEditId").value;
+  let auteurCitation = document.getElementById("citationEditAuteur").value;
+  let contenuCitation = document.getElementById("citationEditText").value;
+  let idTypeAuteur = document.getElementById("type_auteur_signal").value;
+  let password = document.getElementById("pass").value;
+
+  data['url'] = url;
+  formData.append('url',url);
+
+  data['idCitation'] = idCitation;
+  formData.append('idCitation',idCitation);
+
+  data['contenuCitation'] = contenuCitation;
+  formData.append('contenuCitation',contenuCitation);
+
+  data['auteurCitation'] = auteurCitation;
+  formData.append('auteurCitation',auteurCitation);
+
+  data['idTypeAuteur'] = idTypeAuteur;
+  formData.append('idTypeAuteur',idTypeAuteur);
+
+  data['idSignal'] = idSignal;
+  formData.append('idSignal',idSignal);
+
+  data['password'] = password;
+  formData.append('password',password);
+
+  data = JSON.stringify(data);
+  formData.append('getData',data);
+
+  console.log(data);
+
+  fetch('./api/Route/routeur.php',{
+    method: "POST",
+    body: formData})
+  .then(res => res.json())
+    .then(function(data){
+     alert("Citation éditée ! \n Redirection...");
+   })
+    .catch( error => {
+      window.alert(error);
+    })
 }
 
 //////// API DELETE CITATION /////////
 function deleteCitation(){
+  event.preventDefault();
+  urlData = window.location.search;
+  idSignal = urlData.substr(urlData.length-1);
 
-alert("Citation supprimée ! \n Redirection...");
-// document.location.href="./";
+  let formData = new FormData();
+  let data = new Object();
+  var url = "./citations/Delete";
+
+  let idCitation = document.getElementById("citationDeleteId").value;
+  let password = document.getElementById("pass2").value;
+
+  data['url'] = url;
+  formData.append('url',url);
+
+  data['idCitation'] = idCitation;
+  formData.append('idCitation',idCitation);
+
+  data['idSignal'] = idSignal;
+  formData.append('idSignal',idSignal);
+
+  data['password'] = password;
+  formData.append('password',password);
+
+  data = JSON.stringify(data);
+  formData.append('getData',data);
+
+  console.log(data);
+
+  fetch('./api/Route/routeur.php',{
+    method: "POST",
+    body: formData})
+  .then(res => res.json())
+    .then(function(data){
+     alert("Citation supprimée ! \n Redirection...");
+   })
+    .catch( error => {
+      window.alert(error);
+    })
 }
 
 /////// API UPDATE SIGNALEMENT STATUT /////
 function nothingCitation(){
+  event.preventDefault();
 
-alert("Aucune modification appliquée ! \n Redirection...");
-// document.location.href="./";
+  urlData = window.location.search;
+  idSignal = urlData.substr(urlData.length-1);
+
+  let formData = new FormData();
+  let data = new Object();
+  var url = "./signalements/Nothing";
+
+  let idCitation = document.getElementById("citationNothingId").value;
+  let password = document.getElementById("pass3").value;
+
+  data['url'] = url;
+  formData.append('url',url);
+
+  data['idCitation'] = idCitation;
+  formData.append('idCitation',idCitation);
+
+  data['idSignal'] = idSignal;
+  formData.append('idSignal',idSignal);
+
+  data['password'] = password;
+  formData.append('password',password);
+
+  data = JSON.stringify(data);
+  formData.append('getData',data);
+
+  console.log(data);
+  fetch('./api/Route/routeur.php',{
+    method: "POST",
+    body: formData})
+  .then(res => res.json())
+    .then(function(data){
+     alert("Aucune modification appliquée ! \n Redirection...");
+   })
+    .catch( error => {
+      window.alert(error);
+    })
 }
 
 
@@ -107,7 +224,7 @@ function AllTypesAuteurSignal(){
 
   fetch('./api/Route/routeur.php', {
     method: "POST",
-    body: formData}) // chooseRoute() est une fonction en php, qui est dans routeur.php
+    body: formData})
   .then(res => res.json())
   .then(function(data){
     displayTypesAuteurSignal(data);
@@ -190,8 +307,14 @@ function displaySignal(dataSignal){
 }
 
 function inputForm(dataSignal){
-  let idBlock = document.getElementById("citationEditId");
-  idBlock.setAttribute('value',dataSignal[0]['citation']['idCitation']);
+  let idEditBlock = document.getElementById("citationEditId");
+  idEditBlock.setAttribute('value',dataSignal[0]['citation']['idCitation']);
+
+  let idDeleteBlock = document.getElementById("citationDeleteId");
+  idDeleteBlock.setAttribute('value',dataSignal[0]['citation']['idCitation']);
+
+  let idNothingBlock = document.getElementById("citationNothingId");
+  idNothingBlock.setAttribute('value',dataSignal[0]['citation']['idCitation']);
 
   let auteurBlock = document.getElementById("citationEditAuteur");
   auteurBlock.setAttribute('value',dataSignal[0]['citation']['auteurCitation']);
@@ -199,19 +322,19 @@ function inputForm(dataSignal){
   let textBlock = document.getElementById("citationEditText");
   textBlock.setAttribute('value',dataSignal[0]['citation']['contenuCitation']);
 
-  let typesValue = document.querySelectorAll("option[name='type_auteur_signal']");
   let idTypeA = dataSignal[0]['citation']['idTypeAuteur'];
+  let typesValue = document.querySelectorAll("option[name='type_auteur_signal']");
+  console.log(idTypeA);
 
   typesValue.forEach(function(option){
-  console.log(option.value);
-  console.log(option);
-
     if(option.value == idTypeA){
-        option.setAttribute('selected',"");
-
+      console.log("ROUND");
+      console.log(Number(option.value)==Number(idtypeA));
+      console.log(Number(option.value));
+      console.log(Number(idtypeA));
+        option.setAttribute('selected',"selected");
     }
   });
-
 }
 
 //////////////////////////////////////////////////////////////////

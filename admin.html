@@ -38,7 +38,7 @@
 
 	<div class="pop-up" id="pop-edit">
 		<p class="warning_popup">Vous souhaitez modifier une citation signalée</p>
-		<form id="formEdit" method="" action="">
+		<form id="formEdit">
 				<input type="hidden" id="citationEditId"></input>
 		    <label for="auteur">Auteur</label>
 		    <input type="text" id="citationEditAuteur" name="auteur"  class="text_input" />
@@ -57,6 +57,7 @@
 	<div class="pop-up" id="pop-delete">
 		<p class="warning_popup">Vous allez supprimer une citation signalée</p>
 		<form>
+			<input type="hidden" id="citationDeleteId"></input>
 			<label for="pass">Mot de passe administrateur</label><input type="password" name = "pass" id='pass2' />
 			<button id="valid-delete" class="ok_button_pop" onclick="deleteCitation()">OK</button>
 			<p class="cancel" onclick="cancelPopUpAdmin()">Annuler</p>
@@ -66,6 +67,7 @@
 	<div class="pop-up" id="pop-nothing">
 		<p class="warning_popup">Vous avez choisi de ne pas modifier cette citation</p>
 		<form>
+			<input type="hidden" id="citationNothingId"></input>
 			<label for="pass">Mot de passe administrateur</label><input type="password" name = "pass" id='pass3' />
 			<button id="valid-nothing" class="ok_button_pop" onclick="nothingCitation()">OK</button>
 			<p class="cancel" onclick="cancelPopUpAdmin()">Annuler</p>

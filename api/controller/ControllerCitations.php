@@ -607,9 +607,11 @@ exit();
 ///////////////////////////// UPDATE //////////////////////////
 //////////////////////////////////////////////////////////////
 
-function apiUpdateCitation($query)
+function apiUpdateCitation($req)
   {
 
+    $query=json_decode($req, true);
+    
     if (verifMdp($query['password']) == true){
    // Si vide doit remettre les mêmes valeurs !
 
@@ -641,7 +643,9 @@ function apiUpdateCitation($query)
 ///////////////////////////// DELETE //////////////////////////
 //////////////////////////////////////////////////////////////
 
-function apiDeleteCitation($query){
+function apiDeleteCitation($req){
+
+      $query=json_decode($req, true);
 
       if (verifMdp($query['password']) == true){
 
