@@ -38,7 +38,6 @@ function createSignal(){
  		body: formData})
   .then( response => response.json() )
  	.then( data => {
-      console.log(data);
       alert("Votre signalement a bien été envoyé ! \n Redirection...");
      })
      .catch( error => {
@@ -202,8 +201,13 @@ function inputForm(dataSignal){
 
   let typesValue = document.querySelectorAll("option[name='type_auteur_signal']");
   typesValue.forEach(function(option){
-    if(option.value == dataSignal[0]['citation']['typeAuteur']){
-        option.setAttribute('selected',"selected");
+    console.log(dataSignal);
+    console.log(dataSignal['citation']['idTypeAuteur']);
+    console.log(option);
+    console.log(dataSignal[0]['citation']);
+    if(option.value == dataSignal[0]['citation']['idTypeAuteur']){
+        option.setAttribute('selected',"");
+
     }
   });
 
