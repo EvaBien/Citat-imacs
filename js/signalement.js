@@ -206,6 +206,7 @@ function nothingCitation(){
   .then(res => res.json())
     .then(function(data){
      alert("Aucune modification appliquée ! \n Redirection...");
+     window.location.href="./index.html";
    })
     .catch( error => {
       window.alert(error);
@@ -324,19 +325,13 @@ function inputForm(dataSignal){
 
   let idTypeA = dataSignal[0]['citation']['idTypeAuteur'];
   let typesValue = document.querySelectorAll("option[name='type_auteur_signal']");
-  console.log(idTypeA);
 
-  typesValue.forEach(function(option){
+  typesValue.forEach((option)=>{
     if(option.value == idTypeA){
-      console.log("ROUND");
-      console.log(Number(option.value)==Number(idtypeA));
-      console.log(Number(option.value));
-      console.log(Number(idtypeA));
         option.setAttribute('selected',"selected");
     }
   });
 }
-
 //////////////////////////////////////////////////////////////////
 ///////////// FONCTION AFFICHE TYPES AUTEUR POP UP ///////////// - FAIT
 function displayTypesAuteurSignal(dataTypes){
