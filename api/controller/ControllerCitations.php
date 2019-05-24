@@ -611,7 +611,7 @@ function apiUpdateCitation($req)
   {
 
     $query=json_decode($req, true);
-    
+
     if (verifMdp($query['password']) == true){
    // Si vide doit remettre les mêmes valeurs !
 
@@ -631,9 +631,9 @@ function apiUpdateCitation($req)
       return NULL;
     }
       apiUpdateSignalement($query['idSignal']);
-      echo "Password Correct - Citation updated";
+      echo json_encode("Password Correct - Citation updated");
      } else {
-      echo "Error Update Citation - Password incorrect";
+      echo json_encode("Error Update Citation - Password incorrect");
   }
 }
 
@@ -696,7 +696,7 @@ function verifMdp($string){
       if ($mdp_hash==$string_hash){
         return true;
       } else {
-        echo " \n Mot de passe incorrect ! \n";
+        echo json_encode(" \n Mot de passe incorrect ! \n");
         return false;
       }
 }

@@ -213,7 +213,6 @@ function nothingCitation(){
     })
 }
 
-
 function AllTypesAuteurSignal(){
   let formData = new FormData();
   let data = new Object();
@@ -243,11 +242,15 @@ function AllTypesAuteurSignal(){
 ////////////////////////// AU CHARGEMENT ////////////////////////
 
 document.addEventListener('DOMContentLoaded', function(){
+  var url = location.pathname;
+  if (url.search("/admin")!=-1){
+
   urlData = window.location.search;
   idSignal = urlData.substr(urlData.length-1);
 
   getSignalById(idSignal);
   AllTypesAuteurSignal();
+}
 });
 
 
