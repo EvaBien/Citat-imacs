@@ -246,14 +246,13 @@ function AllTypesAuteurSignal(){
 document.addEventListener('DOMContentLoaded', function(){
   var url = location.pathname;
   urlData = window.location.search;
-  if (url.search("/admin")!=-1 && urlData.lenght!=0){
+  console.log(urlData);
+  if ((url.search("/admin")!=-1) && (urlData.search("?id=")==-1)){
   idSignal = urlData.substr(urlData.length-1);
 
   getSignalById(idSignal);
   AllTypesAuteurSignal();
-} else {
-  location.href="./";
-  }
+}
 });
 
 
