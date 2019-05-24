@@ -82,18 +82,19 @@ alert("Citation éditée ! \n Redirection...");
 }
 
 //////// API DELETE CITATION /////////
-function deleteCitation(idCitation, idSignal){
+function deleteCitation(){
 
 alert("Citation supprimée ! \n Redirection...");
 // document.location.href="./";
 }
 
 /////// API UPDATE SIGNALEMENT STATUT /////
-function updateSignalStatus(idSignal){
+function nothingCitation(){
 
 alert("Aucune modification appliquée ! \n Redirection...");
 // document.location.href="./";
 }
+
 
 function AllTypesAuteurSignal(){
   let formData = new FormData();
@@ -202,7 +203,8 @@ function inputForm(dataSignal){
   let idTypeA = dataSignal[0]['citation']['idTypeAuteur'];
 
   typesValue.forEach(function(option){
-
+  console.log(option.value);
+  console.log(option);
 
     if(option.value == idTypeA){
         option.setAttribute('selected',"");
@@ -252,12 +254,21 @@ function displayEditCitation(){
  	document.getElementById("pop-edit").style.display = "block";
 }
 
+//////////////////// NOTHING CITATION  ///////////////////
+      //////////////// POP UP APPEAR ///////////
+function displayNothingCitation(){
+	displayCoverSignal();
+ 	document.getElementById("pop-nothing").style.display = "block";
+}
+
 //////////////////// DELETE CITATION  ///////////////////
       //////////////// POP UP APPEAR ///////////
 function displayDelCitation(){
 	displayCoverSignal();
  	document.getElementById("pop-delete").style.display = "block";
 }
+
+
 
 //////////////// POP UP VANISH ///////////////
 function cancelPopUpAdmin(){
