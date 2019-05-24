@@ -122,6 +122,7 @@ function updateCitation(){
   .then(res => res.json())
     .then(function(data){
      alert("Citation éditée ! \n Redirection...");
+     window.location.href="./index.html";
    })
     .catch( error => {
       window.alert(error);
@@ -164,6 +165,7 @@ function deleteCitation(){
   .then(res => res.json())
     .then(function(data){
      alert("Citation supprimée ! \n Redirection...");
+     window.location.href="./index.html";
    })
     .catch( error => {
       window.alert(error);
@@ -243,14 +245,15 @@ function AllTypesAuteurSignal(){
 
 document.addEventListener('DOMContentLoaded', function(){
   var url = location.pathname;
-  if (url.search("/admin")!=-1){
-
   urlData = window.location.search;
+  if (url.search("/admin")!=-1 && urlData.lenght!=0){
   idSignal = urlData.substr(urlData.length-1);
 
   getSignalById(idSignal);
   AllTypesAuteurSignal();
-}
+} else {
+  location.href="./";
+  }
 });
 
 
