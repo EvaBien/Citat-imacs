@@ -1,13 +1,3 @@
-
-
-// index : ON CLICK BUTTON SIGNAL --> pop-up appear
-
-// Récupérer l'id dans url
-// Envoyer vers api(getsignalementbyid)
-// Display signalement (?) display citations
-
-// On click sur les boutons appeler delete, edit signalement, edit citation...
-
 /****************************************************/
 ////////////////////// APPELS API ////////////////////
 /****************************************************/
@@ -59,7 +49,7 @@ function createSignal(){
 
 //////// API GET TYPE SIGNALEMENT //////
 function getSignalById(idSignal){
-  let formDama = new FormData();
+  let formData = new FormData();
   let data = new Object();
 
   data['url'] = './signalements/Id';
@@ -137,8 +127,7 @@ function AllTypesAuteurSignal(){
 document.addEventListener('DOMContentLoaded', function(){
   urlData = window.location.search;
   idSignal = urlData.substr(urlData.length-1);
-  console.log(urlData);
-  console.log(idSignal);
+
   getSignalById(idSignal);
   AllTypesAuteurSignal();
 });

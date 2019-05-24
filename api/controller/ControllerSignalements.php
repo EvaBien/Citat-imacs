@@ -46,31 +46,29 @@ function apiCreateSignalement($req)
 
 
   ////////////////////// GET SIGNALEMENT BY ID ///////////////////
-  function apiGetSignalementById($id){
+  function apiGetSignalementById($req){
+    $query=json_decode($req, true);
 
-    $queryStmt = "SELECT * FROM s2_signalements WHERE s2_signalements.idSignalement = :idsignalement LIMIT 1;";
+    $queryStmt = "SELECT * FROM s2_signalements WHERE s2_signalements.idSignal = :idsignalement LIMIT 1;";
 
     $signalement = array();
     $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
-    // $stmt->execute(['idsignalement' => $query['idSignalement']]);
-    $stmt->execute(['idsignalement' => $id]);
+    $stmt->execute(['idsignalement' => $query['idSignal']]);
 
     while (($signal = $stmt->fetch()) !== false) {
 
       $stmt2 = MyPDO::getInstance()->prepare(<<<SQL
-        SELECT s2_TypesAuteur.nomTypeAuteur FROM `s2_TypesAuteur`
-        INNER JOIN s2_Citations ON s2_Citations.idTypeAuteur = s2_TypesAuteur.idTypeAuteur
-        WHERE s2_Citations.idCitation = :idcitation;
+        SELECT * FROM `s2_citations`
+        WHERE s2_citations.idCitation = :idcitation;
 SQL
       );
       $stmt2->execute(['idcitation'=>$signal['idCitation']]);
 
-      while (($citation = $stmt2->fetch()) !== false) {
+        while (($citation = $stmt2->fetch()) !== false) {
 
         $typeAuteur='';
         $tags = array();
-
 
       ////SEARCH TYPEAUTEUR IN DB ////
         $stmt3 = MyPDO::getInstance()->prepare(<<<SQL
@@ -105,7 +103,7 @@ SQL
       }
       array_push($signalement, $signal);
     }
-  echo json_encode($signalements);
+  echo json_encode($signalement);
   exit();
 }
 
