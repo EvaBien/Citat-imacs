@@ -246,7 +246,6 @@ function AllTypesAuteurSignal(){
 document.addEventListener('DOMContentLoaded', function(){
   var url = location.pathname;
   urlData = window.location.search;
-  console.log(urlData.length)
   if ((url.search("/admin")!=-1) && (urlData.length>4)){
   idSignal = urlData.substr(urlData.length-1);
 
