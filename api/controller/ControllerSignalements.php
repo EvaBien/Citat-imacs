@@ -147,7 +147,7 @@ function sendMailSignalement($query, $idSignalement){
               <body>
               <p>".$query['messageSignal']."</p>
 
-              <a href=\"./admin?id=".$idSignalement."\">Cliquez ici pour corriger la citation</a>
+              <a href=\"./admin.html?id=".$idSignalement."\">Cliquez ici pour corriger la citation</a>
               </body>
               </html>
               ";
