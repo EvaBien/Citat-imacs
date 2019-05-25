@@ -39,6 +39,7 @@ function createSignal(){
   .then( response => response.json() )
  	.then( data => {
       alert("Votre signalement a bien été envoyé ! \n Redirection...");
+      window.location.href="./index.html";
      })
      .catch( error => {
        window.alert(error);
