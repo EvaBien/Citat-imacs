@@ -694,10 +694,8 @@ function verifMdp($string){
       $string_hash = sha1($string_sel);
 
       if ($mdp_hash==$string_hash){
-        echo json_encode ("Mot de passe correct ! ");
         return true;
       } else {
-        echo json_encode(" \n Mot de passe incorrect ! \n");
         return false;
       }
 }
