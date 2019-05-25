@@ -43,8 +43,8 @@ font-family: 'Miriam Libre', sans-serif;
     --labelBg: white;
     --labelColor: #adadad;
     --labelColorChecked: white;
-    --borderTagsFocus: #ffebcc;
-    --borderTagsFocusAuthor: #f2f2f2;
+    --borderTagsFocus: #FFDA3E;
+    --borderTagsFocusAuthor: #adadad;
 
     /*Block de citation*/
     --colorInfos: #a6a6a6;
