@@ -121,7 +121,7 @@ function updateCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
-      if (JSON.stringify(data) =="Password Correct - Citation updated"){
+      if (data =="Password Correct - Citation updated"){
      alert("Citation éditée ! \n Redirection...");
      window.location.href="./index.html";
    } else  {
@@ -167,7 +167,7 @@ function deleteCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
-    if (JSON.stringify(data) == "Password Correct - Citation Deleted"){
+    if (data == "Password Correct - Citation Deleted"){
      alert("Citation supprimée ! \n Redirection...");
      window.location.href="./index.html";
    } else {
