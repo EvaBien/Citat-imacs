@@ -121,7 +121,7 @@ function updateCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
-      if (data !="Error Update Citation - Password incorrect"){
+      if (data ==json_encode("Password Correct - Citation updated")){
      alert("Citation éditée ! \n Redirection...");
      window.location.href="./index.html";
    } else  {
@@ -167,7 +167,7 @@ function deleteCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
-    if (data != "Error Delete Citation - Password incorrect"){
+    if (data == json_encode("Password Correct - Citation Deleted")){
      alert("Citation supprimée ! \n Redirection...");
      window.location.href="./index.html";
    } else {
@@ -213,7 +213,7 @@ function nothingCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
-    if(data !="Incorrect Password !"){
+    if(data == json_encode("Password Correct - Citation non modifiée ! ")){
      alert("Aucune modification appliquée ! \n Redirection...");
      window.location.href="./index.html";
    } else {

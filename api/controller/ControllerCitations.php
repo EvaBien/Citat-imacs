@@ -675,7 +675,7 @@ function apiDeleteCitation($req){
         apiUpdateSignalement($query['idSignal']);
       echo json_encode("Password Correct - Citation non modifiée ! ");
     } else {
-      echo json_encode("Incorrect Password ! ");
+      echo json_encode("Error Nothing Citation - Password incorrect");
     }
   }
 
