@@ -121,6 +121,7 @@ function updateCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
+      console.log(data);
      alert("Citation éditée ! \n Redirection...");
      window.location.href="./index.html";
    })
@@ -163,6 +164,7 @@ function deleteCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
+      console.log(data);
      alert("Citation supprimée ! \n Redirection...");
      window.location.href="./index.html";
    })
@@ -205,6 +207,7 @@ function nothingCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
+      console.log(data);
      alert("Aucune modification appliquée ! \n Redirection...");
      window.location.href="./index.html";
    })

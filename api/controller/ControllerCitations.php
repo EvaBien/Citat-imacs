@@ -613,7 +613,6 @@ function apiUpdateCitation($req)
     $query=json_decode($req, true);
 
     if (verifMdp($query['password']) == true){
-   // Si vide doit remettre les mêmes valeurs !
 
     $queryStmt = "UPDATE s2_citations SET contenuCitation = :contenu, auteurCitation = :auteur, idTypeAuteur = :typeauteur WHERE idCitation = :id;";
 
@@ -627,9 +626,6 @@ function apiUpdateCitation($req)
       )
     );
 
-    if ($stmt->rowCount() == 0) {
-      return NULL;
-    }
       apiUpdateSignalement($query['idSignal']);
       echo json_encode("Password Correct - Citation updated");
      } else {
