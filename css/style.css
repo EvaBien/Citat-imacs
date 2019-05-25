@@ -429,8 +429,6 @@ button:hover{
 }
 
 #pop_new_citation label, #pop_signal label{
-    font-family: 'Poppins', sans-serif;
-    text-transform: uppercase;
     display: block;
     margin: 25px 0 7px 0;
 }
