@@ -213,7 +213,8 @@ function nothingCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
-    if(JSON.stringify(data) == "Password Correct - Citation non modifiée ! "){
+      console.log(data);
+    if(data== "Password Correct - Citation non modifiée ! "){
      alert("Aucune modification appliquée ! \n Redirection...");
      window.location.href="./index.html";
    } else {
