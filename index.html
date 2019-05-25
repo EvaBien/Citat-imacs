@@ -18,36 +18,40 @@
 
 	</div>
 
-	<div id="container">
+	<!-- ***************************************************************
+	******************************* NAVBAR *****************************
+	**************************************************************** -->
+			<nav>
+				<button id="add_citation" class="button" onclick="addCitationPopUp()">Ajouter une citation</button>
+
+				<section id="search" class="sousbloc_left">
+					<h2>Rechercher</h2>
+					<div id="searchForm" action="" class="">
+						<input id="inputKeyword" type="text" class="text_input" name="inputKeyword" value="" placeholder="-- Entrez un mot-clé" />
+					</div>
+				</section>
+
+				<section id="filter" class="sousbloc_left">
+					<h2>Filtrer</h2>
+					<form id="filterForm" action="" method="" class="">
+						<h4>Types d'auteur</h4>
+						<div id="author">
+
+						</div>
+						<h4>Tags</h4>
+						<div id="Tags">
+
+						</div>
+						<button id="valid_search" class="button" type="button">Valider</button>
+					</form>
+				</section>
+			</nav>
 
 <!-- ***************************************************************
-******************************* NAVBAR *****************************
+****************************** CONTAINER ***************************
 **************************************************************** -->
-		<nav>
-			<button id="add_citation" class="button" onclick="addCitationPopUp()">Ajouter une citation</button>
 
-			<section id="search" class="sousbloc_left">
-				<h2>Rechercher</h2>
-				<div id="searchForm" action="" class="">
-					<input id="inputKeyword" type="text" class="text_input" name="inputKeyword" value="" placeholder="-- Entrez un mot-clé" />
-				</div>
-			</section>
-
-			<section id="filter" class="sousbloc_left">
-				<h2>Filtrer</h2>
-				<form id="filterForm" action="" method="" class="">
-					<h4>Types d'auteur</h4>
-					<div id="author">
-
-					</div>
-					<h4>Tags</h4>
-					<div id="Tags">
-
-					</div>
-					<button id="valid_search" class="button" type="button">Valider</button>
-				</form>
-			</section>
-		</nav>
+	<div id="container">
 
 <!-- ***************************************************************
 *************************** BLOCK CITATION *************************
