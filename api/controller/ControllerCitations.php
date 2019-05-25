@@ -69,7 +69,7 @@ function apiCreateCitation($req){
   $citations = array();
   $queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitation, s2_citations.dateCitation, s2_citations.auteurCitation, s2_citations.likesCitation, s2_citations.idTypeAuteur
   FROM s2_citations
-  ORDER BY dateCitation DESC;";
+  ORDER BY idCitation DESC;";
   $stmt = MyPDO::getInstance()->prepare($queryStmt);
   $stmt->execute();
 
@@ -185,7 +185,7 @@ $queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitat
   JOIN s2_tagcitation ON s2_tagcitation.idCitation = s2_citations.idCitation
   JOIN s2_tags ON s2_tags.idTag = s2_tagcitation.idTag
   WHERE s2_tags.nomTag IN ($tagsList)
-  ORDER BY s2_citations.dateCitation DESC;";
+  ORDER BY s2_citations.idCitation DESC;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -243,7 +243,7 @@ $queryStmt = "SELECT *
 FROM s2_citations
 WHERE contenuCitation
 LIKE :keyword
-ORDER BY dateCitation DESC;";
+ORDER BY idCitation DESC;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -301,7 +301,7 @@ $queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitat
   FROM s2_citations
   JOIN s2_typesauteur ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
   WHERE s2_typesauteur.nomTypeAuteur IN ($typesList)
-  ORDER BY s2_citations.dateCitation DESC;";
+  ORDER BY s2_citations.idCitation DESC;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -366,7 +366,7 @@ $queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitat
   JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
   JOIN s2_typesauteur ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
   WHERE s2_tags.nomTag IN ($tagsList) AND s2_typesauteur.nomTypeAuteur IN ($typesList) AND s2_citations.contenuCitation LIKE :keyword
-  ORDER BY s2_citations.dateCitation DESC;";
+  ORDER BY s2_citations.idCitation DESC;";
 
 $citations = array();
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
@@ -426,7 +426,7 @@ $queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitat
   JOIN s2_tagcitation ON s2_citations.idCitation=s2_tagcitation.idCitation
   JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
   WHERE s2_tags.nomTag IN ($tagsList) AND s2_citations.contenuCitation LIKE :keyword
-  ORDER BY s2_citations.dateCitation DESC;";
+  ORDER BY s2_citations.idCitation DESC;";
 
 
 $citations = array();
@@ -487,7 +487,7 @@ $queryStmt = "SELECT DISTINCT s2_citations.idCitation, s2_citations.contenuCitat
   FROM s2_citations
   JOIN s2_typesauteur ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
   WHERE s2_typesauteur.nomTypeAuteur IN ($typesList) AND s2_citations.contenuCitation LIKE :keyword
-  ORDER BY s2_citations.dateCitation DESC;";
+  ORDER BY s2_citations.idCitation DESC;";
 
 
 $citations = array();
@@ -557,7 +557,7 @@ JOIN s2_tagcitation ON s2_citations.idCitation=s2_tagcitation.idCitation
 JOIN s2_tags ON s2_tagcitation.idTag = s2_tags.idTag
 JOIN s2_typesauteur ON s2_citations.idTypeAuteur = s2_typesauteur.idTypeAuteur
 WHERE s2_tags.nomTag IN ($tagsList) AND s2_typesauteur.nomTypeAuteur IN ($typesList)
-ORDER BY s2_citations.dateCitation DESC;";
+ORDER BY s2_citations.idCitation DESC;";
 
 $stmt = MyPDO::getInstance()->prepare($queryStmt);
 
