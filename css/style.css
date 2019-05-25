@@ -80,14 +80,9 @@ header{
     display: flex;
 }
 
-
-nav{
-  height : 635px;
-}
 nav, .one_citation{
     margin-right: 3%;
     width: 30%;
-
     background-color: var(--bgNav);
     border-radius: 8px;
     padding: 2%;
@@ -95,7 +90,8 @@ nav, .one_citation{
 }
 
 nav h2{
-    margin: 20px 0 15px 0;
+    margin: 20px 0 10px 0;
+    font-size: 1.2em;
 }
 
 nav h4{
@@ -108,7 +104,7 @@ nav h4{
     border-radius: 5px;
     border: none;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.2em;
+    font-size: 1.25em;
     text-transform: uppercase;
     color: white;
 }
@@ -133,9 +129,6 @@ nav h4{
     width: 100%;
 }
 
-h2{
-  font-size:1.3em;
-}
 
 .selectForm{
     font-size: 0.8em;
@@ -191,7 +184,7 @@ h2{
     text-align: left;
     font-family: 'Roboto', sans-serif;
     text-transform: none;
-    font-size: 0.95em;
+    font-size: 0.85em;
 }
 #filterForm div{
     display: flex;
@@ -212,7 +205,7 @@ h2{
     color: var(--labelColor);
     border-radius: 20px;
     white-space: nowrap;
-    margin: 2px 0px;
+    margin: 1px 0px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -247,14 +240,14 @@ h2{
 }
 
 .tag_checkbox:checked + .tag{
-    border: 1px solid var(--borderTags);
+    border: 1.5px solid var(--borderTags);
     background-color: var(--bgTags);
     color: var(--labelColorChecked);
     transition: all .2s;
 }
 
 #author .tag_checkbox:checked + .tag{
-    border: 2px solid var(--labelColor);
+    border: 1.5px solid var(--labelColor);
     background-color: var(--labelBg);
     color: var(--labelColor);
     transition: all .2s;
@@ -267,15 +260,16 @@ h2{
 }
 
 .tag_checkbox:focus + .tag{
-  border: 2px solid var(--borderTagsFocus);
+  border: 1.5px solid var(--borderTagsFocus);
 }
 
 #author .tag_checkbox:focus + .tag{
-  border: 2px solid var(--borderTagsFocusAuthor);
+  border: 1.5px solid var(--borderTagsFocusAuthor);
 }
 
 #valid_search {
-  margin: 30px 0 0 0;
+  margin: 22px 0 2px 0;
+  font-size:1.1em;
 }
 
 #block_citations{
