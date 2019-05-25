@@ -679,7 +679,7 @@ function apiDeleteCitation($req){
         apiUpdateSignalement($query['idSignal']);
       echo json_encode("Password Correct - Citation non modifiée ! ");
     } else {
-      echo json_encode("Indorrect Password ! ");
+      echo json_encode("Incorrect Password ! ");
     }
   }
 
@@ -694,6 +694,7 @@ function verifMdp($string){
       $string_hash = sha1($string_sel);
 
       if ($mdp_hash==$string_hash){
+        echo json_encode ("Mot de passe correct ! ");
         return true;
       } else {
         echo json_encode(" \n Mot de passe incorrect ! \n");
