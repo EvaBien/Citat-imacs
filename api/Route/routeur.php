@@ -79,16 +79,12 @@ switch ($url) {
   case './signalements/Id' :
   apiGetSignalementById($request); // Get By id
   break;
-  case './signalements/Update' :
-  apiUpdateSignalement($request); // Update signalement
-  break;
   case './signalements/Nothing' :
-  NothingSignalement($request); // Update signalement
+  NothingSignalement($request); // Nothing to citation
   break;
   default:
   echo "\n ERROR ROUTEUR - Try another route ! \n";
   break;
 }
- // Verifier pour signalementById
 
 ?>
