@@ -69,6 +69,7 @@ h1{
     font-style: italic;
     text-transform: uppercase;
     color: white;
+    font-size : 2.5em;
 }
 
 header{
@@ -83,7 +84,7 @@ nav, .one_citation{
     margin-right: 3%;
     width: 30%;
     background-color: var(--bgNav);
-    border-radius: 15px;
+    border-radius: 8px;
     padding: 2%;
     text-align: center;
 }
@@ -99,9 +100,10 @@ nav h4{
 .button{
     background-color: var(--colorButton);
     padding: 2% 7%;
-    border-radius: 8px;
+    border-radius: 5px;
     border: none;
     font-family: 'Poppins', sans-serif;
+    font-size: 1.2em;
     text-transform: uppercase;
     color: white;
 }
@@ -109,7 +111,7 @@ nav h4{
 .buttonSignal{
     background-color: var(--colorButton);
     padding: 1%;
-    border-radius: 8px;
+    border-radius: 5px;
     border: none;
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
@@ -126,6 +128,10 @@ nav h4{
     width: 100%;
 }
 
+h2{
+  font-size:1.3em;
+}
+
 .selectForm{
     font-size: 0.8em;
     overflow: hidden;
@@ -135,7 +141,7 @@ nav h4{
     -webkit-appearance: none;
     width: 100%;
     padding: 5px 20px;
-    border-radius: 40px;
+    border-radius: 8px;
     border: 1px solid var(--borderSearchBar);
 }
 
@@ -145,21 +151,22 @@ nav h4{
 
 .text_input{
     width: 100%;
-    padding: 6px 12px;
+    padding: 5px 10px;
     line-height: 18px;
     background-color: var(--bgTextInput);
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z'/%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-size: 18px 18px;
     background-position: 95% center;
-    border-radius: 50px;
+    border-radius: 8px;
     border: 1px solid var(--borderSearchBar);
     transition: all 250ms ease-in-out;
+    font-size: 0.8em;
 }
 
 .text_input:hover,
 .text_input:focus{
-    padding: 6px 0;
+    padding: 6px 10px;
     outline: 0;
     border: 1px solid transparent;
     border-bottom: 1px solid var(--searchBarBottom);
@@ -177,6 +184,9 @@ nav h4{
 
 #filterForm h2, #filterForm h4{
     text-align: left;
+    font-family: 'Roboto', sans-serif;
+    text-transform: none;
+    font-size: 0.95em;
 }
 #filterForm div{
     display: flex;
@@ -188,15 +198,16 @@ nav h4{
     flex-direction: column;
     font-family: 'Roboto', sans-serif;
     text-transform: lowercase;
+    font-size: 0.8em;
 }
 
 .tag{
     display: inline-block;
     background-color: var(--labelBg);
     color: var(--labelColor);
-    border-radius: 25px;
+    border-radius: 20px;
     white-space: nowrap;
-    margin: 3px 0px;
+    margin: 2px 0px;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -204,7 +215,7 @@ nav h4{
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     transition: all .2s;
-    padding: 8px 12px;
+    padding: 6px 12px 5px 8px;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
     text-transform: lowercase;
@@ -218,7 +229,7 @@ nav h4{
     -webkit-font-smoothing: antialiased;
     font-family: "Font Awesome 5 Free";
     font-weight: 900;
-    font-size: 12px;
+    font-size: 10px;
     padding: 2px 6px 2px 2px;
     content: "\f067";
     transition: transform .3s ease-in-out;
@@ -231,7 +242,7 @@ nav h4{
 }
 
 .tag_checkbox:checked + .tag{
-    border: 2px solid var(--borderTags);
+    border: 1px solid var(--borderTags);
     background-color: var(--bgTags);
     color: var(--labelColorChecked);
     transition: all .2s;
@@ -256,6 +267,10 @@ nav h4{
 
 #author .tag_checkbox:focus + .tag{
   border: 2px solid var(--borderTagsFocusAuthor);
+}
+
+#valid_search {
+  margin: 30px 0 0 0;
 }
 
 #block_citations{
@@ -286,14 +301,15 @@ nav h4{
 }
 
 .infos-citation li{
-    border: 2px solid var(--borderTags);
+    border: 1px solid var(--borderTags);
     background-color: var(--bgTags);
     color: var(--labelColorChecked);
     transition: all .2s;
-    border-radius: 25px;
+    border-radius: 20px;
     white-space: nowrap;
-    margin: 3px 0px;
-    padding: 8px 12px;
+    margin: 3px 6px 3px 0px;
+    padding: 5px 10px;
+    font-size:0.9em;
 }
 
 .infos-citation .quote_date{
@@ -306,12 +322,13 @@ nav h4{
 
 .infos-citation .quote{
     font-family: 'Miriam Libre';
-    font-size: 150%;
-    margin: 10px 0 5px 0;
+    font-size: 130%;
+    margin: 12px 0 12px 0;
 }
 
 .infos-citation .quote_author{
-    margin: 0 0 10px 0;
+    margin: 0 0 5px 0;
+    font-size: 0.8em;
 }
 
 .commands-citation{
@@ -324,12 +341,13 @@ nav h4{
 
 .commands-citation button{
     background-color: white;
-    padding: 5px 15px;
+    padding: 6px 10px;
     border-radius: 8px;
     border: 2px solid var(--colorButton);
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
     color: var(--colorButton);
+    font-size:0.85em;
 }
 
 button:hover{
@@ -344,7 +362,8 @@ button:hover{
 .commands-citation .number_likes{
     color: var(--colorButton);
     font-family: 'Poppins', sans-serif;
-    margin-left: 20px;
+    margin-left: 15px;
+    font-size:0.95em;
 }
 
 .commands-citation a{
@@ -388,14 +407,14 @@ button:hover{
     width: 30%;
     position: absolute;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 8px;
     margin: auto;
     margin-top: 10%;
     left: 0;
     right: 0;
     z-index: 10;
     text-align: center;
-    padding: 10px 3% 30px 3%;
+    padding: 15px 3% 30px 3%;
 }
 
 .warning_popup{
@@ -413,7 +432,7 @@ button:hover{
     font-family: 'Poppins', sans-serif;
     text-transform: uppercase;
     display: block;
-    margin: 15px 0 5px 0;
+    margin: 25px 0 7px 0;
 }
 
 #pop_new_citation .tag{
@@ -430,13 +449,13 @@ button:hover{
 
 #pop_new_citation textarea,
 #pop_signal textarea{
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 #add_citation_form, #send_citation_warning{
     display: block;
     margin: auto;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .cancel{
