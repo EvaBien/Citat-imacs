@@ -13,7 +13,7 @@ function AllTags(){
   formData.append('getData',data);
 
   fetch('./api/Route/routeur.php', {
-		method: "GET",
+		method: "POST",
 		body: formData})
   .then(res => res.json())
   .then(function(data){
@@ -36,7 +36,7 @@ function AllTypesAuteur(){
   formData.append('getData',data);
 
   fetch('./api/Route/routeur.php', {
-    method: "GET",
+    method: "POST",
     body: formData}) // chooseRoute() est une fonction en php, qui est dans routeur.php
   .then(res => res.json())
   .then(function(data){
@@ -59,7 +59,7 @@ function AllCitations(){
   formData.append('getData',data);
 
   fetch('./api/Route/routeur.php', {
-    method: "GET",
+    method: "POST",
     body: formData})
   .then(res => res.json())
   .then(function(data){
@@ -81,7 +81,7 @@ function  AllTypesSignal(){
   formData.append('getData',data);
 
   fetch('./api/Route/routeur.php', {
-    method: "GET",
+    method: "POST",
     body: formData})
   .then(res => res.json())
   .then(function(data){
