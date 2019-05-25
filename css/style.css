@@ -83,6 +83,7 @@ header{
 nav, .one_citation{
     margin-right: 3%;
     width: 30%;
+    height : 630px;
     background-color: var(--bgNav);
     border-radius: 8px;
     padding: 2%;
