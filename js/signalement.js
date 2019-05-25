@@ -121,9 +121,12 @@ function updateCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
-      console.log(data);
+      if (data !="Error Update Citation - Password incorrect"){
      alert("Citation éditée ! \n Redirection...");
      window.location.href="./index.html";
+   } else  {
+     alert("Mot de passe incorrect ! ");
+   }
    })
     .catch( error => {
       window.alert(error);
@@ -164,9 +167,12 @@ function deleteCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
-      console.log(data);
+    if (data != "Error Delete Citation - Password incorrect"){
      alert("Citation supprimée ! \n Redirection...");
      window.location.href="./index.html";
+   } else {
+     alert("Mot de passe incorrect ! ");
+   }
    })
     .catch( error => {
       window.alert(error);
@@ -207,9 +213,12 @@ function nothingCitation(){
     body: formData})
   .then(res => res.json())
     .then(function(data){
-      console.log(data);
+    if(data !="Incorrect Password !"){
      alert("Aucune modification appliquée ! \n Redirection...");
      window.location.href="./index.html";
+   } else {
+     alert("Mot de passe incorrect !");
+   }
    })
     .catch( error => {
       window.alert(error);
