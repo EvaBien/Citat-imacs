@@ -399,6 +399,7 @@ function cancelPopUpAdmin(){
 	document.getElementById("coverSignal").style.display = "none";
  	document.getElementById("pop-delete").style.display = "none";
   	document.getElementById("pop-edit").style.display = "none";
+  	document.getElementById("pop-nothing").style.display = "none";
 }
 
 function displayCoverSignal(){
