@@ -8,6 +8,8 @@ require '../controller/ControllerTypesAuteur.php';
 require '../controller/ControllerTypesSignalements.php';
 
 $method = $_SERVER['REQUEST_METHOD'];
+error_reporting(E_ALL);
+header($_SERVER['SERVER_PROTOCOL'] . ' 200 OK');
 
 $url='';
 if ($method == 'GET'){
