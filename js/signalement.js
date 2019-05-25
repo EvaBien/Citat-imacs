@@ -114,7 +114,6 @@ function updateCitation(){
   data = JSON.stringify(data);
   formData.append('getData',data);
 
-  console.log(data);
 
   fetch('./api/Route/routeur.php',{
     method: "POST",
@@ -157,7 +156,6 @@ function deleteCitation(){
   data = JSON.stringify(data);
   formData.append('getData',data);
 
-  console.log(data);
 
   fetch('./api/Route/routeur.php',{
     method: "POST",
@@ -201,7 +199,6 @@ function nothingCitation(){
   data = JSON.stringify(data);
   formData.append('getData',data);
 
-  console.log(data);
   fetch('./api/Route/routeur.php',{
     method: "POST",
     body: formData})
@@ -249,8 +246,9 @@ document.addEventListener('DOMContentLoaded', function(){
   if ((url.search("/admin")!=-1) && (urlData.length>4)){
   idSignal = urlData.substr(urlData.length-1);
 
-  getSignalById(idSignal);
   AllTypesAuteurSignal();
+  getSignalById(idSignal);
+
 } else if ((url.search("/admin")!=-1) && (urlData.length<5)){
   location.href="./";
 } else if (url.search("/index.html")!=-1){
@@ -264,7 +262,6 @@ document.addEventListener('DOMContentLoaded', function(){
 ////////////////////////// DISPLAY SIGNAL ////////////////////////
 
 function displaySignal(dataSignal){
-// var dataSignal = JSON.parse(dataSignal);
 
  let signalTextBlock = document.getElementById("messageSignalAdmin");
  signalTextBlock.innerHTML = "\""+dataSignal[0]['messageSignalement']+"\"";
@@ -331,14 +328,15 @@ function inputForm(dataSignal){
   let textBlock = document.getElementById("citationEditText");
   textBlock.setAttribute('value',dataSignal[0]['citation']['contenuCitation']);
 
+  let typesValue = document.getElementsByName("type_auteur_signal");
   let idTypeA = dataSignal[0]['citation']['idTypeAuteur'];
-  let typesValue = document.querySelectorAll("option[name='type_auteur_signal']");
 
-  typesValue.forEach((option)=>{
+  typesValue.forEach(function(option){
     if(option.value == idTypeA){
-        option.setAttribute('selected',"selected");
+        option.setAttribute('selected',true);
     }
   });
+
 }
 //////////////////////////////////////////////////////////////////
 ///////////// FONCTION AFFICHE TYPES AUTEUR POP UP ///////////// - FAIT
