@@ -469,6 +469,16 @@ button:hover{
     cursor: pointer;
 }
 
+
+/* Footer */
+footer {
+  color: white;
+  font-size:0.9em;
+  text-align: center;
+  margin: 6% 8% 2% 8%;
+}
+
+
 /*Admin page*/
 
 .pop-up:target + #cover{
