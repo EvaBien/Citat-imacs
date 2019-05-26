@@ -87,7 +87,7 @@ nav, .one_citation{
 
 nav{
     position: fixed;
-    height: -webkit-fill-available;
+    height: 570px;
     width: 250px;
     top: 99px;
 }
@@ -275,7 +275,7 @@ nav h4{
   font-size:1.1em;
 }
 
-#block_citations{
+#block_citations, footer{
     width: 65%;
     margin-left: 350px;
 }
