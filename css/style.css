@@ -88,7 +88,7 @@ nav, .one_citation{
 nav{
     position: fixed;
     height: -webkit-fill-available;
-    width: 220px;
+    width: 250px;
     top: 99px;
 }
 
@@ -107,7 +107,7 @@ nav h4{
     border-radius: 5px;
     border: none;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.25em;
+    font-size: 1.1em;
     text-transform: uppercase;
     color: white;
 }
@@ -276,8 +276,8 @@ nav h4{
 }
 
 #block_citations{
-    width: 70%;
-    margin-left: 300px;
+    width: 65%;
+    margin-left: 350px;
 }
 
 .one_citation{
