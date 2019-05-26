@@ -78,6 +78,9 @@ header{
 
 #container{
     display: flex;
+    position: fixed;
+    width: 220px;
+    top: 70px;
 }
 
 nav, .one_citation{
@@ -87,6 +90,10 @@ nav, .one_citation{
     border-radius: 8px;
     padding: 2%;
     text-align: center;
+}
+
+nav{
+    height: -webkit-fill-available;
 }
 
 nav h2{
@@ -274,6 +281,7 @@ nav h4{
 
 #block_citations{
     width: 70%;
+    margin-left: 300px;
 }
 
 .one_citation{
