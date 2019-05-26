@@ -87,7 +87,7 @@ nav, .one_citation{
 
 nav{
     position: fixed;
-    height: 570px;
+    height: 557px;
     width: 250px;
     top: 99px;
 }
@@ -271,7 +271,7 @@ nav h4{
 }
 
 #valid_search {
-  margin: 22px 0 2px 0;
+  margin: 12px 0 2px 0;
   font-size:1.1em;
 }
 
