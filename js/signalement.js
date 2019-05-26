@@ -42,7 +42,7 @@ function createSignal(){
       window.location.href="./index.html";
      })
      .catch( error => {
-       window.alert(error);
+       console.log(error);
  		});
 }
 
@@ -70,7 +70,7 @@ function getSignalById(idSignal){
   inputForm(data);
   })
   .catch( error => {
-    window.alert(error);
+    console.log(error);
   })
   }
 
@@ -129,7 +129,7 @@ function updateCitation(){
    }
    })
     .catch( error => {
-      window.alert(error);
+      console.log(error);
     })
 }
 
@@ -175,7 +175,7 @@ function deleteCitation(){
    }
    })
     .catch( error => {
-      window.alert(error);
+      console.log(error);
     })
 }
 
@@ -222,7 +222,7 @@ function nothingCitation(){
    }
    })
     .catch( error => {
-      window.alert(error);
+      console.log(error);
     })
 }
 
@@ -243,7 +243,7 @@ function AllTypesAuteurSignal(){
     displayTypesAuteurSignal(data);
   })
   .catch( error => {
-    window.alert(error);
+    console.log(error);
   })
 }
 

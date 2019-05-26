@@ -21,7 +21,7 @@ function AllTags(){
     displayTagsPop(data);
   })
   .catch( error => {
-    window.alert(error);
+    console.log(error);
   })
 }
 //////////////////// ALL TYPES AUTEUR /////////////////// - FAIT
@@ -44,7 +44,7 @@ function AllTypesAuteur(){
     displayTypesAuteurPop(data);
   })
   .catch( error => {
-    window.alert(error);
+    console.log(error);
   })
 }
 
@@ -66,7 +66,7 @@ function AllCitations(){
   displayCitation(data);
   })
   .catch( error => {
-    window.alert(error);
+    console.log(error);
   })
 }
 
@@ -88,7 +88,7 @@ function  AllTypesSignal(){
     displayTypesSignal(data);
   })
   .catch( error => {
-    window.alert(error);
+    console.log(error);
   })
 }
 
@@ -149,7 +149,7 @@ function AddCitation(){
       location.reload();
     })
     .catch( error => {
-      window.alert(error);
+      console.log(error);
 		});
 }
 
@@ -573,11 +573,11 @@ function likeCitation(){ // A modifier ?
     		body: formDataUpd})
       .then(res => res.json())
       .catch( error => {
-        window.alert(error);
+        console.log(error);
       })
   })
   .catch( error => {
-    window.alert(error);
+    console.log(error);
   })
 }
 
@@ -648,6 +648,6 @@ document.getElementById('valid_search').onclick = event => {
              displayCitation(data);
            })
             .catch( error => {
-              window.alert(error);
+              console.log(error);
             })
   }
