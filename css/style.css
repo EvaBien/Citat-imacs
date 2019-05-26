@@ -76,13 +76,6 @@ header{
     text-align: center;
 }
 
-#container{
-    display: flex;
-    position: fixed;
-    width: 220px;
-    top: 70px;
-}
-
 nav, .one_citation{
     margin-right: 3%;
     width: 30%;
@@ -93,7 +86,10 @@ nav, .one_citation{
 }
 
 nav{
+    position: fixed;
     height: -webkit-fill-available;
+    width: 220px;
+    top: 70px;
 }
 
 nav h2{
