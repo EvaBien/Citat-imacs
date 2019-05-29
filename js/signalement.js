@@ -79,7 +79,7 @@ function getSignalById(idSignal){
 function updateCitation(){
   event.preventDefault();
   urlData = window.location.search;
-  idSignal = urlData.substr(urlData.length-1);
+  idSignal = urlData.substr(1);
 
   let formData = new FormData();
   let data = new Object();
