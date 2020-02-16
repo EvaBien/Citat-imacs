@@ -69,7 +69,7 @@ h1{
     font-style: italic;
     text-transform: uppercase;
     color: white;
-    font-size : 2.5em;
+    font-size : 2em;
 }
 
 header{
@@ -81,20 +81,20 @@ nav, .one_citation{
     width: 30%;
     background-color: var(--bgNav);
     border-radius: 8px;
-    padding: 2%;
+    padding: 1.5%;
     text-align: center;
 }
 
 nav{
     position: fixed;
-    height: 591px;
+    height: 588px;
     width: 250px;
-    top: 99px;
+    top: 79px;
 }
 
 nav h2{
     margin: 20px 0 10px 0;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 nav h4{
@@ -103,11 +103,11 @@ nav h4{
 
 .button{
     background-color: var(--colorButton);
-    padding: 2% 7%;
+    padding: 2% 11%;
     border-radius: 5px;
     border: none;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.1em;
+    font-size: 1em;
     text-transform: uppercase;
     color: white;
 }
